@@ -9,11 +9,9 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { cn } from "@/lib/utils"
 
 const navItems = [
-  { name: "Home", href: "/#top", sectionId: "top" },
   { name: "Work", href: "#work", sectionId: "work" },
   { name: "Process", href: "#process", sectionId: "process" },
   { name: "Pricing", href: "#pricing", sectionId: "pricing" },
-  { name: "Templates", href: "/templates", sectionId: "templates" },
   { name: "Blog", href: "/blog", sectionId: "blog" },
   { name: "FAQ", href: "#faq", sectionId: "faq" },
 ]
@@ -26,7 +24,7 @@ export function Navigation() {
     // Check current pathname
     const checkPathname = () => {
       const pathname = window.location.pathname
-      if (pathname === '/templates') {
+      if (pathname === '/templates' || pathname.startsWith('/templates/')) {
         setActiveSection("templates")
         return true
       }
@@ -41,7 +39,7 @@ export function Navigation() {
     if (checkPathname()) return
 
     const handleScroll = () => {
-      const sections = navItems.map(item => item.sectionId).filter(id => id !== "templates" && id !== "blog")
+      const sections = navItems.map(item => item.sectionId).filter(id => id !== "blog")
       const scrollPosition = window.scrollY + 100 // Offset for header
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -77,47 +75,58 @@ export function Navigation() {
   return (
     <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md">
       <div className="container">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <span className="font-medium text-xl">Convert Labs</span>
-          </Link>
+        <div className="grid grid-cols-3 h-16 items-center">
+          {/* Logo - Left */}
+          <div className="flex justify-start">
+            <Link href="/" className="flex items-center">
+              <span className="font-medium text-xl">Convert Labs</span>
+            </Link>
+          </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-2">
-            {navItems.map((item) => {
-              const isActive = activeSection === item.sectionId
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={cn(
-                    "relative px-3 py-2 text-sm font-medium eyebrow transition-all duration-200 ease-in-out rounded-lg",
-                    "hover:bg-white hover:text-black hover:shadow-sm dark:hover:bg-white dark:hover:text-black",
-                    isActive
-                      ? "bg-white text-black shadow-sm dark:bg-white dark:text-black"
-                      : "text-muted-foreground"
-                  )}
-                >
-                  {item.name}
-                </Link>
-              )
-            })}
+          {/* Desktop Navigation - Center */}
+          <nav className="hidden md:flex items-center justify-center">
+            <div className="flex items-center space-x-2">
+              {navItems.map((item) => {
+                const isActive = activeSection === item.sectionId
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={cn(
+                      "relative px-3 py-2 text-sm font-medium eyebrow transition-all duration-200 ease-in-out rounded-lg",
+                      "hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black",
+                      isActive
+                        ? "bg-black text-white dark:bg-white dark:text-black"
+                        : "text-muted-foreground"
+                    )}
+                  >
+                    {item.name}
+                  </Link>
+                )
+              })}
+            </div>
           </nav>
 
-          {/* Desktop CTA & Theme Toggle */}
-          <div className="hidden md:flex items-center space-x-4">
-            <ThemeToggle />
+          {/* Desktop CTA & Theme Toggle - Right */}
+          <div className="hidden md:flex items-center justify-end space-x-3">
             <Button 
               asChild 
-              className="px-6 py-2 text-sm font-medium bg-white text-black hover:bg-gray-100 rounded-lg border-0"
+              variant="frosted"
+              className="px-4 py-2 text-sm font-medium rounded-lg"
+            >
+              <Link href="/templates">Templates</Link>
+            </Button>
+            <Button 
+              asChild 
+              className="px-4 py-2 text-sm font-medium bg-white text-black hover:bg-gray-100 rounded-lg border-0"
             >
               <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">Get Started</Link>
             </Button>
+            <ThemeToggle />
           </div>
 
           {/* Mobile Navigation */}
-          <div className="flex md:hidden items-center space-x-2">
+          <div className="flex md:hidden items-center justify-end space-x-2 col-span-2">
             <ThemeToggle />
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
@@ -147,7 +156,16 @@ export function Navigation() {
                       </Link>
                     )
                   })}
-                  <div className="pt-4 border-t border-border">
+                  <div className="pt-4 border-t border-border space-y-3">
+                    <Button 
+                      asChild 
+                      variant="frosted"
+                      className="w-full px-6 py-3 text-base font-medium rounded-lg"
+                    >
+                      <Link href="/templates" onClick={() => setIsOpen(false)}>
+                        Templates
+                      </Link>
+                    </Button>
                     <Button 
                       asChild 
                       className="w-full px-6 py-3 text-base font-medium bg-white text-black hover:bg-gray-100 rounded-lg border-0"
