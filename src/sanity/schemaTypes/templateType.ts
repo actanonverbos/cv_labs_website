@@ -88,10 +88,72 @@ export const templateType = defineType({
       ]
     }),
     defineField({
+      name: 'price',
+      title: 'Price',
+      type: 'number',
+      description: 'Price in USD (0 for free templates)',
+      initialValue: 0,
+      validation: (Rule) => Rule.min(0),
+    }),
+    defineField({
       name: 'demoUrl',
       title: 'Demo URL',
       type: 'url',
       description: 'Link to live demo or preview',
+    }),
+    defineField({
+      name: 'downloadUrl',
+      title: 'Download URL',
+      type: 'url',
+      description: 'Direct download link or purchase link',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'additionalImages',
+      title: 'Additional Images',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            defineField({
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text',
+            }),
+            defineField({
+              name: 'caption',
+              type: 'string',
+              title: 'Caption',
+            })
+          ]
+        })
+      ],
+      description: 'Additional screenshots or preview images',
+    }),
+    defineField({
+      name: 'longDescription',
+      title: 'Long Description',
+      type: 'text',
+      rows: 6,
+      description: 'Detailed description for the template detail page',
+    }),
+    defineField({
+      name: 'techStack',
+      title: 'Tech Stack',
+      type: 'array',
+      of: [defineArrayMember({type: 'string'})],
+      description: 'Technologies used (e.g., React, Next.js, Tailwind)',
+    }),
+    defineField({
+      name: 'includedFiles',
+      title: 'Included Files',
+      type: 'array',
+      of: [defineArrayMember({type: 'string'})],
+      description: 'What files/components are included',
     }),
     defineField({
       name: 'order',

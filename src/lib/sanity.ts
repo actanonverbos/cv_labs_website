@@ -38,9 +38,11 @@ export const TEMPLATES_QUERY = `*[_type == "template" && isActive == true] | ord
   description,
   category,
   badge,
+  price,
   features,
   previewImage,
   demoUrl,
+  downloadUrl,
   slug
 }`
 
@@ -49,10 +51,16 @@ export const TEMPLATE_QUERY = `*[_type == "template" && slug.current == $slug][0
   title,
   subtitle,
   description,
+  longDescription,
   category,
   badge,
+  price,
   features,
   previewImage,
+  additionalImages,
   demoUrl,
+  downloadUrl,
+  techStack,
+  includedFiles,
   slug
 }`

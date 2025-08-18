@@ -16,6 +16,7 @@ type Template = {
   description: string
   category: string
   badge: "FREE" | "PREMIUM"
+  price: number
   features: string[]
   previewImage?: {
     asset: {
@@ -24,6 +25,7 @@ type Template = {
     alt?: string
   }
   demoUrl?: string
+  downloadUrl: string
   slug: { current: string }
 }
 
@@ -197,17 +199,27 @@ export default async function TemplatesPage() {
                     )}
 
                     <div className="p-6">
-                      {/* Badge */}
-                      <Badge 
-                        variant="secondary"
-                        className={`mb-4 font-semibold ${
-                          template.badge === "FREE" 
-                            ? "bg-green-100 text-green-700 border-green-200" 
-                            : "bg-primary/10 text-primary border-primary/20"
-                        }`}
-                      >
-                        {template.badge}
-                      </Badge>
+                      <div className="flex items-center justify-between mb-4">
+                        {/* Badge */}
+                        <Badge 
+                          variant="secondary"
+                          className={`font-semibold ${
+                            template.badge === "FREE" 
+                              ? "bg-green-100 text-green-700 border-green-200" 
+                              : "bg-primary/10 text-primary border-primary/20"
+                          }`}
+                        >
+                          {template.badge}
+                        </Badge>
+
+                        {/* Price */}
+                        <div className="text-lg font-bold">
+                          {'price' in template && template.price !== undefined 
+                            ? (template.price === 0 ? 'Free' : `$${template.price}`)
+                            : 'Free'
+                          }
+                        </div>
+                      </div>
 
                       {/* Title and description */}
                       <h3 className="text-xl font-semibold mb-3">
@@ -218,8 +230,8 @@ export default async function TemplatesPage() {
                       </p>
 
                       {/* Features */}
-                      <div className="flex flex-wrap gap-2">
-                        {template.features.map((feature) => (
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {template.features.slice(0, 3).map((feature) => (
                           <Badge 
                             key={feature}
                             variant="outline"
@@ -228,7 +240,22 @@ export default async function TemplatesPage() {
                             {feature}
                           </Badge>
                         ))}
+                        {template.features.length > 3 && (
+                          <Badge variant="outline" className="text-xs">
+                            +{template.features.length - 3} more
+                          </Badge>
+                        )}
                       </div>
+
+                      {/* CTA Button */}
+                      <Button 
+                        className="w-full px-4 py-2 text-sm font-medium bg-white text-black hover:bg-gray-100 rounded-lg border-0"
+                        asChild
+                      >
+                        <Link href={`/templates/${template.slug.current}`}>
+                          View Template
+                        </Link>
+                      </Button>
                     </div>
                   </Card>
                 </ScrollReveal>
