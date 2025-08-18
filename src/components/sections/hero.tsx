@@ -19,11 +19,11 @@ export function HeroSection() {
             <div className="flex justify-center mb-6">
               <Badge 
                 variant="secondary" 
-                className="rounded-2xl px-4 py-2 text-sm font-medium bg-white/10 backdrop-blur-sm text-primary border border-white/20 shadow-lg hover:bg-white/15 transition-all duration-200 eyebrow inline-flex items-center gap-2"
+                className="rounded-2xl px-4 py-2 text-sm font-medium bg-black/10 backdrop-blur-sm text-foreground border border-black/20 hover:bg-black/15 dark:bg-white/10 dark:text-primary dark:border-white/20 dark:hover:bg-white/15 transition-all duration-200 eyebrow inline-flex items-center gap-2"
               >
                 <div className="relative flex items-center justify-center">
-                  <div className="w-2 h-2 bg-white rounded-full"></div>
-                  <div className="absolute w-2 h-2 bg-white rounded-full animate-radar-ping"></div>
+                  <div className="w-2 h-2 bg-foreground dark:bg-white rounded-full"></div>
+                  <div className="absolute w-2 h-2 bg-foreground dark:bg-white rounded-full animate-radar-ping"></div>
                 </div>
                 Limited slots available this month
               </Badge>
@@ -51,7 +51,7 @@ export function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <Button 
                 variant="default"
-                className="px-6 py-3 text-base font-medium bg-white text-black hover:bg-gray-100 rounded-lg border-0"
+                className="px-6 py-3 text-base font-medium bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-100 rounded-lg border-0"
                 asChild
               >
                 <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">

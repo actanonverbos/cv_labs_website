@@ -118,7 +118,7 @@ export function Navigation() {
             </Button>
             <Button 
               asChild 
-              className="px-4 py-2 text-sm font-medium bg-white text-black hover:bg-gray-100 rounded-lg border-0"
+              className="px-4 py-2 text-sm font-medium bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-100 rounded-lg border-0"
             >
               <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">Get Started</Link>
             </Button>
@@ -145,9 +145,9 @@ export function Navigation() {
                         href={item.href}
                         className={cn(
                           "px-4 py-3 text-lg font-medium eyebrow transition-all duration-200 ease-in-out rounded-lg",
-                          "hover:bg-white hover:text-black hover:shadow-sm dark:hover:bg-white dark:hover:text-black",
+                          "hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black",
                           isActive
-                            ? "bg-white text-black shadow-sm dark:bg-white dark:text-black"
+                            ? "bg-black text-white dark:bg-white dark:text-black"
                             : "text-muted-foreground"
                         )}
                         onClick={() => setIsOpen(false)}
@@ -166,14 +166,14 @@ export function Navigation() {
                         Templates
                       </Link>
                     </Button>
-                    <Button 
-                      asChild 
-                      className="w-full px-6 py-3 text-base font-medium bg-white text-black hover:bg-gray-100 rounded-lg border-0"
-                    >
-                      <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)}>
-                        Get Started
-                      </Link>
-                    </Button>
+                                          <Button 
+                        asChild 
+                        className="w-full px-6 py-3 text-base font-medium bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-100 rounded-lg border-0"
+                      >
+                        <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)}>
+                          Get Started
+                        </Link>
+                      </Button>
                   </div>
                 </div>
               </SheetContent>
