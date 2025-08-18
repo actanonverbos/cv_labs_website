@@ -14,6 +14,7 @@ const navItems = [
   { name: "Process", href: "#process", sectionId: "process" },
   { name: "Pricing", href: "#pricing", sectionId: "pricing" },
   { name: "Templates", href: "/templates", sectionId: "templates" },
+  { name: "Blog", href: "/blog", sectionId: "blog" },
   { name: "FAQ", href: "#faq", sectionId: "faq" },
 ]
 
@@ -29,6 +30,10 @@ export function Navigation() {
         setActiveSection("templates")
         return true
       }
+      if (pathname === '/blog' || pathname.startsWith('/blog/')) {
+        setActiveSection("blog")
+        return true
+      }
       return false
     }
 
@@ -36,7 +41,7 @@ export function Navigation() {
     if (checkPathname()) return
 
     const handleScroll = () => {
-      const sections = navItems.map(item => item.sectionId).filter(id => id !== "templates")
+      const sections = navItems.map(item => item.sectionId).filter(id => id !== "templates" && id !== "blog")
       const scrollPosition = window.scrollY + 100 // Offset for header
 
       for (let i = sections.length - 1; i >= 0; i--) {

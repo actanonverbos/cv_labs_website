@@ -1,6 +1,3 @@
-"use client"
-
-import * as React from "react"
 import Link from "next/link"
 import { ArrowRight, ExternalLink } from "lucide-react"
 import { Navigation } from "@/components/navigation"
@@ -8,8 +5,34 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { ScrollReveal } from "@/components/scroll-reveal"
+import { client, TEMPLATES_QUERY } from "@/lib/sanity"
+import { urlFor } from "@/sanity/lib/image"
+import Image from "next/image"
 
-const templates = [
+type Template = {
+  _id: string
+  title: string
+  subtitle: string
+  description: string
+  category: string
+  badge: "FREE" | "PREMIUM"
+  features: string[]
+  previewImage?: {
+    asset: {
+      _ref: string
+    }
+    alt?: string
+  }
+  demoUrl?: string
+  slug: { current: string }
+}
+
+async function getTemplates(): Promise<Template[]> {
+  return await client.fetch(TEMPLATES_QUERY)
+}
+
+// Fallback templates for when CMS is empty
+const fallbackTemplates = [
   {
     title: "INBOX PULSE",
     subtitle: "The Tech Edge You Need, Delivered Weekly",
@@ -66,7 +89,8 @@ const templates = [
   }
 ]
 
-export default function TemplatesPage() {
+export default async function TemplatesPage() {
+  const templates = await getTemplates()
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -126,33 +150,51 @@ export default function TemplatesPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {templates.map((template, index) => (
-                <ScrollReveal key={template.title} delay={0.1 * (index + 1)}>
+              {(templates.length > 0 ? templates : fallbackTemplates).map((template, index) => (
+                <ScrollReveal key={template._id || template.title} delay={0.1 * (index + 1)}>
                   <Card className="group overflow-hidden bg-card border border-border rounded-2xl">
                     {/* Template Preview */}
-                    <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-center space-y-3">
-                          <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
-                            <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
-                              <span className="text-primary-foreground font-bold text-sm">{template.title.slice(0, 2)}</span>
-                            </div>
-                          </div>
-                          <div className="space-y-2">
-                            <div className="h-2 bg-primary/20 rounded-full w-32 mx-auto"></div>
-                            <div className="h-2 bg-primary/10 rounded-full w-24 mx-auto"></div>
-                          </div>
+                    {'previewImage' in template && template.previewImage ? (
+                      <div className="aspect-video relative overflow-hidden">
+                        <Image
+                          src={urlFor(template.previewImage).width(600).height(400).url()}
+                          alt={template.previewImage.alt || template.title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        {/* Overlay on hover */}
+                        <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <Button variant="secondary" size="sm" className="hover-scale">
+                            <ExternalLink className="w-4 h-4 mr-2" />
+                            View Template
+                          </Button>
                         </div>
                       </div>
-                      
-                      {/* Overlay on hover */}
-                      <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <Button variant="secondary" size="sm" className="hover-scale">
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          View Template
-                        </Button>
+                    ) : (
+                      <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-center space-y-3">
+                            <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
+                              <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
+                                <span className="text-primary-foreground font-bold text-sm">{template.title.slice(0, 2)}</span>
+                              </div>
+                            </div>
+                            <div className="space-y-2">
+                              <div className="h-2 bg-primary/20 rounded-full w-32 mx-auto"></div>
+                              <div className="h-2 bg-primary/10 rounded-full w-24 mx-auto"></div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Overlay on hover */}
+                        <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <Button variant="secondary" size="sm" className="hover-scale">
+                            <ExternalLink className="w-4 h-4 mr-2" />
+                            View Template
+                          </Button>
+                        </div>
                       </div>
-                    </div>
+                    )}
 
                     <div className="p-6">
                       {/* Badge */}
