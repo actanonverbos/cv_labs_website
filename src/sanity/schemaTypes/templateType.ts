@@ -70,7 +70,8 @@ export const templateType = defineType({
       title: 'Features',
       type: 'array',
       of: [defineArrayMember({type: 'string'})],
-      validation: (Rule) => Rule.required().min(3).max(6),
+      validation: (Rule) => Rule.required().min(1).max(8),
+      description: 'Add key features of this template (1-8 features)',
     }),
     defineField({
       name: 'previewImage',
@@ -105,8 +106,11 @@ export const templateType = defineType({
       name: 'downloadUrl',
       title: 'Download URL',
       type: 'url',
-      description: 'Direct download link or purchase link',
-      validation: (Rule) => Rule.required(),
+      description: 'Direct download link or purchase link (can be added later)',
+      validation: (Rule) => Rule.uri({
+        allowRelative: false,
+        scheme: ['http', 'https']
+      }),
     }),
     defineField({
       name: 'additionalImages',
