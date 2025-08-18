@@ -262,16 +262,7 @@ export default function TemplatesPage() {
         {/* Templates Grid */}
         <section id="templates" className="pt-8 pb-20 md:pt-12 md:pb-28 bg-muted/5">
           <div className="container">
-            <div className="text-center mb-16">
-              <ScrollReveal delay={0.1}>
-                <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                  Choose Your Perfect Template
-                </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Professional templates designed for conversion and built with modern technology
-                </p>
-              </ScrollReveal>
-            </div>
+
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {(templates.length > 0 ? templates : fallbackTemplates).map((template, index) => (

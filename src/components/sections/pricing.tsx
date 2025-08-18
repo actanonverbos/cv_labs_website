@@ -1,10 +1,8 @@
 "use client"
 
-import * as React from "react"
 import Link from "next/link"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { Ticker } from "@/components/ticker"
 import { 
   Palette, 
@@ -14,7 +12,6 @@ import {
   Edit3, 
   Users, 
   BarChart3,
-  MessageCircle,
   Send,
   ArrowRight
 } from "lucide-react"
@@ -53,71 +50,12 @@ const pricingTiers = [
 ]
 
 export function PricingSection() {
-  const [badgeRef, setBadgeRef] = React.useState<HTMLElement | null>(null)
-  
-  React.useEffect(() => {
-    // Set up mutation observer to watch for theme changes
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          const isDark = document.documentElement.classList.contains('dark')
-          
-          if (badgeRef) {
-            badgeRef.style.setProperty('--badge-bg', isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')
-            badgeRef.style.setProperty('--badge-text', isDark ? '#ffffff' : '#020817')
-            badgeRef.style.setProperty('--badge-border', isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)')
-            badgeRef.style.setProperty('--dot-color', isDark ? '#ffffff' : '#020817')
-          }
-        }
-      })
-    })
-    
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    })
-    
-    return () => observer.disconnect()
-  }, [badgeRef])
 
   return (
     <section id="pricing" className="py-16 md:py-20 bg-background">
       <div className="container-tight">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <div className="flex justify-center mb-4">
-            <Badge 
-              variant="secondary" 
-              className="rounded-md px-4 py-2 text-sm font-medium backdrop-blur-sm transition-all duration-200 eyebrow inline-flex items-center gap-2"
-              style={{
-                backgroundColor: 'var(--badge-bg, rgba(0, 0, 0, 0.1))',
-                color: 'var(--badge-text, #020817)',
-                borderColor: 'var(--badge-border, rgba(0, 0, 0, 0.2))',
-                borderWidth: '1px',
-                borderStyle: 'solid'
-              }}
-              ref={(el) => {
-                if (el) {
-                  setBadgeRef(el)
-                  
-                  // Set initial colors
-                  const isDark = document.documentElement.classList.contains('dark')
-                  el.style.setProperty('--badge-bg', isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')
-                  el.style.setProperty('--badge-text', isDark ? '#ffffff' : '#020817')
-                  el.style.setProperty('--badge-border', isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)')
-                  el.style.setProperty('--dot-color', isDark ? '#ffffff' : '#020817')
-                }
-              }}
-            >
-              <div className="relative flex items-center justify-center">
-                <div 
-                  className="w-2 h-2 rounded-full"
-                  style={{ backgroundColor: 'var(--dot-color, #020817)' }}
-                ></div>
-              </div>
-              PRICING & PACKAGES
-            </Badge>
-          </div>
           <h2 className="text-2xl md:text-3xl font-bold mb-2">
             Transparent Pricing. No Surprises
           </h2>
@@ -170,7 +108,7 @@ export function PricingSection() {
             Have questions or need help choosing?
           </h3>
           <p className="text-muted-foreground text-sm mb-5 max-w-md mx-auto">
-            Want to move forward or have a few questions first? We're just one click away.
+            Want to move forward or have a few questions first? We&apos;re just one click away.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
