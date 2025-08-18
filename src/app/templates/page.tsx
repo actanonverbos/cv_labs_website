@@ -36,58 +36,82 @@ async function getTemplates(): Promise<Template[]> {
 // Fallback templates for when CMS is empty
 const fallbackTemplates = [
   {
+    _id: "1",
     title: "INBOX PULSE",
     subtitle: "The Tech Edge You Need, Delivered Weekly",
     description: "Get the latest tech trends, AI breakthroughs, and industry insights delivered weekly to your inbox.",
     image: "/api/placeholder/600/400",
-    badge: "FREE",
+    badge: "FREE" as const,
     category: "Newsletter",
-    features: ["Lightning Fast", "One-Click Import", "Custom Built", "Easy Setup"]
+    price: 0,
+    features: ["Lightning Fast", "One-Click Import", "Custom Built", "Easy Setup"],
+    downloadUrl: "https://cal.com/isaac-cullinane/1-1",
+    slug: { current: "inbox-pulse" }
   },
   {
+    _id: "2",
     title: "CREATORLINK", 
     subtitle: "Connect Your Audience Everywhere",
     description: "Beautiful link-in-bio pages that convert visitors into followers and customers.",
     image: "/api/placeholder/600/400", 
-    badge: "FREE",
+    badge: "FREE" as const,
     category: "Link in Bio",
-    features: ["Mobile Optimized", "Analytics Ready", "Custom Branding", "Social Integration"]
+    price: 0,
+    features: ["Mobile Optimized", "Analytics Ready", "Custom Branding", "Social Integration"],
+    downloadUrl: "https://cal.com/isaac-cullinane/1-1",
+    slug: { current: "creatorlink" }
   },
   {
+    _id: "3",
     title: "PORTFOLIO PRO",
     subtitle: "Showcase Your Work Professionally", 
     description: "Modern portfolio templates designed to impress clients and land your dream projects.",
     image: "/api/placeholder/600/400",
-    badge: "PREMIUM",
+    badge: "PREMIUM" as const,
     category: "Portfolio",
-    features: ["Responsive Design", "Project Galleries", "Contact Forms", "SEO Optimized"]
+    price: 49,
+    features: ["Responsive Design", "Project Galleries", "Contact Forms", "SEO Optimized"],
+    downloadUrl: "https://cal.com/isaac-cullinane/1-1",
+    slug: { current: "portfolio-pro" }
   },
   {
+    _id: "4",
     title: "STARTUP LAUNCH",
     subtitle: "Launch Your Startup in Days",
     description: "Complete startup landing page with pricing, features, and conversion optimization built-in.",
     image: "/api/placeholder/600/400",
-    badge: "PREMIUM", 
+    badge: "PREMIUM" as const, 
     category: "Startup",
-    features: ["Conversion Focused", "Payment Integration", "A/B Testing", "Analytics"]
+    price: 79,
+    features: ["Conversion Focused", "Payment Integration", "A/B Testing", "Analytics"],
+    downloadUrl: "https://cal.com/isaac-cullinane/1-1",
+    slug: { current: "startup-launch" }
   },
   {
+    _id: "5",
     title: "AGENCY SUITE",
     subtitle: "Professional Agency Presence",
     description: "Multi-page agency website with team pages, case studies, and client testimonials.",
     image: "/api/placeholder/600/400",
-    badge: "PREMIUM",
-    category: "Agency", 
-    features: ["Multi-page", "Team Profiles", "Case Studies", "Client Portal"]
+    badge: "PREMIUM" as const,
+    category: "Agency",
+    price: 99,
+    features: ["Multi-page", "Team Profiles", "Case Studies", "Client Portal"],
+    downloadUrl: "https://cal.com/isaac-cullinane/1-1",
+    slug: { current: "agency-suite" }
   },
   {
+    _id: "6",
     title: "E-COMMERCE STARTER",
     subtitle: "Start Selling Online Today",
     description: "Complete e-commerce solution with product catalogs, shopping cart, and payment processing.",
     image: "/api/placeholder/600/400",
-    badge: "PREMIUM",
+    badge: "PREMIUM" as const,
     category: "E-commerce",
-    features: ["Shopping Cart", "Payment Gateway", "Inventory Management", "Order Tracking"]
+    price: 149,
+    features: ["Shopping Cart", "Payment Gateway", "Inventory Management", "Order Tracking"],
+    downloadUrl: "https://cal.com/isaac-cullinane/1-1",
+    slug: { current: "ecommerce-starter" }
   }
 ]
 
@@ -252,7 +276,7 @@ export default async function TemplatesPage() {
                         className="w-full px-4 py-2 text-sm font-medium bg-white text-black hover:bg-gray-100 rounded-lg border-0"
                         asChild
                       >
-                        <Link href={`/templates/${template.slug.current}`}>
+                        <Link href={template.slug?.current ? `/templates/${template.slug.current}` : template.downloadUrl || "https://cal.com/isaac-cullinane/1-1"}>
                           View Template
                         </Link>
                       </Button>

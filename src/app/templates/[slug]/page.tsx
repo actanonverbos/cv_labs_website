@@ -41,7 +41,36 @@ type Template = {
 }
 
 async function getTemplate(slug: string): Promise<Template | null> {
-  return await client.fetch(TEMPLATE_QUERY, { slug })
+  try {
+    const template = await client.fetch(TEMPLATE_QUERY, { slug })
+    return template || null
+  } catch (error) {
+    console.error('Error fetching template:', error)
+    return null
+  }
+}
+
+// Fallback function for when Sanity template is not found
+function getFallbackTemplate(slug: string): Template | null {
+  const fallbackTemplates = [
+    {
+      _id: "1",
+      title: "INBOX PULSE",
+      subtitle: "The Tech Edge You Need, Delivered Weekly",
+      description: "Get the latest tech trends, AI breakthroughs, and industry insights delivered weekly to your inbox.",
+      longDescription: "INBOX PULSE is a comprehensive newsletter template designed for tech enthusiasts and industry professionals. This template includes everything you need to create a professional weekly newsletter that keeps your audience engaged with the latest technology trends, AI breakthroughs, and industry insights.\n\nThe template features a clean, modern design that's optimized for both desktop and mobile reading. It includes customizable sections for featured articles, quick tech tips, industry news roundup, and sponsor highlights.",
+      category: "newsletter",
+      badge: "FREE" as const,
+      price: 0,
+      features: ["Lightning Fast Setup", "One-Click Import", "Custom Built Components", "Easy Setup Guide", "Mobile Responsive", "Email Integration"],
+      downloadUrl: "https://cal.com/isaac-cullinane/1-1",
+      techStack: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
+      includedFiles: ["Newsletter template", "Email components", "Setup guide", "Style customization"],
+      slug: { current: "inbox-pulse" }
+    }
+  ]
+  
+  return fallbackTemplates.find(t => t.slug.current === slug) || null
 }
 
 export default async function TemplateDetailPage({
@@ -50,7 +79,12 @@ export default async function TemplateDetailPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  const template = await getTemplate(slug)
+  let template = await getTemplate(slug)
+  
+  // If no template found in Sanity, try fallback
+  if (!template) {
+    template = getFallbackTemplate(slug)
+  }
 
   if (!template) {
     notFound()
