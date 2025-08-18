@@ -104,6 +104,42 @@ export function FAQChatWidget() {
   const [selectedFaq, setSelectedFaq] = React.useState<FAQ | null>(null)
   const [showContact, setShowContact] = React.useState(false)
   const [chatMessages, setChatMessages] = React.useState<Array<{id: string, text: string, type: 'bot' | 'user', actions?: FAQ['actions']}>>([])
+  const [bookButtonRef, setBookButtonRef] = React.useState<HTMLElement | null>(null)
+  const [telegramButtonRef, setTelegramButtonRef] = React.useState<HTMLElement | null>(null)
+  const [contactButtonRef, setContactButtonRef] = React.useState<HTMLElement | null>(null)
+
+  React.useEffect(() => {
+    // Set up mutation observer to watch for theme changes - exactly like hero section
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          const isDark = document.documentElement.classList.contains('dark')
+          
+          if (bookButtonRef) {
+            bookButtonRef.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+            bookButtonRef.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+          }
+          
+          if (telegramButtonRef) {
+            telegramButtonRef.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+            telegramButtonRef.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+          }
+          
+          if (contactButtonRef) {
+            contactButtonRef.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+            contactButtonRef.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+          }
+        }
+      })
+    })
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+    
+    return () => observer.disconnect()
+  }, [bookButtonRef, telegramButtonRef, contactButtonRef])
 
   const handleToggle = () => {
     setIsOpen(!isOpen)
@@ -168,9 +204,9 @@ export function FAQChatWidget() {
     <>
       {/* Chat Widget */}
       <div className="fixed bottom-6 right-6 z-50">
-        {/* Chat Window */}
+        {/* Chat Window - Opens above the icon */}
         {isOpen && (
-          <Card className="mb-4 w-80 md:w-96 h-[500px] bg-card border border-border rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+          <Card className="absolute bottom-20 right-0 w-80 md:w-96 h-[500px] bg-card border border-border rounded-2xl shadow-2xl overflow-hidden flex flex-col">
             {/* Header */}
             <div className="bg-primary text-primary-foreground p-4 flex items-center justify-between flex-shrink-0">
               <div className="flex items-center gap-3">
@@ -182,6 +218,7 @@ export function FAQChatWidget() {
                   <p className="text-xs opacity-90">Usually replies instantly</p>
                 </div>
               </div>
+              {/* Close button in header */}
               <Button
                 variant="ghost"
                 size="sm"
@@ -219,11 +256,22 @@ export function FAQChatWidget() {
                         </div>
                       </div>
                       <Button
+                        variant="ghost"
                         asChild
-                        className="w-full text-base font-medium px-6 py-3 rounded-lg"
+                        className="w-full text-base font-medium px-6 py-3 rounded-lg border-0"
                         style={{
-                          backgroundColor: '#000000',
-                          color: '#ffffff',
+                          backgroundColor: 'var(--button-bg, #000000)',
+                          color: 'var(--button-text, #ffffff)',
+                        }}
+                        ref={(el) => {
+                          if (el) {
+                            setBookButtonRef(el)
+                            
+                            // Set initial colors
+                            const isDark = document.documentElement.classList.contains('dark')
+                            el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+                            el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+                          }
                         }}
                       >
                         <Link 
@@ -249,13 +297,20 @@ export function FAQChatWidget() {
                       <Button
                         variant="ghost"
                         asChild
-                        className="w-full text-base font-medium px-6 py-3 rounded-lg backdrop-blur-sm"
+                        className="w-full text-base font-medium px-6 py-3 rounded-lg border-0"
                         style={{
-                          backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                          color: '#020817',
-                          borderColor: 'rgba(0, 0, 0, 0.2)',
-                          borderWidth: '1px',
-                          borderStyle: 'solid'
+                          backgroundColor: 'var(--button-bg, #000000)',
+                          color: 'var(--button-text, #ffffff)',
+                        }}
+                        ref={(el) => {
+                          if (el) {
+                            setTelegramButtonRef(el)
+                            
+                            // Set initial colors
+                            const isDark = document.documentElement.classList.contains('dark')
+                            el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+                            el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+                          }
                         }}
                       >
                         <Link 
@@ -269,24 +324,114 @@ export function FAQChatWidget() {
                     </div>
                   </div>
 
-                  {/* Back Button for Contact Page */}
-                  <div className="p-4 border-t border-border bg-card">
+
+                </div>
+              ) : showContact ? (
+                /* Contact Page */
+                <div className="flex flex-col h-full">
+                  {/* Back Button at Top */}
+                  <div className="p-4 pb-2">
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={handleBackToQuestions}
-                      className="w-full text-center justify-center px-6 py-3 rounded-lg backdrop-blur-sm"
-                      style={{
-                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                        color: '#020817',
-                        borderColor: 'rgba(0, 0, 0, 0.2)',
-                        borderWidth: '1px',
-                        borderStyle: 'solid'
-                      }}
+                      className="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg border border-border/50 bg-muted/20 hover:bg-muted/40"
                     >
-                      <ArrowLeft className="w-4 h-4 mr-2" />
-                      Back to Questions
+                      <ArrowLeft className="w-4 h-4" />
+                      Back
                     </Button>
+                  </div>
+                  
+                  <div className="flex-1 p-4 pt-2 space-y-6">
+                    {/* Contact Message */}
+                    <div className="flex justify-start">
+                      <div className="max-w-[80%] p-3 rounded-2xl bg-card border border-border text-foreground rounded-bl-sm">
+                        <p className="text-sm leading-relaxed">
+                          Ready to get started? Choose how you&apos;d like to get in touch:
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Contact Options */}
+                    <div className="space-y-4">
+                      <div className="bg-card border border-border rounded-2xl p-4">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                            <Calendar className="w-5 h-5 text-primary" />
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-sm">Book a Call</h4>
+                            <p className="text-xs text-muted-foreground">Free 30-minute consultation</p>
+                          </div>
+                        </div>
+                        <Button
+                          variant="ghost"
+                          asChild
+                          className="w-full text-base font-medium px-6 py-3 rounded-lg border-0"
+                          style={{
+                            backgroundColor: 'var(--button-bg, #000000)',
+                            color: 'var(--button-text, #ffffff)',
+                          }}
+                          ref={(el) => {
+                            if (el) {
+                              setBookButtonRef(el)
+                              
+                              // Set initial colors
+                              const isDark = document.documentElement.classList.contains('dark')
+                              el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+                              el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+                            }
+                          }}
+                        >
+                          <Link 
+                            href="https://cal.com/isaac-cullinane/1-1" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                          >
+                            Book an Intro Call
+                          </Link>
+                        </Button>
+                      </div>
+
+                      <div className="bg-card border border-border rounded-2xl p-4">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                            <Send className="w-5 h-5 text-primary" />
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-sm">Quick Message</h4>
+                            <p className="text-xs text-muted-foreground">Get instant response</p>
+                          </div>
+                        </div>
+                        <Button
+                          variant="ghost"
+                          asChild
+                          className="w-full text-base font-medium px-6 py-3 rounded-lg border-0"
+                          style={{
+                            backgroundColor: 'var(--button-bg, #000000)',
+                            color: 'var(--button-text, #ffffff)',
+                          }}
+                          ref={(el) => {
+                            if (el) {
+                              setTelegramButtonRef(el)
+                              
+                              // Set initial colors
+                              const isDark = document.documentElement.classList.contains('dark')
+                              el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+                              el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+                            }
+                          }}
+                        >
+                          <Link 
+                            href="https://t.me/collect_0x" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                          >
+                            Message on Telegram
+                          </Link>
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ) : !selectedFaq ? (
@@ -338,8 +483,21 @@ export function FAQChatWidget() {
               ) : (
                 /* Chat View */
                 <div className="flex flex-col h-full">
+                  {/* Back Button at Top */}
+                  <div className="p-4 pb-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={handleBackToQuestions}
+                      className="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg border border-border/50 bg-muted/20 hover:bg-muted/40"
+                    >
+                      <ArrowLeft className="w-4 h-4" />
+                      Back
+                    </Button>
+                  </div>
+                  
                   {/* Chat Messages */}
-                  <div className="flex-1 p-4 space-y-4">
+                  <div className="flex-1 p-4 pt-2 space-y-4">
                     {chatMessages.map((message) => (
                       <div
                         key={message.id}
@@ -355,68 +513,61 @@ export function FAQChatWidget() {
                           <p className="text-sm leading-relaxed">
                             {message.text}
                           </p>
-                          {message.actions && (
-                            <div className="mt-4 pt-3 border-t border-border/50">
-                              <p className="text-xs text-muted-foreground mb-3">
-                                Ready to get started?
-                              </p>
-                              <Button
-                                onClick={handleContactClick}
-                                className="w-full text-xs font-medium px-4 py-2 rounded-lg"
-                                style={{
-                                  backgroundColor: '#ffffff',
-                                  color: '#000000',
-                                }}
-                              >
-                                Contact
-                              </Button>
-                            </div>
-                          )}
+
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  {/* Back Button at Bottom */}
+                  {/* Contact CTA */}
                   <div className="p-4 border-t border-border bg-card">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={handleBackToQuestions}
-                      className="w-full text-center justify-center px-6 py-3 rounded-lg backdrop-blur-sm"
-                      style={{
-                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                        color: '#020817',
-                        borderColor: 'rgba(0, 0, 0, 0.2)',
-                        borderWidth: '1px',
-                        borderStyle: 'solid'
-                      }}
-                    >
-                      <ArrowLeft className="w-4 h-4 mr-2" />
-                      Back to Questions
-                    </Button>
+                    <div className="text-center">
+                      <p className="text-sm text-muted-foreground mb-3">
+                        Ready to get started?
+                      </p>
+                      <Button
+                        variant="ghost"
+                        onClick={handleContactClick}
+                        className="w-full text-base font-medium px-6 py-3 rounded-lg border-0"
+                        style={{
+                          backgroundColor: 'var(--button-bg, #000000)',
+                          color: 'var(--button-text, #ffffff)',
+                        }}
+                        ref={(el) => {
+                          if (el) {
+                            setContactButtonRef(el)
+                            
+                            // Set initial colors
+                            const isDark = document.documentElement.classList.contains('dark')
+                            el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+                            el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+                          }
+                        }}
+                      >
+                        Contact
+                      </Button>
+                    </div>
                   </div>
                 </div>
               )}
             </div>
+            
           </Card>
         )}
 
-        {/* Toggle Button - Only show when chat is closed */}
-        {!isOpen && (
-          <div className="relative">
-            <Button
-              onClick={handleToggle}
-              size="lg"
-              className="w-14 h-14 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-2xl border-2 border-primary-foreground/10 hover:shadow-primary/25 hover:border-primary-foreground/20 transition-all duration-300 hover:scale-105 relative z-10"
-            >
-              <MessageCircle className="w-6 h-6" />
-            </Button>
-            
-            {/* Pulsing Ring Animation */}
+        {/* Toggle Button - Always visible, same position, changes icon based on state */}
+        <div className="relative">
+          {!isOpen && (
             <div className="absolute inset-0 rounded-full bg-primary animate-radar-ping opacity-75 pointer-events-none"></div>
-          </div>
-        )}
+          )}
+          <Button
+            onClick={handleToggle}
+            size="lg"
+            className="w-14 h-14 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-2xl border-2 border-primary-foreground/10 hover:shadow-primary/25 hover:border-primary-foreground/20 transition-all duration-300 hover:scale-105 relative z-10"
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
+          </Button>
+        </div>
       </div>
     </>
   )
