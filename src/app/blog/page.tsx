@@ -35,7 +35,7 @@ export default async function BlogPage() {
       <Navigation />
       <main>
         {/* Hero Section */}
-        <section className="py-20 md:py-28 bg-background">
+        <section className="pt-20 pb-12 md:pt-28 md:pb-16 bg-background">
           <div className="container">
             <div className="max-w-4xl mx-auto text-center">
               <ScrollReveal delay={0.1}>
@@ -70,7 +70,7 @@ export default async function BlogPage() {
         </section>
 
         {/* Blog Posts Grid */}
-        <section className="py-20 md:py-28 bg-muted/5">
+        <section className="pt-8 pb-20 md:pt-12 md:pb-28 bg-muted/5">
           <div className="container">
             {posts.length === 0 ? (
               <div className="text-center">

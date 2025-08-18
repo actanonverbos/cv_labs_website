@@ -122,7 +122,7 @@ export default async function TemplatesPage() {
       <Navigation />
       <main>
         {/* Hero Section */}
-        <section className="py-20 md:py-28 bg-background">
+        <section className="pt-20 pb-12 md:pt-28 md:pb-16 bg-background">
           <div className="container">
             <div className="max-w-4xl mx-auto text-center">
               {/* Eyebrow pill */}
@@ -162,7 +162,7 @@ export default async function TemplatesPage() {
         </section>
 
         {/* Templates Grid */}
-        <section id="templates" className="py-20 md:py-28 bg-muted/5">
+        <section id="templates" className="pt-8 pb-20 md:pt-12 md:pb-28 bg-muted/5">
           <div className="container">
             <div className="text-center mb-16">
               <ScrollReveal delay={0.1}>
