@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Ticker } from "@/components/ticker"
 import { 
   Palette, 
   Zap, 
@@ -122,23 +123,9 @@ export function PricingSection() {
           </h2>
         </div>
 
-        {/* Top badges row */}
-        <div className="flex flex-wrap justify-center gap-3 mb-8">
-          <Badge variant="secondary" className="text-xs px-3 py-1 bg-muted/50 text-muted-foreground rounded-md">
-            ⚡ FRIENDLY
-          </Badge>
-          <Badge variant="secondary" className="text-xs px-3 py-1 bg-blue-600 text-white rounded-md">
-            🔵 ASYNC-FRIENDLY
-          </Badge>
-          <Badge variant="secondary" className="text-xs px-3 py-1 bg-muted/50 text-muted-foreground rounded-md">
-            🎯 FRAMER EXPERT
-          </Badge>
-          <Badge variant="secondary" className="text-xs px-3 py-1 bg-muted/50 text-muted-foreground rounded-md">
-            💰 FLAT PRICING
-          </Badge>
-          <Badge variant="secondary" className="text-xs px-3 py-1 bg-muted/50 text-muted-foreground rounded-md">
-            👤 USD
-          </Badge>
+        {/* Ticker */}
+        <div className="mb-8">
+          <Ticker />
         </div>
 
         {/* Pricing Tiers */}
@@ -149,27 +136,25 @@ export function PricingSection() {
               className="relative p-6 bg-card border border-border rounded-2xl"
             >
               {/* Title and Price */}
-              <div className="mb-6">
+              <div className="mb-4">
                 <h3 className="text-xl font-semibold mb-2">
                   {tier.name}
                 </h3>
-                <div className="text-3xl font-bold mb-2">
+                <div className="text-3xl font-bold mb-3">
                   {tier.price}
                 </div>
-                <p className="text-sm text-muted-foreground leading-normal">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   {tier.description}
                 </p>
               </div>
 
               {/* Features */}
-              <ul className="space-y-2 mb-6">
+              <ul className="space-y-4 mb-8">
                 {tier.features.map((feature, featureIndex) => {
                   const IconComponent = feature.icon
                   return (
                     <li key={featureIndex} className="flex items-center gap-3">
-                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center">
-                        <IconComponent className="w-3 h-3 text-white" />
-                      </div>
+                      <IconComponent className="w-4 h-4 text-foreground flex-shrink-0" />
                       <span className="text-sm text-foreground">{feature.text}</span>
                     </li>
                   )
@@ -180,17 +165,17 @@ export function PricingSection() {
         </div>
 
         {/* Questions Section as Card */}
-        <Card className="p-8 bg-card border border-border rounded-2xl text-center">
-          <h3 className="text-xl font-semibold mb-4">
+        <Card className="p-6 bg-card border border-border rounded-2xl text-center">
+          <h3 className="text-lg font-semibold mb-2">
             Have questions or need help choosing?
           </h3>
-          <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
+          <p className="text-muted-foreground text-sm mb-5 max-w-md mx-auto">
             Want to move forward or have a few questions first? We're just one click away.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button 
-              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium flex items-center gap-2 justify-center"
+              size="lg"
               asChild
             >
               <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">
@@ -201,7 +186,7 @@ export function PricingSection() {
             
             <Button 
               variant="outline"
-              className="px-6 py-3 rounded-lg font-medium flex items-center gap-2 justify-center"
+              size="lg"
               asChild
             >
               <Link href="#" target="_blank" rel="noopener noreferrer">

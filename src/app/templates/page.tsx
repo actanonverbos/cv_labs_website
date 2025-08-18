@@ -1,3 +1,6 @@
+"use client"
+
+import * as React from "react"
 import Link from "next/link"
 import { ArrowRight, ExternalLink } from "lucide-react"
 import { Navigation } from "@/components/navigation"
@@ -31,6 +34,75 @@ type Template = {
 
 async function getTemplates(): Promise<Template[]> {
   return await client.fetch(TEMPLATES_QUERY)
+}
+
+function TemplatesBadge() {
+  const [badgeRef, setBadgeRef] = React.useState<HTMLElement | null>(null)
+  
+  React.useEffect(() => {
+    // Set up mutation observer to watch for theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          const isDark = document.documentElement.classList.contains('dark')
+          
+          if (badgeRef) {
+            badgeRef.style.setProperty('--badge-bg', isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')
+            badgeRef.style.setProperty('--badge-text', isDark ? '#ffffff' : '#020817')
+            badgeRef.style.setProperty('--badge-border', isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)')
+            badgeRef.style.setProperty('--dot-color', isDark ? '#ffffff' : '#020817')
+          }
+        }
+      })
+    })
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+    
+    return () => observer.disconnect()
+  }, [badgeRef])
+
+  return (
+    <div className="flex justify-center mb-6">
+      <Badge 
+        variant="secondary" 
+        className="rounded-md px-4 py-2 text-sm font-medium backdrop-blur-sm transition-all duration-200 eyebrow inline-flex items-center gap-2"
+        style={{
+          backgroundColor: 'var(--badge-bg, rgba(0, 0, 0, 0.1))',
+          color: 'var(--badge-text, #020817)',
+          borderColor: 'var(--badge-border, rgba(0, 0, 0, 0.2))',
+          borderWidth: '1px',
+          borderStyle: 'solid'
+        }}
+        ref={(el) => {
+          if (el) {
+            setBadgeRef(el)
+            
+            // Set initial colors
+            const isDark = document.documentElement.classList.contains('dark')
+            el.style.setProperty('--badge-bg', isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')
+            el.style.setProperty('--badge-text', isDark ? '#ffffff' : '#020817')
+            el.style.setProperty('--badge-border', isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)')
+            el.style.setProperty('--dot-color', isDark ? '#ffffff' : '#020817')
+          }
+        }}
+      >
+        <div className="relative flex items-center justify-center">
+          <div 
+            className="w-2 h-2 rounded-full"
+            style={{ backgroundColor: 'var(--dot-color, #020817)' }}
+          ></div>
+          <div 
+            className="absolute w-2 h-2 rounded-full animate-radar-ping"
+            style={{ backgroundColor: 'var(--dot-color, #020817)' }}
+          ></div>
+        </div>
+        Premium templates available now
+      </Badge>
+    </div>
+  )
 }
 
 // Fallback templates for when CMS is empty
@@ -115,8 +187,45 @@ const fallbackTemplates = [
   }
 ]
 
-export default async function TemplatesPage() {
-  const templates = await getTemplates()
+export default function TemplatesPage() {
+  const [templates, setTemplates] = React.useState<Template[]>([])
+  const [loading, setLoading] = React.useState(true)
+
+  React.useEffect(() => {
+    async function fetchTemplates() {
+      try {
+        const fetchedTemplates = await getTemplates()
+        setTemplates(fetchedTemplates)
+      } catch (error) {
+        console.error('Error fetching templates:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchTemplates()
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen">
+        <Navigation />
+        <main>
+          <section className="pt-20 pb-12 md:pt-28 md:pb-16 bg-background">
+            <div className="container">
+              <div className="max-w-4xl mx-auto text-center">
+                <div className="animate-pulse">
+                  <div className="h-8 bg-muted rounded-md w-48 mx-auto mb-6"></div>
+                  <div className="h-16 bg-muted rounded-md w-96 mx-auto mb-6"></div>
+                  <div className="h-6 bg-muted rounded-md w-80 mx-auto"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -127,18 +236,7 @@ export default async function TemplatesPage() {
             <div className="max-w-4xl mx-auto text-center">
               {/* Eyebrow pill */}
               <ScrollReveal delay={0.1}>
-                <div className="flex justify-center mb-6">
-                  <Badge 
-                    variant="secondary" 
-                    className="rounded-2xl px-4 py-2 text-sm font-medium bg-white/10 backdrop-blur-sm text-primary border border-white/20 shadow-lg hover:bg-white/15 transition-all duration-200 eyebrow inline-flex items-center gap-2"
-                  >
-                    <div className="relative flex items-center justify-center">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                      <div className="absolute w-2 h-2 bg-white rounded-full animate-radar-ping"></div>
-                    </div>
-                    Premium templates available now
-                  </Badge>
-                </div>
+                <TemplatesBadge />
               </ScrollReveal>
 
               {/* Main headline */}

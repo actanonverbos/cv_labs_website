@@ -7,6 +7,7 @@ import { PricingSection } from "@/components/sections/pricing"
 import { FAQSection } from "@/components/sections/faq"
 import { CTASection } from "@/components/sections/cta"
 import { FooterSection } from "@/components/sections/footer"
+import { FloatingAvailabilityBadge } from "@/components/floating-availability-badge"
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
         <CTASection />
       </main>
       <FooterSection />
+      <FloatingAvailabilityBadge />
     </div>
   )
 }
