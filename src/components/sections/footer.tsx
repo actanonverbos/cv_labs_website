@@ -18,7 +18,7 @@ const footerLinks = {
   ],
   support: [
     { name: "FAQ", href: "#faq" },
-    { name: "Contact", href: "#cta" },
+    { name: "Contact", href: "https://cal.com/isaac-cullinane/1-1" },
     { name: "Book a Call", href: "https://cal.com/isaac-cullinane/1-1" },
     { name: "Support", href: "mailto:support@cvlabs.dev" },
   ]

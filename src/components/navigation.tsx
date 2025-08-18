@@ -13,6 +13,7 @@ const navItems = [
   { name: "Work", href: "#work", sectionId: "work" },
   { name: "Process", href: "#process", sectionId: "process" },
   { name: "Pricing", href: "#pricing", sectionId: "pricing" },
+  { name: "Templates", href: "/templates", sectionId: "templates" },
   { name: "FAQ", href: "#faq", sectionId: "faq" },
 ]
 
@@ -79,7 +80,7 @@ export function Navigation() {
               asChild 
               className="px-6 py-2 text-sm font-medium bg-white text-black hover:bg-gray-100 rounded-lg border-0"
             >
-              <Link href="#cta">Get Started</Link>
+              <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">Get Started</Link>
             </Button>
           </div>
 
@@ -119,7 +120,7 @@ export function Navigation() {
                       asChild 
                       className="w-full px-6 py-3 text-base font-medium bg-white text-black hover:bg-gray-100 rounded-lg border-0"
                     >
-                      <Link href="#cta" onClick={() => setIsOpen(false)}>
+                      <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)}>
                         Get Started
                       </Link>
                     </Button>
