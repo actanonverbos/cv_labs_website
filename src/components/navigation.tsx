@@ -22,8 +22,21 @@ export function Navigation() {
   const [activeSection, setActiveSection] = React.useState("top")
 
   React.useEffect(() => {
+    // Check current pathname
+    const checkPathname = () => {
+      const pathname = window.location.pathname
+      if (pathname === '/templates') {
+        setActiveSection("templates")
+        return true
+      }
+      return false
+    }
+
+    // If we're on templates page, don't set up scroll listener
+    if (checkPathname()) return
+
     const handleScroll = () => {
-      const sections = navItems.map(item => item.sectionId)
+      const sections = navItems.map(item => item.sectionId).filter(id => id !== "templates")
       const scrollPosition = window.scrollY + 100 // Offset for header
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -35,11 +48,25 @@ export function Navigation() {
       }
     }
 
-    // Set initial active section
+    // Set initial active section for homepage
     handleScroll()
     
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    
+    // Listen for route changes
+    const handleRouteChange = () => {
+      if (!checkPathname()) {
+        // We're back on homepage, restart scroll detection
+        handleScroll()
+      }
+    }
+    
+    window.addEventListener('popstate', handleRouteChange)
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('popstate', handleRouteChange)
+    }
   }, [])
 
   return (
