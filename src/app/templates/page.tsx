@@ -3,6 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { ArrowRight, ExternalLink } from "lucide-react"
+import { Navigation } from "@/components/navigation"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
@@ -68,6 +69,7 @@ const templates = [
 export default function TemplatesPage() {
   return (
     <div className="min-h-screen">
+      <Navigation />
       <main>
         {/* Hero Section */}
         <section className="py-20 md:py-28 bg-background">
@@ -104,30 +106,7 @@ export default function TemplatesPage() {
                 </p>
               </ScrollReveal>
 
-              {/* CTAs */}
-              <ScrollReveal delay={0.4}>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-                  <Button 
-                    variant="default"
-                    className="px-6 py-3 text-base font-medium bg-white text-black hover:bg-gray-100 rounded-lg border-0"
-                    asChild
-                  >
-                    <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">
-                      Get Custom Template
-                    </Link>
-                  </Button>
-                  <Button 
-                    variant="frosted"
-                    className="px-6 py-3 text-base font-medium rounded-lg"
-                    asChild
-                  >
-                    <Link href="#templates">
-                      Browse Templates
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </div>
-              </ScrollReveal>
+
             </div>
           </div>
         </section>
@@ -149,82 +128,64 @@ export default function TemplatesPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {templates.map((template, index) => (
                 <ScrollReveal key={template.title} delay={0.1 * (index + 1)}>
-                  <Card className="group overflow-hidden bg-card border border-border rounded-2xl hover:shadow-xl transition-all duration-300">
+                  <Card className="group overflow-hidden bg-card border border-border rounded-2xl">
                     {/* Template Preview */}
-                    <div className="relative overflow-hidden">
-                      <div className="aspect-[4/3] bg-gradient-to-br from-primary/20 via-background to-primary/10 flex items-center justify-center">
-                        <div className="text-center p-8">
-                          <h3 className="text-2xl font-bold mb-2">{template.title}</h3>
-                          <p className="text-sm text-muted-foreground mb-4">{template.subtitle}</p>
-                          <div className="flex flex-wrap gap-1 justify-center">
-                            {template.features.slice(0, 2).map((feature) => (
-                              <Badge key={feature} variant="secondary" className="text-xs">
-                                {feature}
-                              </Badge>
-                            ))}
+                    <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center space-y-3">
+                          <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
+                            <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
+                              <span className="text-primary-foreground font-bold text-sm">{template.title.slice(0, 2)}</span>
+                            </div>
+                          </div>
+                          <div className="space-y-2">
+                            <div className="h-2 bg-primary/20 rounded-full w-32 mx-auto"></div>
+                            <div className="h-2 bg-primary/10 rounded-full w-24 mx-auto"></div>
                           </div>
                         </div>
                       </div>
                       
-                      {/* Badge */}
-                      <div className="absolute top-4 left-4">
-                        <Badge 
-                          variant={template.badge === "FREE" ? "secondary" : "default"}
-                          className={`font-semibold ${
-                            template.badge === "FREE" 
-                              ? "bg-green-100 text-green-700 border-green-200" 
-                              : "bg-primary text-primary-foreground"
-                          }`}
-                        >
-                          {template.badge}
-                        </Badge>
-                      </div>
-
-                      {/* Category */}
-                      <div className="absolute top-4 right-4">
-                        <Badge variant="outline" className="bg-background/80 backdrop-blur-sm">
-                          {template.category}
-                        </Badge>
+                      {/* Overlay on hover */}
+                      <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <Button variant="secondary" size="sm" className="hover-scale">
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          View Template
+                        </Button>
                       </div>
                     </div>
 
-                    {/* Template Info */}
                     <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-2">{template.title}</h3>
-                      <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
+                      {/* Badge */}
+                      <Badge 
+                        variant="secondary"
+                        className={`mb-4 font-semibold ${
+                          template.badge === "FREE" 
+                            ? "bg-green-100 text-green-700 border-green-200" 
+                            : "bg-primary/10 text-primary border-primary/20"
+                        }`}
+                      >
+                        {template.badge}
+                      </Badge>
+
+                      {/* Title and description */}
+                      <h3 className="text-xl font-semibold mb-3">
+                        {template.title}
+                      </h3>
+                      <p className="text-base text-muted-foreground mb-4 leading-relaxed">
                         {template.description}
                       </p>
 
                       {/* Features */}
-                      <div className="flex flex-wrap gap-2 mb-6">
+                      <div className="flex flex-wrap gap-2">
                         {template.features.map((feature) => (
-                          <Badge key={feature} variant="outline" className="text-xs">
+                          <Badge 
+                            key={feature}
+                            variant="outline"
+                            className="text-xs border-border hover:bg-primary/5"
+                          >
                             {feature}
                           </Badge>
                         ))}
-                      </div>
-
-                      {/* Actions */}
-                      <div className="flex gap-2">
-                        <Button 
-                          variant="default" 
-                          size="sm" 
-                          className="flex-1"
-                          asChild
-                        >
-                          <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">
-                            Get Template
-                          </Link>
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          asChild
-                        >
-                          <Link href="#" target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="w-4 h-4" />
-                          </Link>
-                        </Button>
                       </div>
                     </div>
                   </Card>
@@ -232,24 +193,19 @@ export default function TemplatesPage() {
               ))}
             </div>
 
-            {/* Custom Template CTA */}
+            {/* CTA to get started */}
             <div className="text-center mt-16">
               <ScrollReveal delay={0.6}>
-                <Card className="inline-block p-8 bg-gradient-to-br from-primary/5 via-background to-primary/10 border border-primary/20">
-                  <h3 className="text-xl font-semibold mb-2">Need Something Custom?</h3>
-                  <p className="text-muted-foreground mb-4 max-w-md">
-                    We create bespoke templates tailored to your specific needs and brand requirements.
-                  </p>
-                  <Button 
-                    variant="default"
-                    asChild
-                  >
-                    <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">
-                      Request Custom Template
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </Card>
+                <Button 
+                  variant="frosted"
+                  className="px-6 py-3 text-base font-medium rounded-lg"
+                  asChild
+                >
+                  <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">
+                    Ready to Get Started?
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Link>
+                </Button>
               </ScrollReveal>
             </div>
           </div>
