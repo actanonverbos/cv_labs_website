@@ -70,7 +70,7 @@ export function WorkSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
           {portfolioItems.map((item) => (
             <Card 
               key={item.title}
@@ -142,7 +142,7 @@ export function WorkSection() {
             className="px-6 py-3 text-base font-medium rounded-lg"
             asChild
           >
-            <Link href="#pricing" className="flex items-center">
+            <Link href="/#pricing" className="flex items-center">
               Ready to Get Started?
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>

@@ -231,7 +231,7 @@ export default async function TemplateDetailPage({
                   {/* Features */}
                   <ScrollReveal delay={0.4}>
                     <Card className="p-6 bg-card border border-border rounded-2xl">
-                      <h3 className="text-lg font-semibold mb-4">What's Included</h3>
+                      <h3 className="text-lg font-semibold mb-4">What&apos;s Included</h3>
                       <div className="space-y-3">
                         {template.features.map((feature, index) => (
                           <div key={index} className="flex items-center gap-3">

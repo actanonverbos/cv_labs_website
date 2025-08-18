@@ -8,7 +8,7 @@ import {
   BarChart3, 
   Puzzle 
 } from "lucide-react"
-import { motion } from "framer-motion"
+
 import { Card } from "@/components/ui/card"
 import { ScrollReveal } from "@/components/scroll-reveal"
 
@@ -60,7 +60,7 @@ export function BenefitsSection() {
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon
             return (

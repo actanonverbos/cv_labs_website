@@ -35,7 +35,7 @@ export function FooterSection() {
   return (
     <footer className="bg-card/50 backdrop-blur border-t border-border">
       <div className="container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           {/* Logo and tagline */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center mb-4">

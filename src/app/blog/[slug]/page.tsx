@@ -3,7 +3,7 @@ import { Navigation } from '@/components/navigation'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ScrollReveal } from '@/components/scroll-reveal'
-import { PortableText } from '@portabletext/react'
+import { PortableText, type PortableTextBlock } from '@portabletext/react'
 import { urlFor } from '@/sanity/lib/image'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -30,7 +30,7 @@ type Post = {
       }
     }
   }
-  body: any[]
+  body: PortableTextBlock[]
 }
 
 async function getPost(slug: string): Promise<Post | null> {
@@ -182,7 +182,7 @@ export default async function BlogPostPage({
                 <div className="mt-16 p-8 bg-gradient-to-br from-primary/5 via-background to-primary/10 border border-primary/20 rounded-2xl text-center">
                   <h3 className="text-xl font-semibold mb-4">Ready to Build Your High-Converting Website?</h3>
                   <p className="text-muted-foreground mb-6">
-                    Let's discuss how we can help transform your online presence with conversion-focused design.
+                    Let&apos;s discuss how we can help transform your online presence with conversion-focused design.
                   </p>
                   <Button 
                     variant="default"

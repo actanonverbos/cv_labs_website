@@ -4,6 +4,7 @@ import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { urlFor } from '@/sanity/lib/image'
+import { type PortableTextBlock } from '@portabletext/react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -20,7 +21,7 @@ type Post = {
   }
   categories: string[]
   author: string
-  body: any[]
+  body: PortableTextBlock[]
 }
 
 async function getPosts(): Promise<Post[]> {
@@ -78,7 +79,7 @@ export default async function BlogPage() {
                   <div className="max-w-md mx-auto">
                     <h2 className="text-2xl font-semibold mb-4">Coming Soon</h2>
                     <p className="text-muted-foreground">
-                      We're working on some great content for you. Check back soon for our latest insights and tips!
+                      We&apos;re working on some great content for you. Check back soon for our latest insights and tips!
                     </p>
                   </div>
                 </ScrollReveal>

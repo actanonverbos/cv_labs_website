@@ -38,7 +38,7 @@ export function ProcessSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {processSteps.map((step, index) => (
             <div key={step.number} className="relative">
               <Card className="p-8 bg-card border border-border rounded-2xl h-full">

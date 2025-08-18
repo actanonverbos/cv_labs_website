@@ -35,7 +35,7 @@ export function CTASection() {
           </div>
 
           <div className="mt-8 pt-8 border-t border-border">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
               <div>
                 <div className="text-2xl font-bold text-primary mb-1">2-3 weeks</div>
                 <div className="text-sm text-muted-foreground">Average delivery</div>
