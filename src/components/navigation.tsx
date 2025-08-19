@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Menu } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -230,13 +230,40 @@ export function Navigation() {
             <ThemeToggle />
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden">
-                  <Menu className="h-5 w-5" />
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="md:hidden relative z-50 p-2 hover:bg-accent hover:text-accent-foreground"
+                  aria-label="Open navigation menu"
+                >
+                  <Menu className="h-6 w-6 text-foreground" />
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80">
-                <div className="flex flex-col space-y-2 mt-8">
+              <SheetContent 
+                side="right" 
+                className="px-0 py-0 !bg-background [&>button]:hidden sm:max-w-[320px]"
+                style={{ 
+                  backgroundColor: 'hsl(var(--background))', 
+                  opacity: '1 !important',
+                  backdropFilter: 'none'
+                }}
+              >
+                {/* Custom header with aligned close button */}
+                <div className="flex items-center justify-between px-6 py-4 border-b border-border/30">
+                  <span className="font-medium text-lg">Menu</span>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="h-10 w-10 p-2 hover:bg-accent hover:text-accent-foreground"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <X className="h-6 w-6 text-foreground" />
+                    <span className="sr-only">Close menu</span>
+                  </Button>
+                </div>
+                
+                <div className="flex flex-col space-y-4 px-6 py-6">
                   {navItems.map((item) => {
                     const isActive = activeSection === item.sectionId
                     return (
@@ -269,7 +296,7 @@ export function Navigation() {
                       </Link>
                     )
                   })}
-                  <div className="pt-4 border-t border-border space-y-3">
+                  <div className="pt-6 mt-6 border-t border-border/30 space-y-4">
                     <Button 
                       asChild 
                       variant="frosted"
