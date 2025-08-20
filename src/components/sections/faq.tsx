@@ -49,6 +49,7 @@ export function FAQSection() {
           <h2 className="text-2xl md:text-3xl font-bold mb-2">
             Got Questions? We&apos;ve Got Answers
           </h2>
+
         </div>
 
         <div className="mx-auto">
@@ -65,24 +66,10 @@ export function FAQSection() {
                 value={`item-${index}`}
                 className="border-0 bg-card rounded-2xl overflow-hidden"
               >
-                <AccordionTrigger className="text-left py-6 px-6 hover:no-underline hover:bg-muted/10 transition-all duration-200 ease-in-out [&>svg]:hidden">
-                  <div className="flex items-center justify-between w-full">
-                    <span className="text-lg font-medium text-foreground">
-                      {faq.question}
-                    </span>
-                    <div className="ml-4 flex-shrink-0">
-                      <svg 
-                        className={`w-5 h-5 text-muted-foreground transition-transform duration-300 ease-out ${
-                          openItem === `item-${index}` ? 'rotate-90' : 'rotate-0'
-                        }`} 
-                        fill="none" 
-                        stroke="currentColor" 
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </div>
-                  </div>
+                <AccordionTrigger className="text-left py-6 px-6 hover:no-underline hover:bg-muted/10 transition-all duration-200 ease-in-out">
+                  <span className="text-lg font-medium text-foreground">
+                    {faq.question}
+                  </span>
                 </AccordionTrigger>
                 <AccordionContent className="px-6 pb-6 pt-0">
                   <p className="text-base text-muted-foreground leading-relaxed">

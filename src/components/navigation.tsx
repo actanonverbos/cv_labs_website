@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -242,28 +242,14 @@ export function Navigation() {
               </SheetTrigger>
               <SheetContent 
                 side="right" 
-                className="px-0 py-0 !bg-background [&>button]:hidden sm:max-w-[320px]"
-                style={{ 
-                  backgroundColor: 'hsl(var(--background))', 
-                  opacity: '1 !important',
-                  backdropFilter: 'none'
-                }}
+                className="bg-card border-border shadow-xl"
               >
-                {/* Custom header with aligned close button */}
-                <div className="flex items-center justify-between px-6 py-4 border-b border-border/30">
+                {/* Custom header with title */}
+                <div className="flex items-center justify-between p-6 pt-4 border-b border-border/30">
                   <span className="font-medium text-lg">Menu</span>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="h-10 w-10 p-2 hover:bg-accent hover:text-accent-foreground"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <X className="h-6 w-6 text-foreground" />
-                    <span className="sr-only">Close menu</span>
-                  </Button>
                 </div>
                 
-                <div className="flex flex-col space-y-4 px-6 py-6">
+                <div className="flex flex-col space-y-4 p-6">
                   {navItems.map((item) => {
                     const isActive = activeSection === item.sectionId
                     return (

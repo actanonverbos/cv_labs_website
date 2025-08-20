@@ -65,6 +65,7 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-y: scroll; /* Force scrollbar to always be visible */
   }
 
   body {
@@ -169,28 +170,7 @@
   }
 }
 
-/* Accordion animations */
-@keyframes accordion-down {
-  from {
-    height: 0;
-    opacity: 0;
-  }
-  to {
-    height: var(--radix-accordion-content-height);
-    opacity: 1;
-  }
-}
 
-@keyframes accordion-up {
-  from {
-    height: var(--radix-accordion-content-height);
-    opacity: 1;
-  }
-  to {
-    height: 0;
-    opacity: 0;
-  }
-}
 
 /* Custom Tailwind utilities */
 @layer utilities {
@@ -202,13 +182,7 @@
     letter-spacing: 0.025em;
   }
 
-  .animate-accordion-down {
-    animation: accordion-down 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
 
-  .animate-accordion-up {
-    animation: accordion-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
 
   .animate-radar-ping {
     animation: radar-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
@@ -236,3 +210,4 @@
     transform: translateX(-50%);
   }
 }
+
