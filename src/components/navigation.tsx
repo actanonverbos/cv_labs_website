@@ -4,7 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { cn } from "@/lib/utils"
 
@@ -242,8 +242,12 @@ export function Navigation() {
               </SheetTrigger>
               <SheetContent 
                 side="right" 
-                className="bg-background border-border"
+                className="bg-white dark:bg-card border-border backdrop-blur-none text-foreground"
               >
+                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                <SheetDescription className="sr-only">
+                  Navigate to different sections of the website
+                </SheetDescription>
                 {/* Custom header with title */}
                 <div className="flex items-center justify-between p-6 pt-4 border-b border-border/30">
                   <span className="font-medium text-lg">Menu</span>
