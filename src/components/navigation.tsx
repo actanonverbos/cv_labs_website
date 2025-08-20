@@ -242,7 +242,7 @@ export function Navigation() {
               </SheetTrigger>
               <SheetContent 
                 side="right" 
-                className="bg-card border-border shadow-xl"
+                className="bg-background border-border"
               >
                 {/* Custom header with title */}
                 <div className="flex items-center justify-between p-6 pt-4 border-b border-border/30">
