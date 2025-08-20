@@ -52,11 +52,11 @@ export function Carousel({
   return (
     <div className={cn("relative w-full", className)}>
       {/* Carousel Container */}
-      <div className="relative h-[700px] overflow-hidden">
+      <div className="relative h-[400px] overflow-hidden">
         <motion.div
           className="flex h-full"
           animate={{
-            x: `-${currentIndex * (100/3)}%`
+            x: `-${currentIndex * 100}%`
           }}
           transition={{
             type: "spring",
@@ -67,7 +67,7 @@ export function Carousel({
           {items.map((item, index) => (
             <div
               key={item.id}
-              className="w-1/3 h-full flex-shrink-0 flex items-center justify-center px-0.5"
+              className="w-full md:w-1/3 h-full flex-shrink-0 flex items-center justify-center px-0.5"
             >
               <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-lg">
                 <img
@@ -86,7 +86,7 @@ export function Carousel({
       </div>
 
       {/* Indicators */}
-      <div className="flex justify-center mt-4 gap-2">
+      <div className="flex justify-center mt-2 gap-2">
         {items.map((_, index) => (
           <button
             key={index}

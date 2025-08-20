@@ -108,7 +108,7 @@ export function HeroSection() {
   }, [bookButtonRef, viewButtonRef, badgeRef])
 
   return (
-    <section id="top" className="py-20 md:py-28 bg-background">
+    <section id="top" className="pt-20 md:pt-28 pb-8 bg-background">
       <div className="container">
         <div className="max-w-4xl mx-auto text-center">
           {/* Eyebrow pill */}
@@ -116,7 +116,7 @@ export function HeroSection() {
             <div className="flex justify-center mb-6">
               <Badge 
                 variant="secondary" 
-                className="rounded-md px-4 py-2 text-sm font-medium backdrop-blur-sm transition-all duration-200 eyebrow inline-flex items-center gap-2"
+                className="rounded-full px-4 py-2 text-sm font-medium backdrop-blur-sm transition-all duration-200 eyebrow inline-flex items-center gap-2"
                 style={{
                   backgroundColor: 'var(--badge-bg, rgba(0, 0, 0, 0.1))',
                   color: 'var(--badge-text, #020817)',
@@ -154,7 +154,7 @@ export function HeroSection() {
 
           {/* Main headline */}
           <ScrollReveal delay={0.2}>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-balance leading-tight tracking-tight">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-balance leading-tight tracking-tight">
               High-Converting Landing Pages That{" "}
               <span className="text-primary">Drive Results</span>
             </h1>
@@ -230,7 +230,7 @@ export function HeroSection() {
       
       {/* Portfolio Carousel - Full Width */}
       <ScrollReveal delay={0.5}>
-        <div className="relative w-full -mt-20">
+        <div className="relative w-full mt-8">
           <Carousel 
             items={portfolioItems}
             autoScrollInterval={5000}
