@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -73,8 +73,9 @@
   body {
     background: hsl(var(--background));
     color: hsl(var(--foreground));
-    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
     font-weight: 400;
+    font-size: 16px;
     line-height: 1.6;
   }
 
@@ -124,7 +125,7 @@
   }
 
   p {
-    font-size: 1rem;
+    font-size: 16px;
     line-height: 1.7;
     font-weight: 400;
   }
@@ -137,12 +138,12 @@
   .label {
     font-size: 0.875rem;
     font-weight: 500;
-    font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   }
 
-  /* Eyebrow/Badge styles using IBM Plex Mono */
+  /* Eyebrow/Badge styles using Geist */
   .eyebrow {
-    font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
     font-weight: 500;
     letter-spacing: 0.025em;
   }

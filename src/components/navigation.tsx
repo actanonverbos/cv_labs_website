@@ -5,15 +5,15 @@ import Link from "next/link"
 import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet"
-import { ThemeToggle } from "@/components/theme-toggle"
+
 import { cn } from "@/lib/utils"
 
 const navItems = [
-  { name: "Work", href: "/#work", sectionId: "work" },
+  { name: "Work", href: "/#hero", sectionId: "hero" },
   { name: "Process", href: "/#process", sectionId: "process" },
   { name: "Pricing", href: "/#pricing", sectionId: "pricing" },
-  { name: "Blog", href: "/blog", sectionId: "blog" },
   { name: "FAQ", href: "/#faq", sectionId: "faq" },
+  { name: "Blog", href: "/blog", sectionId: "blog" },
 ]
 
 export function Navigation() {
@@ -75,54 +75,37 @@ export function Navigation() {
     }
   }, [])
 
-  // Set up mutation observer to watch for theme changes
+  // Set up initial dark mode styles (site is always dark)
   React.useEffect(() => {
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          const isDark = document.documentElement.classList.contains('dark')
-          
-          // Update Get Started buttons
-          if (getStartedButtonRef) {
-            getStartedButtonRef.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
-            getStartedButtonRef.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
-          }
-          
-          if (mobileGetStartedButtonRef) {
-            mobileGetStartedButtonRef.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
-            mobileGetStartedButtonRef.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
-          }
-          
-          // Update active navigation items
-          activeNavRefs.current.forEach((element) => {
-            element.style.setProperty('--nav-bg', isDark ? '#ffffff' : '#000000')
-            element.style.setProperty('--nav-text', isDark ? '#000000' : '#ffffff')
-          })
-        }
-      })
-    })
+    // Update Get Started buttons for dark mode
+    if (getStartedButtonRef) {
+      getStartedButtonRef.style.setProperty('--button-bg', '#ffffff')
+      getStartedButtonRef.style.setProperty('--button-text', '#000000')
+    }
     
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    })
+    if (mobileGetStartedButtonRef) {
+      mobileGetStartedButtonRef.style.setProperty('--button-bg', '#ffffff')
+      mobileGetStartedButtonRef.style.setProperty('--button-text', '#000000')
+    }
     
-    return () => observer.disconnect()
+    // Update active navigation items for dark mode
+    activeNavRefs.current.forEach((element) => {
+      element.style.setProperty('--nav-bg', '#ffffff')
+      element.style.setProperty('--nav-text', '#000000')
+    })
   }, [getStartedButtonRef, mobileGetStartedButtonRef])
 
-  // Helper function to set nav colors
+  // Helper function to set nav colors (always dark mode)
   const setNavColors = React.useCallback((el: HTMLElement) => {
-    const isDark = document.documentElement.classList.contains('dark')
-    el.style.setProperty('--nav-bg', isDark ? '#ffffff' : '#000000')
-    el.style.setProperty('--nav-text', isDark ? '#000000' : '#ffffff')
+    el.style.setProperty('--nav-bg', '#ffffff')
+    el.style.setProperty('--nav-text', '#000000')
   }, [])
 
-  // Helper function to set hover colors
+  // Helper function to set hover colors (always dark mode)
   const setHoverColors = React.useCallback((el: HTMLElement, isHovering: boolean) => {
-    const isDark = document.documentElement.classList.contains('dark')
     if (isHovering) {
-      el.style.setProperty('--nav-hover-bg', isDark ? '#ffffff' : '#000000')
-      el.style.setProperty('--nav-hover-text', isDark ? '#000000' : '#ffffff')
+      el.style.setProperty('--nav-hover-bg', '#ffffff')
+      el.style.setProperty('--nav-hover-text', '#000000')
       el.style.backgroundColor = 'var(--nav-hover-bg)'
       el.style.color = 'var(--nav-hover-text)'
     } else {
@@ -135,10 +118,9 @@ export function Navigation() {
     if (el && el !== getStartedButtonRef) {
       setGetStartedButtonRef(el)
       
-      // Set initial colors
-      const isDark = document.documentElement.classList.contains('dark')
-      el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
-      el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+      // Set initial colors for dark mode
+      el.style.setProperty('--button-bg', '#ffffff')
+      el.style.setProperty('--button-text', '#000000')
     }
   }, [getStartedButtonRef])
 
@@ -146,17 +128,16 @@ export function Navigation() {
     if (el && el !== mobileGetStartedButtonRef) {
       setMobileGetStartedButtonRef(el)
       
-      // Set initial colors
-      const isDark = document.documentElement.classList.contains('dark')
-      el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
-      el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+      // Set initial colors for dark mode
+      el.style.setProperty('--button-bg', '#ffffff')
+      el.style.setProperty('--button-text', '#000000')
     }
   }, [mobileGetStartedButtonRef])
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md">
       <div className="container">
-        <div className="grid grid-cols-3 h-16 items-center">
+        <div className="grid grid-cols-3 h-12 md:h-14 items-center">
           {/* Logo - Left */}
           <div className="flex justify-start">
             <Link href="/" className="flex items-center">
@@ -222,12 +203,10 @@ export function Navigation() {
             >
               <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">Get Started</Link>
             </Button>
-            <ThemeToggle />
           </div>
 
           {/* Mobile Navigation */}
-          <div className="flex md:hidden items-center justify-end space-x-2 col-span-2">
-            <ThemeToggle />
+          <div className="flex md:hidden items-center justify-end col-span-2">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
                 <Button 

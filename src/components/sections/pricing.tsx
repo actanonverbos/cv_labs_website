@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import Link from "next/link"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -50,6 +51,38 @@ const pricingTiers = [
 ]
 
 export function PricingSection() {
+  const [bookButtonRef, setBookButtonRef] = React.useState<HTMLElement | null>(null)
+  const [telegramButtonRef, setTelegramButtonRef] = React.useState<HTMLElement | null>(null)
+  
+  React.useEffect(() => {
+    // Set up mutation observer to watch for theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          const isDark = document.documentElement.classList.contains('dark')
+          
+          // Update button colors when theme changes
+          if (bookButtonRef) {
+            bookButtonRef.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+            bookButtonRef.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+          }
+          
+          if (telegramButtonRef) {
+            telegramButtonRef.style.setProperty('--button-bg', isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')
+            telegramButtonRef.style.setProperty('--button-text', isDark ? '#ffffff' : '#020817')
+            telegramButtonRef.style.setProperty('--button-border', isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)')
+          }
+        }
+      })
+    })
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+    
+    return () => observer.disconnect()
+  }, [bookButtonRef, telegramButtonRef])
 
   return (
     <section id="pricing" className="py-16 md:py-20 bg-background">
@@ -111,25 +144,57 @@ export function PricingSection() {
             Want to move forward or have a few questions first? We&apos;re just one click away.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
-              size="lg"
+              variant="ghost"
+              className="px-6 py-3 text-base font-medium rounded-lg border-0"
               asChild
+              style={{
+                backgroundColor: 'var(--button-bg, #000000)',
+                color: 'var(--button-text, #ffffff)',
+              }}
+              ref={(el) => {
+                if (el) {
+                  setBookButtonRef(el)
+                  
+                  // Set CSS custom properties based on theme
+                  const isDark = document.documentElement.classList.contains('dark')
+                  el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+                  el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+                }
+              }}
             >
               <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">
-                Book a call
-                <ArrowRight className="w-4 h-4" />
+                Book an Intro Call
               </Link>
             </Button>
             
             <Button 
-              variant="outline"
-              size="lg"
+              variant="ghost"
+              className="px-6 py-3 text-base font-medium rounded-lg backdrop-blur-sm"
               asChild
+              style={{
+                backgroundColor: 'var(--button-bg, rgba(0, 0, 0, 0.1))',
+                color: 'var(--button-text, #020817)',
+                borderColor: 'var(--button-border, rgba(0, 0, 0, 0.2))',
+                borderWidth: '1px',
+                borderStyle: 'solid'
+              }}
+              ref={(el) => {
+                if (el) {
+                  setTelegramButtonRef(el)
+                  
+                  // Set initial colors
+                  const isDark = document.documentElement.classList.contains('dark')
+                  el.style.setProperty('--button-bg', isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')
+                  el.style.setProperty('--button-text', isDark ? '#ffffff' : '#020817')
+                  el.style.setProperty('--button-border', isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)')
+                }
+              }}
             >
-              <Link href="#" target="_blank" rel="noopener noreferrer">
-                Telegram
-                <Send className="w-4 h-4" />
+              <Link href="/#work">
+                View Projects
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </div>

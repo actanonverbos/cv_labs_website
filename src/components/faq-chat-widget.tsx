@@ -452,7 +452,7 @@ export function FAQChatWidget() {
           <Button
             onClick={handleToggle}
             size="lg"
-            className="w-14 h-14 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-2xl border-2 border-primary-foreground/10 hover:shadow-primary/25 hover:border-primary-foreground/20 transition-all duration-300 hover:scale-105 relative z-10"
+            className="w-14 h-14 rounded-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-200 dark:border-gray-700 hover:bg-white dark:hover:bg-gray-900 text-gray-900 dark:text-white shadow-2xl hover:shadow-xl transition-all duration-300 hover:scale-105 relative z-10"
           >
             {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
           </Button>

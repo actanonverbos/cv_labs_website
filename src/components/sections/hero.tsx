@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { ScrollReveal } from "@/components/scroll-reveal"
-import { Carousel } from "@/components/ui/carousel"
+
 
 // Portfolio images from the public/portfolio directory
 const portfolioImages = [
@@ -29,41 +29,7 @@ const portfolioImages = [
   "waitpro.avif"
 ]
 
-// Generate portfolio items from images
-const portfolioItems = portfolioImages.map((imageName, index) => {
-  // Clean up the image name to create a title
-  const title = imageName
-    .replace(/\.(avif|png|webp|jpg|jpeg)$/i, '') // Remove extension
-    .split(/[\s\-_]+/) // Split on spaces, hyphens, underscores
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Title case
-    .join(' ')
-    .replace(/^\d+\s*/, '') // Remove leading numbers
-    .trim()
 
-  // Generate some variety in stats and descriptions
-  const stats = ["+340% conversions", "+220% sign-ups", "+180% sales", "+290% leads", "+410% enrollments", "+260% registrations", "+320% orders", "+250% listings", "+380% users", "+290% bookings", "+150% engagement", "+200% retention"]
-  const descriptions = [
-    "Modern web application with conversion-focused design",
-    "User-friendly interface optimizing customer experience", 
-    "Responsive platform built for maximum engagement",
-    "Professional landing page driving business results",
-    "Interactive web solution with seamless user flow",
-    "Custom-designed platform for optimal performance",
-    "Conversion-optimized design with modern aesthetics",
-    "Strategic web presence boosting brand visibility",
-    "Intuitive interface designed for user satisfaction",
-    "Performance-driven website maximizing conversions"
-  ]
-
-  return {
-    id: (index + 1).toString(),
-    title: title || `Portfolio Project ${index + 1}`,
-    description: descriptions[index % descriptions.length],
-    image: `/portfolio/${imageName}`,
-    stat: stats[index % stats.length],
-    tags: ["Web Design", "UI/UX", "Development"]
-  }
-})
 
 export function HeroSection() {
   const [bookButtonRef, setBookButtonRef] = React.useState<HTMLElement | null>(null)
@@ -108,7 +74,7 @@ export function HeroSection() {
   }, [bookButtonRef, viewButtonRef, badgeRef])
 
   return (
-    <section id="top" className="pt-20 md:pt-28 pb-8 bg-background">
+    <section id="hero" className="pt-16 md:pt-24 pb-8 bg-background">
       <div className="container">
         <div className="max-w-4xl mx-auto text-center">
           {/* Eyebrow pill */}
@@ -162,7 +128,7 @@ export function HeroSection() {
 
           {/* Subheadline */}
           <ScrollReveal delay={0.3}>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-balance leading-relaxed font-medium">
+            <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-2xl mx-auto text-balance leading-relaxed font-normal">
               Get a conversion-optimized landing page that turns visitors into customers. 
               Fast launches, revenue-first UX, and performance-focused design.
             </p>
@@ -228,17 +194,24 @@ export function HeroSection() {
         </div>
       </div>
       
-      {/* Portfolio Carousel - Full Width */}
+      {/* Portfolio Images - Single Column */}
       <ScrollReveal delay={0.5}>
-        <div className="relative w-full mt-8">
-          <Carousel 
-            items={portfolioItems}
-            autoScrollInterval={5000}
-            className="w-full"
-          />
-          
-          {/* Background glow */}
-          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-primary/10 via-transparent to-primary/10 blur-3xl"></div>
+        <div className="container">
+          <div className="max-w-4xl mx-auto space-y-6 mt-8">
+            {portfolioImages.map((imageName, index) => (
+              <div
+                key={imageName}
+                className="aspect-video rounded-xl overflow-hidden bg-muted/50 shadow-lg"
+              >
+                <img
+                  src={`/portfolio/${imageName}`}
+                  alt={`Portfolio project ${index + 1}`}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </ScrollReveal>
     </section>
