@@ -8,6 +8,62 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { ScrollReveal } from "@/components/scroll-reveal"
+import { Carousel } from "@/components/ui/carousel"
+
+// Portfolio images from the public/portfolio directory
+const portfolioImages = [
+  "1.avif",
+  "4.avif", 
+  "chat with ai miggles.avif",
+  "Electra hero.png",
+  "electra website.avif",
+  "gold market pro live analysis cards.png",
+  "land rover concept.avif",
+  "lina link in bio.avif",
+  "miggles meme generator.avif",
+  "newsletter.png",
+  "newsletter.webp",
+  "ski mask dog.avif",
+  "T9FMGI2dngpBtJQH5Xeiqx7x8ZQ.avif",
+  "vibes codes.avif",
+  "waitpro.avif"
+]
+
+// Generate portfolio items from images
+const portfolioItems = portfolioImages.map((imageName, index) => {
+  // Clean up the image name to create a title
+  const title = imageName
+    .replace(/\.(avif|png|webp|jpg|jpeg)$/i, '') // Remove extension
+    .split(/[\s\-_]+/) // Split on spaces, hyphens, underscores
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Title case
+    .join(' ')
+    .replace(/^\d+\s*/, '') // Remove leading numbers
+    .trim()
+
+  // Generate some variety in stats and descriptions
+  const stats = ["+340% conversions", "+220% sign-ups", "+180% sales", "+290% leads", "+410% enrollments", "+260% registrations", "+320% orders", "+250% listings", "+380% users", "+290% bookings", "+150% engagement", "+200% retention"]
+  const descriptions = [
+    "Modern web application with conversion-focused design",
+    "User-friendly interface optimizing customer experience", 
+    "Responsive platform built for maximum engagement",
+    "Professional landing page driving business results",
+    "Interactive web solution with seamless user flow",
+    "Custom-designed platform for optimal performance",
+    "Conversion-optimized design with modern aesthetics",
+    "Strategic web presence boosting brand visibility",
+    "Intuitive interface designed for user satisfaction",
+    "Performance-driven website maximizing conversions"
+  ]
+
+  return {
+    id: (index + 1).toString(),
+    title: title || `Portfolio Project ${index + 1}`,
+    description: descriptions[index % descriptions.length],
+    image: `/portfolio/${imageName}`,
+    stat: stats[index % stats.length],
+    tags: ["Web Design", "UI/UX", "Development"]
+  }
+})
 
 export function HeroSection() {
   const [bookButtonRef, setBookButtonRef] = React.useState<HTMLElement | null>(null)
@@ -169,42 +225,23 @@ export function HeroSection() {
             </div>
           </ScrollReveal>
 
-          {/* Preview Screenshot */}
-          <ScrollReveal delay={0.5}>
-            <div className="relative max-w-5xl mx-auto">
-              <Card className="p-2 bg-card/50 backdrop-blur border border-border shadow-2xl rounded-3xl overflow-hidden">
-              <div className="relative aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background rounded-2xl overflow-hidden">
-                {/* Placeholder for screenshot - will be replaced with actual image */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center space-y-4">
-                    <div className="w-24 h-24 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
-                        <span className="text-primary-foreground font-bold text-xl">CV</span>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="h-4 bg-primary/20 rounded-full max-w-xs mx-auto"></div>
-                      <div className="h-3 bg-primary/10 rounded-full max-w-sm mx-auto"></div>
-                      <div className="h-3 bg-primary/10 rounded-full max-w-md mx-auto"></div>
-                    </div>
-                    <div className="flex gap-2 justify-center">
-                      <div className="h-8 w-20 bg-primary/30 rounded-full"></div>
-                      <div className="h-8 w-24 bg-primary/20 rounded-full"></div>
-                    </div>
-                  </div>
-                </div>
-                
-                  {/* Glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent"></div>
-                </div>
-                </Card>
-              
-              {/* Background glow */}
-              <div className="absolute inset-0 -z-10 bg-gradient-to-r from-primary/10 via-transparent to-primary/10 blur-3xl"></div>
-            </div>
-          </ScrollReveal>
         </div>
       </div>
+      
+      {/* Portfolio Carousel - Full Width */}
+      <ScrollReveal delay={0.5}>
+        <div className="relative w-full -mt-20">
+          <Carousel 
+            items={portfolioItems}
+            autoScrollInterval={5000}
+            className="w-full"
+          />
+          
+          {/* Background glow */}
+          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-primary/10 via-transparent to-primary/10 blur-3xl"></div>
+        </div>
+      </ScrollReveal>
     </section>
   )
 }
+
