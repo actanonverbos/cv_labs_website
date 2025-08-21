@@ -199,6 +199,108 @@ export default async function BlogPostPage({
             </div>
           </div>
         </section>
+
+        {/* Related Blog Posts */}
+        <section className="py-20 bg-muted/5">
+          <div className="container">
+            <div className="max-w-6xl mx-auto">
+              <ScrollReveal delay={0.1}>
+                <div className="text-center mb-12">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Related Articles</h2>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">
+                    Discover more insights and strategies to grow your business
+                  </p>
+                </div>
+              </ScrollReveal>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* Blog Post 1 */}
+                <ScrollReveal delay={0.2}>
+                  <Link href="/blog/getting-started" className="group">
+                    <div className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                      <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-center space-y-3">
+                            <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
+                              <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
+                                <span className="text-primary-foreground font-bold text-sm">CV</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-6">
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="text-xs bg-primary/10 text-primary px-2 py-1 rounded font-semibold">Design</div>
+                        </div>
+                        <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">Getting Started with High-Converting Landing Pages</h3>
+                        <div className="text-sm text-muted-foreground">
+                          <span>Convert Labs</span> • <span>Dec 15, 2024</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </ScrollReveal>
+
+                {/* Blog Post 2 */}
+                <ScrollReveal delay={0.3}>
+                  <Link href="/blog/design-principles" className="group">
+                    <div className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                      <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-center space-y-3">
+                            <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
+                              <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
+                                <span className="text-primary-foreground font-bold text-sm">CV</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-6">
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="text-xs bg-primary/10 text-primary px-2 py-1 rounded font-semibold">Strategy</div>
+                        </div>
+                        <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">5 Design Principles for Better Conversions</h3>
+                        <div className="text-sm text-muted-foreground">
+                          <span>Convert Labs</span> • <span>Dec 10, 2024</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </ScrollReveal>
+
+                {/* Blog Post 3 */}
+                <ScrollReveal delay={0.4}>
+                  <Link href="/blog/optimization-tips" className="group">
+                    <div className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                      <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-center space-y-3">
+                            <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
+                              <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
+                                <span className="text-primary-foreground font-bold text-sm">CV</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-6">
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="text-xs bg-primary/10 text-primary px-2 py-1 rounded font-semibold">Tips</div>
+                        </div>
+                        <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">Website Optimization Tips That Actually Work</h3>
+                        <div className="text-sm text-muted-foreground">
+                          <span>Convert Labs</span> • <span>Dec 5, 2024</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </ScrollReveal>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
       <FooterSection />
       <FAQChatWidget />

@@ -172,19 +172,20 @@ export default function BlogPage() {
         {/* Blog Posts Grid */}
         <section className="pt-8 pb-20 md:pt-12 md:pb-28 bg-muted/5">
           <div className="container">
-            {posts.length === 0 ? (
-              <div className="text-center">
-                <ScrollReveal delay={0.1}>
-                  <div className="max-w-md mx-auto">
-                    <h2 className="text-2xl font-semibold mb-4">Coming Soon</h2>
-                    <p className="text-muted-foreground">
-                      We&apos;re working on some great content for you. Check back soon for our latest insights and tips!
-                    </p>
-                  </div>
-                </ScrollReveal>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="max-w-6xl mx-auto">
+              {posts.length === 0 ? (
+                <div className="text-center">
+                  <ScrollReveal delay={0.1}>
+                    <div className="max-w-md mx-auto">
+                      <h2 className="text-2xl font-semibold mb-4">Coming Soon</h2>
+                      <p className="text-muted-foreground">
+                        We&apos;re working on some great content for you. Check back soon for our latest insights and tips!
+                      </p>
+                    </div>
+                  </ScrollReveal>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {posts.map((post, index) => (
                   <ScrollReveal key={post._id} delay={0.1 * (index + 1)}>
                     <Link href={`/blog/${post.slug.current}`}>
@@ -254,8 +255,9 @@ export default function BlogPage() {
                     </Link>
                   </ScrollReveal>
                 ))}
-              </div>
-            )}
+                </div>
+              )}
+            </div>
           </div>
         </section>
       </main>

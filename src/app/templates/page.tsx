@@ -246,9 +246,8 @@ export default function TemplatesPage() {
         {/* Templates Grid */}
         <section id="templates" className="pt-8 pb-20 md:pt-12 md:pb-28 bg-muted/5">
           <div className="container">
-
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {(templates.length > 0 ? templates : fallbackTemplates).map((template, index) => (
                 <ScrollReveal key={template._id || template.title} delay={0.1 * (index + 1)}>
                   <Card className="group overflow-hidden bg-card border border-border rounded-2xl">
@@ -351,9 +350,8 @@ export default function TemplatesPage() {
                   </Card>
                 </ScrollReveal>
               ))}
+              </div>
             </div>
-
-
           </div>
         </section>
       </main>

@@ -258,7 +258,101 @@ export default async function TemplateDetailPage({
           </div>
         </section>
 
+        {/* Related Templates */}
+        <section className="py-20 bg-muted/5">
+          <div className="container">
+            <div className="max-w-6xl mx-auto">
+              <ScrollReveal delay={0.1}>
+                <div className="text-center mb-12">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">More Templates</h2>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">
+                    Discover other high-quality templates to accelerate your next project
+                  </p>
+                </div>
+              </ScrollReveal>
 
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* Template 1 */}
+                <ScrollReveal delay={0.2}>
+                  <Link href="/templates/creatorlink" className="group">
+                    <div className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                      <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-center space-y-3">
+                            <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
+                              <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
+                                <span className="text-primary-foreground font-bold text-sm">CL</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-6">
+                        <div className="flex items-center justify-between mb-3">
+                          <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">CREATORLINK</h3>
+                          <div className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">FREE</div>
+                        </div>
+                        <div className="text-xs text-muted-foreground uppercase mb-2">Link in Bio</div>
+                      </div>
+                    </div>
+                  </Link>
+                </ScrollReveal>
+
+                {/* Template 2 */}
+                <ScrollReveal delay={0.3}>
+                  <Link href="/templates/skillset" className="group">
+                    <div className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                      <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-center space-y-3">
+                            <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
+                              <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
+                                <span className="text-primary-foreground font-bold text-sm">SK</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-6">
+                        <div className="flex items-center justify-between mb-3">
+                          <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">SKILLSET</h3>
+                          <div className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">FREE</div>
+                        </div>
+                        <div className="text-xs text-muted-foreground uppercase mb-2">Landing Page</div>
+                      </div>
+                    </div>
+                  </Link>
+                </ScrollReveal>
+
+                {/* Template 3 */}
+                <ScrollReveal delay={0.4}>
+                  <Link href="/templates/inbox-pulse" className="group">
+                    <div className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                      <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-center space-y-3">
+                            <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
+                              <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
+                                <span className="text-primary-foreground font-bold text-sm">IP</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-6">
+                        <div className="flex items-center justify-between mb-3">
+                          <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">INBOX PULSE</h3>
+                          <div className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">FREE</div>
+                        </div>
+                        <div className="text-xs text-muted-foreground uppercase mb-2">Newsletter</div>
+                      </div>
+                    </div>
+                  </Link>
+                </ScrollReveal>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* CTA */}
         <section className="py-20 bg-background">
