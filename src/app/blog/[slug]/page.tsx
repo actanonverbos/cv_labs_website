@@ -3,6 +3,8 @@ import { Navigation } from '@/components/navigation'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { FooterSection } from '@/components/sections/footer'
+import { FAQChatWidget } from '@/components/faq-chat-widget'
 import { PortableText, type PortableTextBlock } from '@portabletext/react'
 import { urlFor } from '@/sanity/lib/image'
 import Link from 'next/link'
@@ -198,6 +200,8 @@ export default async function BlogPostPage({
           </div>
         </section>
       </main>
+      <FooterSection />
+      <FAQChatWidget />
     </div>
   )
 }

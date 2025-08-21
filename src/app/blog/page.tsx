@@ -6,6 +6,8 @@ import { Navigation } from '@/components/navigation'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { FooterSection } from '@/components/sections/footer'
+import { FAQChatWidget } from '@/components/faq-chat-widget'
 import { urlFor } from '@/sanity/lib/image'
 import { type PortableTextBlock } from '@portabletext/react'
 import Link from 'next/link'
@@ -257,6 +259,8 @@ export default function BlogPage() {
           </div>
         </section>
       </main>
+      <FooterSection />
+      <FAQChatWidget />
     </div>
   )
 }

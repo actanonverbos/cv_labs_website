@@ -214,3 +214,12 @@
   }
 }
 
+/* Ticker hover effects */
+.ticker-container:hover .animate-scroll {
+  animation-duration: 60s; /* 50% slower than the default 30s */
+}
+
+.animate-scroll {
+  transition: animation-duration 0.3s ease;
+}
+

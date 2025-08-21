@@ -8,6 +8,9 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { ScrollReveal } from "@/components/scroll-reveal"
+import { Ticker } from "@/components/ticker"
+import { FooterSection } from "@/components/sections/footer"
+import { FAQChatWidget } from "@/components/faq-chat-widget"
 import { client, TEMPLATES_QUERY } from "@/lib/sanity"
 import { urlFor } from "@/sanity/lib/image"
 import Image from "next/image"
@@ -68,7 +71,7 @@ function TemplatesBadge() {
     <div className="flex justify-center mb-6">
       <Badge 
         variant="secondary" 
-        className="rounded-md px-4 py-2 text-sm font-medium backdrop-blur-sm transition-all duration-200 eyebrow inline-flex items-center gap-2"
+        className="rounded-full px-4 py-2 text-sm font-medium backdrop-blur-sm transition-all duration-200 eyebrow inline-flex items-center gap-2"
         style={{
           backgroundColor: 'var(--badge-bg, rgba(0, 0, 0, 0.1))',
           color: 'var(--badge-text, #020817)',
@@ -111,12 +114,12 @@ const fallbackTemplates = [
     _id: "1",
     title: "INBOX PULSE",
     subtitle: "The Tech Edge You Need, Delivered Weekly",
-    description: "Get the latest tech trends, AI breakthroughs, and industry insights delivered weekly to your inbox.",
+    description: "Say hello to CreatorLink — your new favorite link-in-bio template, built in Framer with a mobile-first design and creators in mind.",
     image: "/api/placeholder/600/400",
     badge: "FREE" as const,
     category: "Newsletter",
     price: 0,
-    features: ["Lightning Fast", "One-Click Import", "Custom Built", "Easy Setup"],
+    features: ["Lightning Fast Setup", "One-Click Import", "Custom Built Components", "Easy Setup Guide"],
     downloadUrl: "https://cal.com/isaac-cullinane/1-1",
     slug: { current: "inbox-pulse" }
   },
@@ -124,66 +127,40 @@ const fallbackTemplates = [
     _id: "2",
     title: "CREATORLINK", 
     subtitle: "Connect Your Audience Everywhere",
-    description: "Beautiful link-in-bio pages that convert visitors into followers and customers.",
+    description: "Say hello to CreatorLink — your new favorite link-in-bio template, built in Framer with a mobile-first design and creators in mind.",
     image: "/api/placeholder/600/400", 
     badge: "FREE" as const,
     category: "Link in Bio",
     price: 0,
-    features: ["Mobile Optimized", "Analytics Ready", "Custom Branding", "Social Integration"],
+    features: ["Mobile Responsive", "Analytics Ready", "Custom Branding", "Social Integration"],
     downloadUrl: "https://cal.com/isaac-cullinane/1-1",
     slug: { current: "creatorlink" }
   },
   {
     _id: "3",
-    title: "PORTFOLIO PRO",
-    subtitle: "Showcase Your Work Professionally", 
-    description: "Modern portfolio templates designed to impress clients and land your dream projects.",
+    title: "WAITPRO",
+    subtitle: "Professional Waitlist Landing Page", 
+    description: "Get Early Access to the most beautiful waitlist template. Perfect for launching your next big idea and building anticipation.",
     image: "/api/placeholder/600/400",
-    badge: "PREMIUM" as const,
-    category: "Portfolio",
-    price: 49,
-    features: ["Responsive Design", "Project Galleries", "Contact Forms", "SEO Optimized"],
+    badge: "FREE" as const,
+    category: "Waitlist",
+    price: 0,
+    features: ["Email Collection", "Social Sharing", "Analytics", "Mobile Optimized"],
     downloadUrl: "https://cal.com/isaac-cullinane/1-1",
-    slug: { current: "portfolio-pro" }
+    slug: { current: "waitpro" }
   },
   {
     _id: "4",
-    title: "STARTUP LAUNCH",
-    subtitle: "Launch Your Startup in Days",
-    description: "Complete startup landing page with pricing, features, and conversion optimization built-in.",
+    title: "SKILLSET",
+    subtitle: "Framer Landing Page Template",
+    description: "Unlock Your Financial Freedom with Framer. Fast Track Leads, Earn Track Record, and Build the Portfolio.",
     image: "/api/placeholder/600/400",
-    badge: "PREMIUM" as const, 
-    category: "Startup",
-    price: 79,
-    features: ["Conversion Focused", "Payment Integration", "A/B Testing", "Analytics"],
+    badge: "FREE" as const, 
+    category: "Landing Page",
+    price: 0,
+    features: ["No Code", "Highly Scalable", "Ready to Use", "Plug and Play Template"],
     downloadUrl: "https://cal.com/isaac-cullinane/1-1",
-    slug: { current: "startup-launch" }
-  },
-  {
-    _id: "5",
-    title: "AGENCY SUITE",
-    subtitle: "Professional Agency Presence",
-    description: "Multi-page agency website with team pages, case studies, and client testimonials.",
-    image: "/api/placeholder/600/400",
-    badge: "PREMIUM" as const,
-    category: "Agency",
-    price: 99,
-    features: ["Multi-page", "Team Profiles", "Case Studies", "Client Portal"],
-    downloadUrl: "https://cal.com/isaac-cullinane/1-1",
-    slug: { current: "agency-suite" }
-  },
-  {
-    _id: "6",
-    title: "E-COMMERCE STARTER",
-    subtitle: "Start Selling Online Today",
-    description: "Complete e-commerce solution with product catalogs, shopping cart, and payment processing.",
-    image: "/api/placeholder/600/400",
-    badge: "PREMIUM" as const,
-    category: "E-commerce",
-    price: 149,
-    features: ["Shopping Cart", "Payment Gateway", "Inventory Management", "Order Tracking"],
-    downloadUrl: "https://cal.com/isaac-cullinane/1-1",
-    slug: { current: "ecommerce-starter" }
+    slug: { current: "skillset" }
   }
 ]
 
@@ -259,140 +236,129 @@ export default function TemplatesPage() {
           </div>
         </section>
 
+        {/* Benefits Ticker */}
+        <div className="container-tight">
+          <ScrollReveal delay={0.4}>
+            <Ticker />
+          </ScrollReveal>
+        </div>
+
         {/* Templates Grid */}
         <section id="templates" className="pt-8 pb-20 md:pt-12 md:pb-28 bg-muted/5">
           <div className="container">
 
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {(templates.length > 0 ? templates : fallbackTemplates).map((template, index) => (
                 <ScrollReveal key={template._id || template.title} delay={0.1 * (index + 1)}>
                   <Card className="group overflow-hidden bg-card border border-border rounded-2xl">
                     {/* Template Preview */}
                     {'previewImage' in template && template.previewImage ? (
-                      <div className="aspect-video relative overflow-hidden">
-                        <Image
-                          src={urlFor(template.previewImage).width(600).height(400).url()}
-                          alt={template.previewImage.alt || template.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                        {/* Overlay on hover */}
-                        <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                          <Button variant="secondary" size="sm" className="hover-scale">
-                            <ExternalLink className="w-4 h-4 mr-2" />
-                            View Template
-                          </Button>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-center space-y-3">
-                            <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
-                              <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
-                                <span className="text-primary-foreground font-bold text-sm">{template.title.slice(0, 2)}</span>
-                              </div>
-                            </div>
-                            <div className="space-y-2">
-                              <div className="h-2 bg-primary/20 rounded-full w-32 mx-auto"></div>
-                              <div className="h-2 bg-primary/10 rounded-full w-24 mx-auto"></div>
-                            </div>
+                      <Link href={template.slug?.current ? `/templates/${template.slug.current}` : template.downloadUrl || "https://cal.com/isaac-cullinane/1-1"} className="block">
+                        <div className="aspect-video relative overflow-hidden">
+                          <Image
+                            src={urlFor(template.previewImage).width(600).height(400).url()}
+                            alt={template.previewImage.alt || template.title}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                          {/* Overlay on hover */}
+                          <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <Button variant="secondary" size="sm" className="hover-scale pointer-events-none">
+                              <ExternalLink className="w-4 h-4 mr-2" />
+                              View Template
+                            </Button>
                           </div>
                         </div>
-                        
-                        {/* Overlay on hover */}
-                        <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                          <Button variant="secondary" size="sm" className="hover-scale">
-                            <ExternalLink className="w-4 h-4 mr-2" />
-                            View Template
-                          </Button>
+                      </Link>
+                    ) : (
+                      <Link href={template.slug?.current ? `/templates/${template.slug.current}` : template.downloadUrl || "https://cal.com/isaac-cullinane/1-1"} className="block">
+                        <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="text-center space-y-3">
+                              <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
+                                <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
+                                  <span className="text-primary-foreground font-bold text-sm">{template.title.slice(0, 2)}</span>
+                                </div>
+                              </div>
+                              <div className="space-y-2">
+                                <div className="h-2 bg-primary/20 rounded-full w-32 mx-auto"></div>
+                                <div className="h-2 bg-primary/10 rounded-full w-24 mx-auto"></div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          {/* Overlay on hover */}
+                          <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <Button variant="secondary" size="sm" className="hover-scale pointer-events-none">
+                              <ExternalLink className="w-4 h-4 mr-2" />
+                              View Template
+                            </Button>
+                          </div>
                         </div>
-                      </div>
+                      </Link>
                     )}
 
                     <div className="p-6">
-                      <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-start justify-between mb-4">
+                        {/* Title */}
+                        <h3 className="text-xl font-bold leading-tight">
+                          {template.title}
+                        </h3>
+                        
                         {/* Badge */}
                         <Badge 
                           variant="secondary"
-                          className={`font-semibold ${
+                          className={`font-semibold text-xs px-2 py-1 ml-3 flex-shrink-0 ${
                             template.badge === "FREE" 
                               ? "bg-green-100 text-green-700 border-green-200" 
-                              : "bg-primary/10 text-primary border-primary/20"
+                              : "bg-orange-100 text-orange-700 border-orange-200"
                           }`}
                         >
                           {template.badge}
                         </Badge>
-
-                        {/* Price */}
-                        <div className="text-lg font-bold">
-                          {'price' in template && template.price !== undefined 
-                            ? (template.price === 0 ? 'Free' : `$${template.price}`)
-                            : 'Free'
-                          }
-                        </div>
                       </div>
 
-                      {/* Title and description */}
-                      <h3 className="text-xl font-semibold mb-3">
-                        {template.title}
-                      </h3>
-                      <p className="text-base text-muted-foreground mb-4 leading-relaxed">
-                        {template.description}
-                      </p>
+                      {/* Category */}
+                      <Badge variant="outline" className="text-xs px-2 py-1 mb-6 uppercase font-medium">
+                        {template.category}
+                      </Badge>
 
-                      {/* Features */}
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {template.features.slice(0, 3).map((feature) => (
-                          <Badge 
-                            key={feature}
-                            variant="outline"
-                            className="text-xs border-border hover:bg-primary/5"
-                          >
-                            {feature}
-                          </Badge>
-                        ))}
-                        {template.features.length > 3 && (
-                          <Badge variant="outline" className="text-xs">
-                            +{template.features.length - 3} more
-                          </Badge>
-                        )}
+                      {/* CTA Buttons */}
+                      <div className="space-y-2">
+                        <Button 
+                          className="w-full px-4 py-2.5 text-sm font-semibold bg-white text-black hover:bg-gray-100 rounded-lg border-0"
+                          asChild
+                        >
+                          <Link href={template.slug?.current ? `/templates/${template.slug.current}` : template.downloadUrl || "https://cal.com/isaac-cullinane/1-1"}>
+                            {template.price === 0 ? 'Instant Access - $0' : `Access Template - $${template.price}`}
+                            <span className="ml-2">→</span>
+                          </Link>
+                        </Button>
+                        
+                        <Button 
+                          variant="outline"
+                          className="w-full px-4 py-2.5 text-sm font-semibold rounded-lg"
+                          asChild
+                        >
+                          <Link href={template.slug?.current ? `/templates/${template.slug.current}` : template.downloadUrl || "https://cal.com/isaac-cullinane/1-1"}>
+                            Preview
+                            <span className="ml-2">→</span>
+                          </Link>
+                        </Button>
                       </div>
-
-                      {/* CTA Button */}
-                      <Button 
-                        className="w-full px-4 py-2 text-sm font-medium bg-white text-black hover:bg-gray-100 rounded-lg border-0"
-                        asChild
-                      >
-                        <Link href={template.slug?.current ? `/templates/${template.slug.current}` : template.downloadUrl || "https://cal.com/isaac-cullinane/1-1"}>
-                          View Template
-                        </Link>
-                      </Button>
                     </div>
                   </Card>
                 </ScrollReveal>
               ))}
             </div>
 
-            {/* CTA to get started */}
-            <div className="text-center mt-16">
-              <ScrollReveal delay={0.6}>
-                <Button 
-                  variant="frosted"
-                  className="px-6 py-3 text-base font-medium rounded-lg"
-                  asChild
-                >
-                  <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">
-                    Ready to Get Started?
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Link>
-                </Button>
-              </ScrollReveal>
-            </div>
+
           </div>
         </section>
       </main>
+      <FooterSection />
+      <FAQChatWidget />
     </div>
   )
 }
