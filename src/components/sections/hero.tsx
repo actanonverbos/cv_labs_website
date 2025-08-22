@@ -2,12 +2,18 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Star } from "lucide-react"
+import * as Avatar from "@radix-ui/react-avatar"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { ScrollReveal } from "@/components/scroll-reveal"
+
+// Extend HTMLElement to include cleanup function
+interface HTMLElementWithCleanup extends HTMLElement {
+  _cleanup?: () => void
+}
 
 
 // Portfolio images from the public/portfolio directory
@@ -32,8 +38,8 @@ const portfolioImages = [
 
 
 export function HeroSection() {
-  const [bookButtonRef, setBookButtonRef] = React.useState<HTMLElement | null>(null)
-  const [viewButtonRef, setViewButtonRef] = React.useState<HTMLElement | null>(null)
+  const [bookButtonRef, setBookButtonRef] = React.useState<HTMLElementWithCleanup | null>(null)
+  const [viewButtonRef, setViewButtonRef] = React.useState<HTMLElementWithCleanup | null>(null)
   const [badgeRef, setBadgeRef] = React.useState<HTMLElement | null>(null)
   
   React.useEffect(() => {
@@ -47,12 +53,17 @@ export function HeroSection() {
           if (bookButtonRef) {
             bookButtonRef.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
             bookButtonRef.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+            // Reset background color to default when theme changes
+            bookButtonRef.style.backgroundColor = isDark ? '#ffffff' : '#000000'
           }
           
           if (viewButtonRef) {
             viewButtonRef.style.setProperty('--button-bg', isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')
             viewButtonRef.style.setProperty('--button-text', isDark ? '#ffffff' : '#020817')
             viewButtonRef.style.setProperty('--button-border', isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)')
+            // Reset background color and border to default when theme changes
+            viewButtonRef.style.backgroundColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+            viewButtonRef.style.borderColor = isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'
           }
           
           if (badgeRef) {
@@ -70,59 +81,113 @@ export function HeroSection() {
       attributeFilter: ['class']
     })
     
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      // Cleanup event listeners when component unmounts
+      if (bookButtonRef && bookButtonRef._cleanup) {
+        bookButtonRef._cleanup()
+      }
+      if (viewButtonRef && viewButtonRef._cleanup) {
+        viewButtonRef._cleanup()
+      }
+    }
   }, [bookButtonRef, viewButtonRef, badgeRef])
 
   return (
     <section id="hero" className="pt-16 md:pt-24 pb-8 bg-background">
       <div className="container">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Eyebrow pill */}
+          {/* Social Proof */}
           <ScrollReveal delay={0.1}>
-            <div className="flex justify-center mb-6">
-              <Badge 
-                variant="secondary" 
-                className="rounded-full px-4 py-2 text-sm font-medium backdrop-blur-sm transition-all duration-200 eyebrow inline-flex items-center gap-2"
-                style={{
-                  backgroundColor: 'var(--badge-bg, rgba(0, 0, 0, 0.1))',
-                  color: 'var(--badge-text, #020817)',
-                  borderColor: 'var(--badge-border, rgba(0, 0, 0, 0.2))',
-                  borderWidth: '1px',
-                  borderStyle: 'solid'
-                }}
-                ref={(el) => {
-                  if (el) {
-                    setBadgeRef(el)
-                    
-                    // Set initial colors
-                    const isDark = document.documentElement.classList.contains('dark')
-                    el.style.setProperty('--badge-bg', isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')
-                    el.style.setProperty('--badge-text', isDark ? '#ffffff' : '#020817')
-                    el.style.setProperty('--badge-border', isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)')
-                    el.style.setProperty('--dot-color', isDark ? '#ffffff' : '#020817')
-                  }
-                }}
-              >
-                <div className="relative flex items-center justify-center">
-                  <div 
-                    className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: 'var(--dot-color, #020817)' }}
-                  ></div>
-                  <div 
-                    className="absolute w-2 h-2 rounded-full animate-radar-ping"
-                    style={{ backgroundColor: 'var(--dot-color, #020817)' }}
-                  ></div>
+            <div className="flex items-center justify-center gap-4 mb-8">
+              {/* Avatar Row */}
+              <div className="flex items-center -space-x-4">
+                <Avatar.Root className="inline-flex h-12 w-12 select-none items-center justify-center overflow-hidden rounded-full bg-slate-100 align-middle border-2 border-background">
+                  <Avatar.Fallback className="text-slate-700 leading-1 flex h-full w-full items-center justify-center bg-white text-[16px] font-semibold">
+                    A
+                  </Avatar.Fallback>
+                </Avatar.Root>
+                <Avatar.Root className="inline-flex h-12 w-12 select-none items-center justify-center overflow-hidden rounded-full bg-slate-100 align-middle border-2 border-background">
+                  <Avatar.Fallback className="text-slate-700 leading-1 flex h-full w-full items-center justify-center bg-white text-[16px] font-semibold">
+                    B
+                  </Avatar.Fallback>
+                </Avatar.Root>
+                <Avatar.Root className="inline-flex h-12 w-12 select-none items-center justify-center overflow-hidden rounded-full bg-slate-100 align-middle border-2 border-background">
+                  <Avatar.Fallback className="text-slate-700 leading-1 flex h-full w-full items-center justify-center bg-white text-[16px] font-semibold">
+                    C
+                  </Avatar.Fallback>
+                </Avatar.Root>
+              </div>
+              
+              {/* Stars and Text */}
+              <div className="flex flex-col items-start gap-1">
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star 
+                      key={i} 
+                      className="h-4 w-4 fill-white text-white animate-in fade-in slide-in-from-bottom-2 duration-500" 
+                      style={{
+                        animationDelay: `${300 + (i * 100)}ms`,
+                        animationFillMode: 'both'
+                      }}
+                    />
+                  ))}
+                  <span 
+                    className="ml-2 text-sm text-muted-foreground font-medium animate-in fade-in slide-in-from-bottom-2 duration-500"
+                    style={{
+                      animationDelay: '800ms',
+                      animationFillMode: 'both'
+                    }}
+                  >
+                    5/5
+                  </span>
                 </div>
-                Limited slots available this month
-              </Badge>
+                <p 
+                  className="text-sm text-muted-foreground animate-in fade-in slide-in-from-bottom-2 duration-500"
+                  style={{
+                    animationDelay: '900ms',
+                    animationFillMode: 'both'
+                  }}
+                >
+                  5/5 From 20+ Founders
+                </p>
+              </div>
             </div>
           </ScrollReveal>
 
           {/* Main headline */}
           <ScrollReveal delay={0.2}>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-balance leading-tight tracking-tight">
-              High-Converting Landing Pages That{" "}
-              <span className="text-primary">Drive Results</span>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium mb-6 text-balance leading-tight tracking-tight">
+              <span 
+                className="inline-block animate-in fade-in slide-in-from-bottom-4 duration-700"
+                style={{ animationDelay: '200ms', animationFillMode: 'both' }}
+              >
+                High-Converting
+              </span>{" "}
+              <span 
+                className="inline-block animate-in fade-in slide-in-from-bottom-4 duration-700"
+                style={{ animationDelay: '400ms', animationFillMode: 'both' }}
+              >
+                Landing
+              </span>{" "}
+              <span 
+                className="inline-block animate-in fade-in slide-in-from-bottom-4 duration-700"
+                style={{ animationDelay: '600ms', animationFillMode: 'both' }}
+              >
+                Pages
+              </span>{" "}
+              <span 
+                className="inline-block animate-in fade-in slide-in-from-bottom-4 duration-700"
+                style={{ animationDelay: '800ms', animationFillMode: 'both' }}
+              >
+                That
+              </span>{" "}
+              <span 
+                className="inline-block text-primary animate-in fade-in slide-in-from-bottom-4 duration-700"
+                style={{ animationDelay: '1000ms', animationFillMode: 'both' }}
+              >
+                Drive Results
+              </span>
             </h1>
           </ScrollReveal>
 
@@ -136,10 +201,10 @@ export function HeroSection() {
 
           {/* CTAs */}
           <ScrollReveal delay={0.4}>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4">
               <Button 
                 variant="ghost"
-                className="px-6 py-3 text-base font-medium rounded-lg border-0"
+                className="px-6 py-3 text-base font-medium rounded-lg border-0 transition-all duration-200 hover:opacity-90"
                 asChild
                 style={{
                   backgroundColor: 'var(--button-bg, #000000)',
@@ -147,12 +212,33 @@ export function HeroSection() {
                 }}
                 ref={(el) => {
                   if (el) {
-                    setBookButtonRef(el)
+                    const elementWithCleanup = el as HTMLElementWithCleanup
+                    setBookButtonRef(elementWithCleanup)
                     
                     // Set CSS custom properties based on theme
                     const isDark = document.documentElement.classList.contains('dark')
                     el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
                     el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+                    
+                    // Add hover event listeners for better contrast
+                    const handleMouseEnter = () => {
+                      const isDark = document.documentElement.classList.contains('dark')
+                      el.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
+                    }
+                    
+                    const handleMouseLeave = () => {
+                      const isDark = document.documentElement.classList.contains('dark')
+                      el.style.backgroundColor = isDark ? '#ffffff' : '#000000'
+                    }
+                    
+                    el.addEventListener('mouseenter', handleMouseEnter)
+                    el.addEventListener('mouseleave', handleMouseLeave)
+                    
+                    // Store cleanup function
+                    elementWithCleanup._cleanup = () => {
+                      el.removeEventListener('mouseenter', handleMouseEnter)
+                      el.removeEventListener('mouseleave', handleMouseLeave)
+                    }
                   }
                 }}
               >
@@ -162,7 +248,7 @@ export function HeroSection() {
               </Button>
               <Button 
                 variant="ghost"
-                className="px-6 py-3 text-base font-medium rounded-lg backdrop-blur-sm"
+                className="px-6 py-3 text-base font-medium rounded-lg backdrop-blur-sm transition-all duration-200"
                 asChild
                 style={{
                   backgroundColor: 'var(--button-bg, rgba(0, 0, 0, 0.1))',
@@ -173,13 +259,36 @@ export function HeroSection() {
                 }}
                 ref={(el) => {
                   if (el) {
-                    setViewButtonRef(el)
+                    const elementWithCleanup = el as HTMLElementWithCleanup
+                    setViewButtonRef(elementWithCleanup)
                     
                     // Set initial colors
                     const isDark = document.documentElement.classList.contains('dark')
                     el.style.setProperty('--button-bg', isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')
                     el.style.setProperty('--button-text', isDark ? '#ffffff' : '#020817')
                     el.style.setProperty('--button-border', isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)')
+                    
+                    // Add hover event listeners for better contrast
+                    const handleMouseEnter = () => {
+                      const isDark = document.documentElement.classList.contains('dark')
+                      el.style.backgroundColor = isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'
+                      el.style.borderColor = isDark ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.3)'
+                    }
+                    
+                    const handleMouseLeave = () => {
+                      const isDark = document.documentElement.classList.contains('dark')
+                      el.style.backgroundColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+                      el.style.borderColor = isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'
+                    }
+                    
+                    el.addEventListener('mouseenter', handleMouseEnter)
+                    el.addEventListener('mouseleave', handleMouseLeave)
+                    
+                    // Store cleanup function
+                    elementWithCleanup._cleanup = () => {
+                      el.removeEventListener('mouseenter', handleMouseEnter)
+                      el.removeEventListener('mouseleave', handleMouseLeave)
+                    }
                   }
                 }}
               >
@@ -191,11 +300,24 @@ export function HeroSection() {
             </div>
           </ScrollReveal>
 
+          {/* Urgency text */}
+          <ScrollReveal delay={0.45}>
+            <div className="flex justify-center items-center gap-2 mb-16">
+              <div className="relative flex items-center justify-center">
+                <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                <div className="absolute w-2 h-2 rounded-full bg-green-500 animate-radar-ping"></div>
+              </div>
+              <p className="text-sm text-muted-foreground font-medium">
+                Limited slots available this month
+              </p>
+            </div>
+          </ScrollReveal>
+
         </div>
       </div>
       
       {/* Portfolio Images - Single Column */}
-      <ScrollReveal delay={0.5}>
+      <ScrollReveal delay={0.6}>
         <div className="container">
           <div className="max-w-4xl mx-auto space-y-6 mt-8">
             {portfolioImages.map((imageName, index) => (

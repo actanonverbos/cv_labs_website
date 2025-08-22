@@ -62,7 +62,7 @@ export function WorkSection() {
     <section id="work" className="py-20 md:py-28 bg-background">
       <div className="container">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-medium mb-4">
             Selected Work
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
@@ -111,7 +111,7 @@ export function WorkSection() {
                 </Badge>
 
                 {/* Title and description */}
-                <h3 className="text-xl font-semibold mb-3">
+                <h3 className="text-xl font-medium mb-3">
                   {item.title}
                 </h3>
                 <p className="text-base text-muted-foreground mb-4 leading-relaxed">

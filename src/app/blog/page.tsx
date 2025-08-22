@@ -154,7 +154,7 @@ export default function BlogPage() {
               </ScrollReveal>
 
               <ScrollReveal delay={0.2}>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-balance leading-tight tracking-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-6 text-balance leading-tight tracking-tight">
                   Convert Labs{" "}
                   <span className="text-primary">Blog</span>
                 </h1>

@@ -1,15 +1,55 @@
 "use client"
 
+import * as React from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 
+// Extend HTMLElement to include cleanup function
+interface HTMLElementWithCleanup extends HTMLElement {
+  _cleanup?: () => void
+}
+
 export function CTASection() {
+  const [bookButtonRef, setBookButtonRef] = React.useState<HTMLElementWithCleanup | null>(null)
+  
+  React.useEffect(() => {
+    // Set up mutation observer to watch for theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          const isDark = document.documentElement.classList.contains('dark')
+          
+          // Update button colors when theme changes
+          if (bookButtonRef) {
+            bookButtonRef.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+            bookButtonRef.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+            // Reset background color to default when theme changes
+            bookButtonRef.style.backgroundColor = isDark ? '#ffffff' : '#000000'
+          }
+        }
+      })
+    })
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+    
+    return () => {
+      observer.disconnect()
+      // Cleanup event listeners when component unmounts
+      if (bookButtonRef && bookButtonRef._cleanup) {
+        bookButtonRef._cleanup()
+      }
+    }
+  }, [bookButtonRef])
+
   return (
     <section id="cta" className="py-20 md:py-28 bg-gradient-to-br from-primary/5 via-background to-primary/5">
       <div className="container-tight">
         <Card className="mx-auto p-8 md:p-12 text-center bg-card border border-border rounded-2xl">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-balance">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium mb-6 text-balance">
             Ready to Build Your High-Converting Landing Page?
           </h2>
           
@@ -19,8 +59,44 @@ export function CTASection() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button 
-              className="px-6 py-3 text-base font-medium bg-white text-black hover:bg-gray-100 rounded-lg border-0"
+              variant="ghost"
+              className="px-6 py-3 text-base font-medium rounded-lg border-0 transition-all duration-200 hover:opacity-90"
               asChild
+              style={{
+                backgroundColor: 'var(--button-bg, #000000)',
+                color: 'var(--button-text, #ffffff)',
+              }}
+              ref={(el) => {
+                if (el) {
+                  const elementWithCleanup = el as HTMLElementWithCleanup
+                  setBookButtonRef(elementWithCleanup)
+                  
+                  // Set CSS custom properties based on theme
+                  const isDark = document.documentElement.classList.contains('dark')
+                  el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+                  el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+                  
+                  // Add hover event listeners for better contrast
+                  const handleMouseEnter = () => {
+                    const isDark = document.documentElement.classList.contains('dark')
+                    el.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
+                  }
+                  
+                  const handleMouseLeave = () => {
+                    const isDark = document.documentElement.classList.contains('dark')
+                    el.style.backgroundColor = isDark ? '#ffffff' : '#000000'
+                  }
+                  
+                  el.addEventListener('mouseenter', handleMouseEnter)
+                  el.addEventListener('mouseleave', handleMouseLeave)
+                  
+                  // Store cleanup function
+                  elementWithCleanup._cleanup = () => {
+                    el.removeEventListener('mouseenter', handleMouseEnter)
+                    el.removeEventListener('mouseleave', handleMouseLeave)
+                  }
+                }
+              }}
             >
               <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">
                 Book an Intro Call

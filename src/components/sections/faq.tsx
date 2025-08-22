@@ -40,13 +40,13 @@ const faqs = [
 ]
 
 export function FAQSection() {
-  const [openItem, setOpenItem] = React.useState<string>("")
+  const [openItem, setOpenItem] = React.useState<string>("item-0")
 
   return (
     <section id="faq" className="py-16 md:py-20 bg-background">
       <div className="container-tight">
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold mb-2">
+          <h2 className="text-2xl md:text-3xl font-medium mb-2">
             Got Questions? We&apos;ve Got Answers
           </h2>
 
@@ -61,12 +61,15 @@ export function FAQSection() {
             className="space-y-3"
           >
             {faqs.map((faq, index) => (
-              <AccordionItem 
+              <div 
                 key={index}
-                value={`item-${index}`}
-                className="border-0 bg-card rounded-2xl overflow-hidden"
+                className="bg-card rounded-2xl overflow-hidden hover:!bg-black/15 dark:hover:!bg-white/15 transition-colors duration-200 ease-in-out cursor-pointer"
               >
-                <AccordionTrigger className="text-left py-4 px-6 hover:no-underline hover:bg-muted/10 transition-all duration-200 ease-in-out">
+                <AccordionItem 
+                  value={`item-${index}`}
+                  className="border-0 bg-transparent"
+                >
+                <AccordionTrigger className="text-left py-4 px-6 hover:no-underline">
                   <span className="text-lg font-medium text-foreground">
                     {faq.question}
                   </span>
@@ -76,7 +79,8 @@ export function FAQSection() {
                     {faq.answer}
                   </p>
                 </AccordionContent>
-              </AccordionItem>
+                </AccordionItem>
+              </div>
             ))}
           </Accordion>
         </div>

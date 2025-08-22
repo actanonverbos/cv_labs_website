@@ -19,7 +19,7 @@ export default function TermsPage() {
                 Back to Home
               </Link>
             </Button>
-            <h1 className="text-4xl font-bold mb-4">Terms of Service</h1>
+            <h1 className="text-4xl font-medium mb-4">Terms of Service</h1>
             <p className="text-muted-foreground">
               Last updated: {new Date().toLocaleDateString()}
             </p>

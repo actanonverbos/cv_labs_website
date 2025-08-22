@@ -174,7 +174,7 @@ export default async function TemplateDetailPage({
                 <div className="space-y-8 pt-4">
                   <ScrollReveal delay={0.2}>
                     <div className="space-y-6">
-                      <h1 className="text-4xl md:text-5xl font-bold leading-tight tracking-tight">
+                      <h1 className="text-4xl md:text-5xl font-medium leading-tight tracking-tight">
                         {template.title}
                       </h1>
                       

@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Ticker } from "@/components/ticker"
+import { ScrollReveal } from "@/components/scroll-reveal"
 import { 
   Palette, 
   Zap, 
@@ -16,6 +17,11 @@ import {
   Send,
   ArrowRight
 } from "lucide-react"
+
+// Extend HTMLElement to include cleanup function
+interface HTMLElementWithCleanup extends HTMLElement {
+  _cleanup?: () => void
+}
 
 const pricingTiers = [
   {
@@ -51,8 +57,8 @@ const pricingTiers = [
 ]
 
 export function PricingSection() {
-  const [bookButtonRef, setBookButtonRef] = React.useState<HTMLElement | null>(null)
-  const [telegramButtonRef, setTelegramButtonRef] = React.useState<HTMLElement | null>(null)
+  const [bookButtonRef, setBookButtonRef] = React.useState<HTMLElementWithCleanup | null>(null)
+  const [telegramButtonRef, setTelegramButtonRef] = React.useState<HTMLElementWithCleanup | null>(null)
   
   React.useEffect(() => {
     // Set up mutation observer to watch for theme changes
@@ -81,34 +87,47 @@ export function PricingSection() {
       attributeFilter: ['class']
     })
     
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      // Cleanup event listeners when component unmounts
+      if (bookButtonRef && bookButtonRef._cleanup) {
+        bookButtonRef._cleanup()
+      }
+      if (telegramButtonRef && telegramButtonRef._cleanup) {
+        telegramButtonRef._cleanup()
+      }
+    }
   }, [bookButtonRef, telegramButtonRef])
 
   return (
     <section id="pricing" className="py-16 md:py-20 bg-background">
       <div className="container-tight">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold mb-2">
-            Transparent Pricing. No Surprises
-          </h2>
-        </div>
+        <ScrollReveal>
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-medium mb-2">
+              Transparent Pricing. No Surprises
+            </h2>
+          </div>
+        </ScrollReveal>
 
         {/* Ticker */}
-        <div className="mb-8">
-          <Ticker />
-        </div>
+        <ScrollReveal delay={0.1}>
+          <div className="mb-8">
+            <Ticker />
+          </div>
+        </ScrollReveal>
 
         {/* Pricing Tiers */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          {pricingTiers.map((tier) => (
-            <Card 
-              key={tier.name}
-              className="relative p-6 bg-card border border-border rounded-2xl"
-            >
+          {pricingTiers.map((tier, index) => (
+            <ScrollReveal key={tier.name} delay={0.2 + (index * 0.1)}>
+              <Card 
+                className="relative p-6 bg-card border border-border rounded-2xl"
+              >
               {/* Title and Price */}
               <div className="mb-4">
-                <h3 className="text-xl font-semibold mb-2">
+                <h3 className="text-xl font-medium mb-2">
                   {tier.name}
                 </h3>
                 <div className="text-3xl font-bold mb-3">
@@ -131,13 +150,15 @@ export function PricingSection() {
                   )
                 })}
               </ul>
-            </Card>
+              </Card>
+            </ScrollReveal>
           ))}
         </div>
 
         {/* Questions Section as Card */}
-        <Card className="p-6 bg-card border border-border rounded-2xl text-center">
-          <h3 className="text-lg font-semibold mb-2">
+        <ScrollReveal delay={0.4}>
+          <Card className="p-6 bg-card border border-border rounded-2xl text-center">
+          <h3 className="text-lg font-medium mb-2">
             Have questions or need help choosing?
           </h3>
           <p className="text-muted-foreground text-sm mb-5 max-w-md mx-auto">
@@ -147,7 +168,7 @@ export function PricingSection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               variant="ghost"
-              className="px-6 py-3 text-base font-medium rounded-lg border-0"
+              className="px-6 py-3 text-base font-medium rounded-lg border-0 transition-all duration-200 hover:opacity-90"
               asChild
               style={{
                 backgroundColor: 'var(--button-bg, #000000)',
@@ -155,12 +176,33 @@ export function PricingSection() {
               }}
               ref={(el) => {
                 if (el) {
-                  setBookButtonRef(el)
+                  const elementWithCleanup = el as HTMLElementWithCleanup
+                  setBookButtonRef(elementWithCleanup)
                   
                   // Set CSS custom properties based on theme
                   const isDark = document.documentElement.classList.contains('dark')
                   el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
                   el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+                  
+                  // Add hover event listeners for better contrast
+                  const handleMouseEnter = () => {
+                    const isDark = document.documentElement.classList.contains('dark')
+                    el.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
+                  }
+                  
+                  const handleMouseLeave = () => {
+                    const isDark = document.documentElement.classList.contains('dark')
+                    el.style.backgroundColor = isDark ? '#ffffff' : '#000000'
+                  }
+                  
+                  el.addEventListener('mouseenter', handleMouseEnter)
+                  el.addEventListener('mouseleave', handleMouseLeave)
+                  
+                  // Store cleanup function
+                  elementWithCleanup._cleanup = () => {
+                    el.removeEventListener('mouseenter', handleMouseEnter)
+                    el.removeEventListener('mouseleave', handleMouseLeave)
+                  }
                 }
               }}
             >
@@ -171,7 +213,7 @@ export function PricingSection() {
             
             <Button 
               variant="ghost"
-              className="px-6 py-3 text-base font-medium rounded-lg backdrop-blur-sm"
+              className="px-6 py-3 text-base font-medium rounded-lg backdrop-blur-sm transition-all duration-200"
               asChild
               style={{
                 backgroundColor: 'var(--button-bg, rgba(0, 0, 0, 0.1))',
@@ -182,13 +224,36 @@ export function PricingSection() {
               }}
               ref={(el) => {
                 if (el) {
-                  setTelegramButtonRef(el)
+                  const elementWithCleanup = el as HTMLElementWithCleanup
+                  setTelegramButtonRef(elementWithCleanup)
                   
                   // Set initial colors
                   const isDark = document.documentElement.classList.contains('dark')
                   el.style.setProperty('--button-bg', isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')
                   el.style.setProperty('--button-text', isDark ? '#ffffff' : '#020817')
                   el.style.setProperty('--button-border', isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)')
+                  
+                  // Add hover event listeners for better contrast
+                  const handleMouseEnter = () => {
+                    const isDark = document.documentElement.classList.contains('dark')
+                    el.style.backgroundColor = isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'
+                    el.style.borderColor = isDark ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.3)'
+                  }
+                  
+                  const handleMouseLeave = () => {
+                    const isDark = document.documentElement.classList.contains('dark')
+                    el.style.backgroundColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+                    el.style.borderColor = isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'
+                  }
+                  
+                  el.addEventListener('mouseenter', handleMouseEnter)
+                  el.addEventListener('mouseleave', handleMouseLeave)
+                  
+                  // Store cleanup function
+                  elementWithCleanup._cleanup = () => {
+                    el.removeEventListener('mouseenter', handleMouseEnter)
+                    el.removeEventListener('mouseleave', handleMouseLeave)
+                  }
                 }
               }}
             >
@@ -198,7 +263,8 @@ export function PricingSection() {
               </Link>
             </Button>
           </div>
-        </Card>
+          </Card>
+        </ScrollReveal>
       </div>
     </section>
   )

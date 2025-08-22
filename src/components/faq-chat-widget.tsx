@@ -6,6 +6,11 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { MessageCircle, X, Send, Calendar, Eye, DollarSign, ArrowLeft } from "lucide-react"
 
+// Extend HTMLElement to include cleanup function
+interface HTMLElementWithCleanup extends HTMLElement {
+  _cleanup?: () => void
+}
+
 interface FAQ {
   id: string
   question: string
@@ -104,9 +109,9 @@ export function FAQChatWidget() {
   const [selectedFaq, setSelectedFaq] = React.useState<FAQ | null>(null)
   const [showContact, setShowContact] = React.useState(false)
   const [chatMessages, setChatMessages] = React.useState<Array<{id: string, text: string, type: 'bot' | 'user', actions?: FAQ['actions']}>>([])
-  const [bookButtonRef, setBookButtonRef] = React.useState<HTMLElement | null>(null)
-  const [telegramButtonRef, setTelegramButtonRef] = React.useState<HTMLElement | null>(null)
-  const [contactButtonRef, setContactButtonRef] = React.useState<HTMLElement | null>(null)
+  const [bookButtonRef, setBookButtonRef] = React.useState<HTMLElementWithCleanup | null>(null)
+  const [telegramButtonRef, setTelegramButtonRef] = React.useState<HTMLElementWithCleanup | null>(null)
+  const [contactButtonRef, setContactButtonRef] = React.useState<HTMLElementWithCleanup | null>(null)
 
   React.useEffect(() => {
     // Set up mutation observer to watch for theme changes - exactly like hero section
@@ -138,7 +143,19 @@ export function FAQChatWidget() {
       attributeFilter: ['class']
     })
     
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      // Cleanup event listeners when component unmounts
+      if (bookButtonRef && bookButtonRef._cleanup) {
+        bookButtonRef._cleanup()
+      }
+      if (telegramButtonRef && telegramButtonRef._cleanup) {
+        telegramButtonRef._cleanup()
+      }
+      if (contactButtonRef && contactButtonRef._cleanup) {
+        contactButtonRef._cleanup()
+      }
+    }
   }, [bookButtonRef, telegramButtonRef, contactButtonRef])
 
   const handleToggle = () => {
@@ -263,19 +280,40 @@ export function FAQChatWidget() {
                         <Button
                           variant="ghost"
                           asChild
-                          className="w-full text-base font-medium px-6 py-3 rounded-lg border-0"
+                          className="w-full text-base font-medium px-6 py-3 rounded-lg border-0 transition-all duration-200 hover:opacity-90"
                           style={{
                             backgroundColor: 'var(--button-bg, #000000)',
                             color: 'var(--button-text, #ffffff)',
                           }}
                           ref={(el) => {
                             if (el) {
-                              setBookButtonRef(el)
+                              const elementWithCleanup = el as HTMLElementWithCleanup
+                              setBookButtonRef(elementWithCleanup)
                               
                               // Set initial colors
                               const isDark = document.documentElement.classList.contains('dark')
                               el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
                               el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+                              
+                              // Add hover event listeners for better contrast
+                              const handleMouseEnter = () => {
+                                const isDark = document.documentElement.classList.contains('dark')
+                                el.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
+                              }
+                              
+                              const handleMouseLeave = () => {
+                                const isDark = document.documentElement.classList.contains('dark')
+                                el.style.backgroundColor = isDark ? '#ffffff' : '#000000'
+                              }
+                              
+                              el.addEventListener('mouseenter', handleMouseEnter)
+                              el.addEventListener('mouseleave', handleMouseLeave)
+                              
+                              // Store cleanup function
+                              elementWithCleanup._cleanup = () => {
+                                el.removeEventListener('mouseenter', handleMouseEnter)
+                                el.removeEventListener('mouseleave', handleMouseLeave)
+                              }
                             }
                           }}
                         >
@@ -302,19 +340,40 @@ export function FAQChatWidget() {
                         <Button
                           variant="ghost"
                           asChild
-                          className="w-full text-base font-medium px-6 py-3 rounded-lg border-0"
+                          className="w-full text-base font-medium px-6 py-3 rounded-lg border-0 transition-all duration-200 hover:opacity-90"
                           style={{
                             backgroundColor: 'var(--button-bg, #000000)',
                             color: 'var(--button-text, #ffffff)',
                           }}
                           ref={(el) => {
                             if (el) {
-                              setTelegramButtonRef(el)
+                              const elementWithCleanup = el as HTMLElementWithCleanup
+                              setTelegramButtonRef(elementWithCleanup)
                               
                               // Set initial colors
                               const isDark = document.documentElement.classList.contains('dark')
                               el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
                               el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+                              
+                              // Add hover event listeners for better contrast
+                              const handleMouseEnter = () => {
+                                const isDark = document.documentElement.classList.contains('dark')
+                                el.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
+                              }
+                              
+                              const handleMouseLeave = () => {
+                                const isDark = document.documentElement.classList.contains('dark')
+                                el.style.backgroundColor = isDark ? '#ffffff' : '#000000'
+                              }
+                              
+                              el.addEventListener('mouseenter', handleMouseEnter)
+                              el.addEventListener('mouseleave', handleMouseLeave)
+                              
+                              // Store cleanup function
+                              elementWithCleanup._cleanup = () => {
+                                el.removeEventListener('mouseenter', handleMouseEnter)
+                                el.removeEventListener('mouseleave', handleMouseLeave)
+                              }
                             }
                           }}
                         >
@@ -362,10 +421,11 @@ export function FAQChatWidget() {
 
                     <Button
                       onClick={handleContactClick}
-                      className="w-full text-base font-medium px-6 py-3 rounded-lg"
+                      variant="ghost"
+                      className="w-full text-base font-medium px-6 py-3 rounded-lg border-0 transition-all duration-200 hover:opacity-90"
                       style={{
-                        backgroundColor: '#000000',
-                        color: '#ffffff',
+                        backgroundColor: 'var(--button-bg, #000000)',
+                        color: 'var(--button-text, #ffffff)',
                       }}
                     >
                       Contact
@@ -417,19 +477,40 @@ export function FAQChatWidget() {
                       <Button
                         variant="ghost"
                         onClick={handleContactClick}
-                        className="w-full text-base font-medium px-6 py-3 rounded-lg border-0"
+                        className="w-full text-base font-medium px-6 py-3 rounded-lg border-0 transition-all duration-200 hover:opacity-90"
                         style={{
                           backgroundColor: 'var(--button-bg, #000000)',
                           color: 'var(--button-text, #ffffff)',
                         }}
                         ref={(el) => {
                           if (el) {
-                            setContactButtonRef(el)
+                            const elementWithCleanup = el as HTMLElementWithCleanup
+                            setContactButtonRef(elementWithCleanup)
                             
                             // Set initial colors
                             const isDark = document.documentElement.classList.contains('dark')
                             el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
                             el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+                            
+                            // Add hover event listeners for better contrast
+                            const handleMouseEnter = () => {
+                              const isDark = document.documentElement.classList.contains('dark')
+                              el.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
+                            }
+                            
+                            const handleMouseLeave = () => {
+                              const isDark = document.documentElement.classList.contains('dark')
+                              el.style.backgroundColor = isDark ? '#ffffff' : '#000000'
+                            }
+                            
+                            el.addEventListener('mouseenter', handleMouseEnter)
+                            el.addEventListener('mouseleave', handleMouseLeave)
+                            
+                            // Store cleanup function
+                            elementWithCleanup._cleanup = () => {
+                              el.removeEventListener('mouseenter', handleMouseEnter)
+                              el.removeEventListener('mouseleave', handleMouseLeave)
+                            }
                           }
                         }}
                       >

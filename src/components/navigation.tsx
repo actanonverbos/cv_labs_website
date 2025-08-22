@@ -194,12 +194,20 @@ export function Navigation() {
             <Button 
               asChild 
               variant="ghost"
-              className="px-4 py-2 text-sm font-medium rounded-lg border-0"
+              className="px-4 py-2 text-sm font-medium rounded-lg border-0 transition-all duration-200"
               style={{
                 backgroundColor: 'var(--button-bg, #000000)',
                 color: 'var(--button-text, #ffffff)',
               }}
               ref={getStartedRefCallback}
+              onMouseEnter={(e) => {
+                const isDark = document.documentElement.classList.contains('dark')
+                e.currentTarget.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
+              }}
+              onMouseLeave={(e) => {
+                const isDark = document.documentElement.classList.contains('dark')
+                e.currentTarget.style.backgroundColor = isDark ? '#ffffff' : '#000000'
+              }}
             >
               <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">Get Started</Link>
             </Button>
@@ -278,12 +286,20 @@ export function Navigation() {
                     <Button 
                       asChild 
                       variant="ghost"
-                      className="w-full px-6 py-3 text-base font-medium rounded-lg border-0"
+                      className="w-full px-6 py-3 text-base font-medium rounded-lg border-0 transition-all duration-200"
                       style={{
                         backgroundColor: 'var(--button-bg, #000000)',
                         color: 'var(--button-text, #ffffff)',
                       }}
                       ref={mobileGetStartedRefCallback}
+                      onMouseEnter={(e) => {
+                        const isDark = document.documentElement.classList.contains('dark')
+                        e.currentTarget.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
+                      }}
+                      onMouseLeave={(e) => {
+                        const isDark = document.documentElement.classList.contains('dark')
+                        e.currentTarget.style.backgroundColor = isDark ? '#ffffff' : '#000000'
+                      }}
                     >
                       <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)}>
                         Get Started

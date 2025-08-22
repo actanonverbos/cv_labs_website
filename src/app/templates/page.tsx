@@ -218,7 +218,7 @@ export default function TemplatesPage() {
 
               {/* Main headline */}
               <ScrollReveal delay={0.2}>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-balance leading-tight tracking-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-6 text-balance leading-tight tracking-tight">
                   Launch Your Website In{" "}
                   <span className="text-primary">Days, Not Weeks</span>
                 </h1>

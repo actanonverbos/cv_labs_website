@@ -51,7 +51,7 @@ export function BenefitsSection() {
       <div className="container-tight">
         <ScrollReveal>
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-medium mb-4">
               Why Choose Our Landing Page Service?
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
@@ -70,7 +70,7 @@ export function BenefitsSection() {
                     <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
                       <Icon className="w-6 h-6 text-primary" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-4">
+                    <h3 className="text-xl font-medium mb-4">
                       {benefit.title}
                     </h3>
                     <p className="text-base text-muted-foreground leading-relaxed">

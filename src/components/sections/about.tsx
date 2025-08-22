@@ -8,7 +8,7 @@ export function AboutSection() {
       <div className="container">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal delay={0.1}>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 text-balance leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium mb-8 text-balance leading-tight">
               Built for founders. Designed to convert.
             </h2>
           </ScrollReveal>

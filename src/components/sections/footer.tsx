@@ -66,7 +66,7 @@ export function FooterSection() {
 
           {/* Company links */}
           <div>
-            <h3 className="font-semibold mb-4">Company</h3>
+            <h3 className="font-medium mb-4">Company</h3>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
@@ -83,7 +83,7 @@ export function FooterSection() {
 
           {/* Support links */}
           <div>
-            <h3 className="font-semibold mb-4">Support</h3>
+            <h3 className="font-medium mb-4">Support</h3>
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
@@ -102,7 +102,7 @@ export function FooterSection() {
 
           {/* Legal links */}
           <div>
-            <h3 className="font-semibold mb-4">Legal</h3>
+            <h3 className="font-medium mb-4">Legal</h3>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
