@@ -2,6 +2,7 @@
 
 import { Card } from "@/components/ui/card"
 import { ScrollReveal } from "@/components/scroll-reveal"
+import { StaggeredText } from "@/components/staggered-text"
 
 const processSteps = [
   {
@@ -30,32 +31,38 @@ export function ProcessSection() {
   return (
     <section id="process" className="py-20 md:py-28 bg-muted/5">
       <div className="container-tight">
-        <ScrollReveal>
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-medium mb-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-medium mb-4">
+            <StaggeredText 
+              highlightWords={["Process"]}
+              delay={0.2}
+              staggerDelay={0.2}
+            >
               Our Proven Process
-            </h2>
+            </StaggeredText>
+          </h2>
+          <ScrollReveal delay={0.8}>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
               A systematic approach that ensures your landing page is built for maximum conversions from day one.
             </p>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {processSteps.map((step, index) => (
             <ScrollReveal key={step.number} delay={index * 0.1}>
               <div className="relative">
-                <Card className="p-8 bg-card border border-border rounded-2xl h-full">
+                <Card className="p-6 bg-card border border-border rounded-2xl h-full">
                 <div className="text-center">
                   {/* Step number */}
-                  <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-primary/10 flex items-center justify-center">
                     <span className="text-2xl font-bold text-primary">
                       {step.number}
                     </span>
                   </div>
                   
                   {/* Step title */}
-                  <h3 className="text-xl font-medium mb-4">
+                  <h3 className="text-xl font-medium mb-3">
                     {step.title}
                   </h3>
                   
@@ -68,7 +75,7 @@ export function ProcessSection() {
 
                 {/* Connection line for desktop */}
                 {index < processSteps.length - 1 && (
-                  <div className="hidden lg:block absolute top-8 left-full w-8 h-0.5 bg-gradient-to-r from-primary/50 to-transparent translate-x-0 z-0" />
+                  <div className="hidden lg:block absolute top-6 left-full w-8 h-0.5 bg-gradient-to-r from-primary/50 to-transparent translate-x-0 z-0" />
                 )}
               </div>
             </ScrollReveal>

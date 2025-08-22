@@ -4,6 +4,8 @@ import * as React from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+import { ScrollReveal } from "@/components/scroll-reveal"
+import { StaggeredText } from "@/components/staggered-text"
 
 // Extend HTMLElement to include cleanup function
 interface HTMLElementWithCleanup extends HTMLElement {
@@ -50,12 +52,20 @@ export function CTASection() {
       <div className="container-tight">
         <Card className="mx-auto p-8 md:p-12 text-center bg-card border border-border rounded-2xl">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium mb-6 text-balance">
-            Ready to Build Your High-Converting Landing Page?
+            <StaggeredText 
+              highlightWords={["Page?"]}
+              delay={0.2}
+              staggerDelay={0.2}
+            >
+              Ready to Build Your High-Converting Landing Page?
+            </StaggeredText>
           </h2>
           
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-balance leading-relaxed">
-            Join hundreds of successful businesses who&apos;ve transformed their online presence with our conversion-focused approach.
-          </p>
+          <ScrollReveal delay={1.6}>
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-balance leading-relaxed">
+              Join hundreds of successful businesses who&apos;ve transformed their online presence with our conversion-focused approach.
+            </p>
+          </ScrollReveal>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button 

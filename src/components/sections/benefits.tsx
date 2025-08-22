@@ -11,6 +11,7 @@ import {
 
 import { Card } from "@/components/ui/card"
 import { ScrollReveal } from "@/components/scroll-reveal"
+import { StaggeredText } from "@/components/staggered-text"
 
 const benefits = [
   {
@@ -49,28 +50,34 @@ export function BenefitsSection() {
   return (
     <section className="py-20 md:py-28 bg-background">
       <div className="container-tight">
-        <ScrollReveal>
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-medium mb-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-medium mb-4">
+            <StaggeredText 
+              highlightWords={["Service?"]}
+              delay={0.2}
+              staggerDelay={0.2}
+            >
               Why Choose Our Landing Page Service?
-            </h2>
+            </StaggeredText>
+          </h2>
+          <ScrollReveal delay={1.4}>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
               We combine design expertise with conversion optimization to deliver pages that don&apos;t just look good—they perform.
             </p>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon
             return (
               <ScrollReveal key={benefit.title} delay={index * 0.1}>
-                <Card className="p-8 bg-card border border-[hsl(var(--border))] rounded-2xl h-full">
+                <Card className="p-6 bg-card border border-[hsl(var(--border))] rounded-2xl h-full">
                   <div>
-                    <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
+                    <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-primary" />
                     </div>
-                    <h3 className="text-xl font-medium mb-4">
+                    <h3 className="text-xl font-medium mb-3">
                       {benefit.title}
                     </h3>
                     <p className="text-base text-muted-foreground leading-relaxed">

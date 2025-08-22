@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Ticker } from "@/components/ticker"
 import { ScrollReveal } from "@/components/scroll-reveal"
+import { StaggeredText } from "@/components/staggered-text"
 import { 
   Palette, 
   Zap, 
@@ -103,13 +104,22 @@ export function PricingSection() {
     <section id="pricing" className="py-16 md:py-20 bg-background">
       <div className="container-tight">
         {/* Section Header */}
-        <ScrollReveal>
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-medium mb-2">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-medium mb-4">
+            <StaggeredText 
+              highlightWords={["Surprises"]}
+              delay={0.2}
+              staggerDelay={0.2}
+            >
               Transparent Pricing. No Surprises
-            </h2>
-          </div>
-        </ScrollReveal>
+            </StaggeredText>
+          </h2>
+          <ScrollReveal delay={1.0}>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
+              Clear, upfront pricing with no hidden fees. Choose the package that fits your needs and budget.
+            </p>
+          </ScrollReveal>
+        </div>
 
         {/* Ticker */}
         <ScrollReveal delay={0.1}>

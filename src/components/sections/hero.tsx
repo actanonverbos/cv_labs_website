@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { ScrollReveal } from "@/components/scroll-reveal"
+import { StaggeredText } from "@/components/staggered-text"
 
 // Extend HTMLElement to include cleanup function
 interface HTMLElementWithCleanup extends HTMLElement {
@@ -156,40 +157,15 @@ export function HeroSection() {
           </ScrollReveal>
 
           {/* Main headline */}
-          <ScrollReveal delay={0.2}>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium mb-6 text-balance leading-tight tracking-tight">
-              <span 
-                className="inline-block animate-in fade-in slide-in-from-bottom-4 duration-700"
-                style={{ animationDelay: '200ms', animationFillMode: 'both' }}
-              >
-                High-Converting
-              </span>{" "}
-              <span 
-                className="inline-block animate-in fade-in slide-in-from-bottom-4 duration-700"
-                style={{ animationDelay: '400ms', animationFillMode: 'both' }}
-              >
-                Landing
-              </span>{" "}
-              <span 
-                className="inline-block animate-in fade-in slide-in-from-bottom-4 duration-700"
-                style={{ animationDelay: '600ms', animationFillMode: 'both' }}
-              >
-                Pages
-              </span>{" "}
-              <span 
-                className="inline-block animate-in fade-in slide-in-from-bottom-4 duration-700"
-                style={{ animationDelay: '800ms', animationFillMode: 'both' }}
-              >
-                That
-              </span>{" "}
-              <span 
-                className="inline-block text-primary animate-in fade-in slide-in-from-bottom-4 duration-700"
-                style={{ animationDelay: '1000ms', animationFillMode: 'both' }}
-              >
-                Drive Results
-              </span>
-            </h1>
-          </ScrollReveal>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium mb-6 text-balance leading-tight tracking-tight">
+            <StaggeredText 
+              highlightWords={["Drive", "Results"]}
+              delay={0.2}
+              staggerDelay={0.2}
+            >
+              High-Converting Landing Pages That Drive Results
+            </StaggeredText>
+          </h1>
 
           {/* Subheadline */}
           <ScrollReveal delay={0.3}>

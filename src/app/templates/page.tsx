@@ -219,14 +219,45 @@ export default function TemplatesPage() {
               {/* Main headline */}
               <ScrollReveal delay={0.2}>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-6 text-balance leading-tight tracking-tight">
-                  Launch Your Website In{" "}
-                  <span className="text-primary">Days, Not Weeks</span>
+                  <span 
+                    className="inline-block animate-in fade-in slide-in-from-bottom-4 duration-700"
+                    style={{ animationDelay: '200ms', animationFillMode: 'both' }}
+                  >
+                    Launch
+                  </span>{" "}
+                  <span 
+                    className="inline-block animate-in fade-in slide-in-from-bottom-4 duration-700"
+                    style={{ animationDelay: '400ms', animationFillMode: 'both' }}
+                  >
+                    Your
+                  </span>{" "}
+                  <span 
+                    className="inline-block animate-in fade-in slide-in-from-bottom-4 duration-700"
+                    style={{ animationDelay: '600ms', animationFillMode: 'both' }}
+                  >
+                    Website
+                  </span>{" "}
+                  <span 
+                    className="inline-block animate-in fade-in slide-in-from-bottom-4 duration-700"
+                    style={{ animationDelay: '800ms', animationFillMode: 'both' }}
+                  >
+                    In
+                  </span>{" "}
+                  <span 
+                    className="inline-block text-primary animate-in fade-in slide-in-from-bottom-4 duration-700"
+                    style={{ animationDelay: '1000ms', animationFillMode: 'both' }}
+                  >
+                    Days, Not Weeks
+                  </span>
                 </h1>
               </ScrollReveal>
 
               {/* Subheadline */}
               <ScrollReveal delay={0.3}>
-                <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-balance leading-relaxed font-medium">
+                <p 
+                  className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-balance leading-relaxed font-medium animate-in fade-in slide-in-from-bottom-4 duration-700"
+                  style={{ animationDelay: '1200ms', animationFillMode: 'both' }}
+                >
                   Custom Framer Templates built to save you time and money without sacrificing quality
                 </p>
               </ScrollReveal>

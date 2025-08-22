@@ -5,6 +5,8 @@ import { ExternalLink, ArrowRight } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { ScrollReveal } from "@/components/scroll-reveal"
+import { StaggeredText } from "@/components/staggered-text"
 
 const portfolioItems = [
   {
@@ -63,11 +65,19 @@ export function WorkSection() {
       <div className="container">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-medium mb-4">
-            Selected Work
+            <StaggeredText 
+              highlightWords={["Work"]}
+              delay={0.2}
+              staggerDelay={0.2}
+            >
+              Selected Work
+            </StaggeredText>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
-            Real results from real clients. See how we&apos;ve helped businesses across industries achieve their conversion goals.
-          </p>
+          <ScrollReveal delay={0.6}>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
+              Real results from real clients. See how we&apos;ve helped businesses across industries achieve their conversion goals.
+            </p>
+          </ScrollReveal>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">

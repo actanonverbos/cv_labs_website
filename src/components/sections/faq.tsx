@@ -7,6 +7,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { ScrollReveal } from "@/components/scroll-reveal"
+import { StaggeredText } from "@/components/staggered-text"
 
 const faqs = [
   {
@@ -47,9 +49,14 @@ export function FAQSection() {
       <div className="container-tight">
         <div className="text-center mb-12">
           <h2 className="text-2xl md:text-3xl font-medium mb-2">
-            Got Questions? We&apos;ve Got Answers
+            <StaggeredText 
+              highlightWords={["Answers"]}
+              delay={0.2}
+              staggerDelay={0.2}
+            >
+              Got Questions? We&apos;ve Got Answers
+            </StaggeredText>
           </h2>
-
         </div>
 
         <div className="mx-auto">
@@ -61,10 +68,10 @@ export function FAQSection() {
             className="space-y-3"
           >
             {faqs.map((faq, index) => (
-              <div 
-                key={index}
-                className="bg-card rounded-2xl overflow-hidden hover:!bg-black/15 dark:hover:!bg-white/15 transition-colors duration-200 ease-in-out cursor-pointer"
-              >
+              <ScrollReveal key={index} delay={index * 0.1}>
+                <div 
+                  className="bg-card rounded-2xl overflow-hidden hover:!bg-black/15 dark:hover:!bg-white/15 transition-colors duration-200 ease-in-out cursor-pointer"
+                >
                 <AccordionItem 
                   value={`item-${index}`}
                   className="border-0 bg-transparent"
@@ -80,7 +87,8 @@ export function FAQSection() {
                   </p>
                 </AccordionContent>
                 </AccordionItem>
-              </div>
+                </div>
+              </ScrollReveal>
             ))}
           </Accordion>
         </div>

@@ -5,7 +5,6 @@ import { ProcessSection } from "@/components/sections/process"
 
 import { PricingSection } from "@/components/sections/pricing"
 import { FAQSection } from "@/components/sections/faq"
-import { AboutSection } from "@/components/sections/about"
 
 import { FooterSection } from "@/components/sections/footer"
 import { FloatingAvailabilityBadge } from "@/components/floating-availability-badge"
@@ -22,7 +21,6 @@ export default function Home() {
 
         <PricingSection />
         <FAQSection />
-        <AboutSection />
 
       </main>
       <FooterSection />
