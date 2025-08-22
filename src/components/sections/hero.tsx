@@ -23,13 +23,10 @@ const portfolioImages = [
   "4.avif", 
   "chat with ai miggles.avif",
   "Electra hero.png",
-  "electra website.avif",
-  "gold market pro live analysis cards.png",
   "land rover concept.avif",
   "lina link in bio.avif",
   "miggles meme generator.avif",
   "newsletter.png",
-  "newsletter.webp",
   "ski mask dog.avif",
   "T9FMGI2dngpBtJQH5Xeiqx7x8ZQ.avif",
   "vibes codes.avif",
@@ -299,12 +296,12 @@ export function HeroSection() {
             {portfolioImages.map((imageName, index) => (
               <div
                 key={imageName}
-                className="aspect-video rounded-xl overflow-hidden bg-muted/50 shadow-lg"
+                className="aspect-[3/2] rounded-xl overflow-hidden bg-muted/50 shadow-lg"
               >
                 <img
                   src={`/portfolio/${imageName}`}
                   alt={`Portfolio project ${index + 1}`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-top"
                   loading="lazy"
                 />
               </div>

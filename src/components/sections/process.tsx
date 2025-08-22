@@ -52,17 +52,17 @@ export function ProcessSection() {
           {processSteps.map((step, index) => (
             <ScrollReveal key={step.number} delay={index * 0.1}>
               <div className="relative">
-                <Card className="p-6 bg-card border border-border rounded-2xl h-full">
+                <Card className="p-8 md:p-10 bg-card border border-border rounded-2xl h-full">
                 <div className="text-center">
                   {/* Step number */}
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-primary/10 flex items-center justify-center">
-                    <span className="text-2xl font-bold text-primary">
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-primary/10 flex items-center justify-center">
+                    <span className="text-3xl font-bold text-primary">
                       {step.number}
                     </span>
                   </div>
                   
                   {/* Step title */}
-                  <h3 className="text-xl font-medium mb-3">
+                  <h3 className="text-2xl font-medium mb-4">
                     {step.title}
                   </h3>
                   

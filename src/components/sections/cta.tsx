@@ -48,93 +48,84 @@ export function CTASection() {
   }, [bookButtonRef])
 
   return (
-    <section id="cta" className="py-20 md:py-28 bg-gradient-to-br from-primary/5 via-background to-primary/5">
-      <div className="container-tight">
-        <Card className="mx-auto p-8 md:p-12 text-center bg-card border border-border rounded-2xl">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium mb-6 text-balance">
-            <StaggeredText 
-              highlightWords={["Page?"]}
-              delay={0.2}
-              staggerDelay={0.2}
-            >
-              Ready to Build Your High-Converting Landing Page?
-            </StaggeredText>
-          </h2>
-          
-          <ScrollReveal delay={1.6}>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-balance leading-relaxed">
-              Join hundreds of successful businesses who&apos;ve transformed their online presence with our conversion-focused approach.
-            </p>
-          </ScrollReveal>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button 
-              variant="ghost"
-              className="px-6 py-3 text-base font-medium rounded-lg border-0 transition-all duration-200 hover:opacity-90"
-              asChild
-              style={{
-                backgroundColor: 'var(--button-bg, #000000)',
-                color: 'var(--button-text, #ffffff)',
-              }}
-              ref={(el) => {
-                if (el) {
-                  const elementWithCleanup = el as HTMLElementWithCleanup
-                  setBookButtonRef(elementWithCleanup)
-                  
-                  // Set CSS custom properties based on theme
-                  const isDark = document.documentElement.classList.contains('dark')
-                  el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
-                  el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
-                  
-                  // Add hover event listeners for better contrast
-                  const handleMouseEnter = () => {
-                    const isDark = document.documentElement.classList.contains('dark')
-                    el.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
-                  }
-                  
-                  const handleMouseLeave = () => {
-                    const isDark = document.documentElement.classList.contains('dark')
-                    el.style.backgroundColor = isDark ? '#ffffff' : '#000000'
-                  }
-                  
-                  el.addEventListener('mouseenter', handleMouseEnter)
-                  el.addEventListener('mouseleave', handleMouseLeave)
-                  
-                  // Store cleanup function
-                  elementWithCleanup._cleanup = () => {
-                    el.removeEventListener('mouseenter', handleMouseEnter)
-                    el.removeEventListener('mouseleave', handleMouseLeave)
-                  }
-                }
-              }}
-            >
-              <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">
-                Book an Intro Call
-              </Link>
-            </Button>
+    <section id="cta" className="pt-8 md:pt-12 pb-8 bg-background">
+      <div className="container">
+        <Card className="py-16 md:py-20 text-center bg-card border border-border rounded-2xl">
+          <div className="max-w-2xl mx-auto px-8">
+            <h2 className="text-3xl md:text-4xl font-medium mb-4 text-balance leading-tight tracking-tight">
+              <StaggeredText 
+                highlightWords={["Ready"]}
+                delay={0.2}
+                staggerDelay={0.2}
+              >
+                Ready to get started?
+              </StaggeredText>
+            </h2>
             
-            <div className="text-sm text-muted-foreground">
-              <span className="block sm:inline">Free 30-minute consultation</span>
-              <span className="hidden sm:inline mx-2">•</span>
-              <span className="block sm:inline">No commitment required</span>
-            </div>
-          </div>
+            <ScrollReveal delay={0.3}>
+              <p className="text-muted-foreground mb-8 text-balance leading-relaxed">
+                Let&apos;s build your high-converting landing page together.
+              </p>
+            </ScrollReveal>
 
-          <div className="mt-8 pt-8 border-t border-border">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-              <div>
-                <div className="text-2xl font-bold text-primary mb-1">2-3 weeks</div>
-                <div className="text-sm text-muted-foreground">Average delivery</div>
+            <ScrollReveal delay={0.4}>
+              <Button 
+                variant="ghost"
+                className="px-8 py-3 text-base font-medium rounded-lg border-0 transition-all duration-200 hover:opacity-90 mb-4"
+                asChild
+                style={{
+                  backgroundColor: 'var(--button-bg, #000000)',
+                  color: 'var(--button-text, #ffffff)',
+                }}
+                ref={(el) => {
+                  if (el) {
+                    const elementWithCleanup = el as HTMLElementWithCleanup
+                    setBookButtonRef(elementWithCleanup)
+                    
+                    // Set CSS custom properties based on theme
+                    const isDark = document.documentElement.classList.contains('dark')
+                    el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+                    el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+                    
+                    // Add hover event listeners for better contrast
+                    const handleMouseEnter = () => {
+                      const isDark = document.documentElement.classList.contains('dark')
+                      el.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
+                    }
+                    
+                    const handleMouseLeave = () => {
+                      const isDark = document.documentElement.classList.contains('dark')
+                      el.style.backgroundColor = isDark ? '#ffffff' : '#000000'
+                    }
+                    
+                    el.addEventListener('mouseenter', handleMouseEnter)
+                    el.addEventListener('mouseleave', handleMouseLeave)
+                    
+                    // Store cleanup function
+                    elementWithCleanup._cleanup = () => {
+                      el.removeEventListener('mouseenter', handleMouseEnter)
+                      el.removeEventListener('mouseleave', handleMouseLeave)
+                    }
+                  }
+                }}
+              >
+                <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">
+                  Book an Intro Call
+                </Link>
+              </Button>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.45}>
+              <div className="flex justify-center items-center gap-2">
+                <div className="relative flex items-center justify-center">
+                  <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                  <div className="absolute w-2 h-2 rounded-full bg-green-500 animate-radar-ping"></div>
+                </div>
+                <p className="text-sm text-muted-foreground font-medium">
+                  Limited slots available this month
+                </p>
               </div>
-              <div>
-                <div className="text-2xl font-bold text-primary mb-1">300%+</div>
-                <div className="text-sm text-muted-foreground">Average conversion lift</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-primary mb-1">30 days</div>
-                <div className="text-sm text-muted-foreground">Money-back guarantee</div>
-              </div>
-            </div>
+            </ScrollReveal>
           </div>
         </Card>
       </div>

@@ -33,7 +33,8 @@ const socialLinks = [
 
 export function FooterSection() {
   return (
-    <footer className="bg-card/50 backdrop-blur border-t border-border">
+    <footer className="bg-black border-t border-border overflow-hidden">
+      {/* Main footer content */}
       <div className="container py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           {/* Logo and tagline */}
@@ -127,6 +128,23 @@ export function FooterSection() {
             Made with ❤️ for businesses that want to grow.
           </p>
         </div>
+      </div>
+      
+      {/* Large "Convert" text section - separate space below footer content */}
+      <div className="relative h-40 md:h-48 lg:h-56 flex items-start justify-center -mt-4">
+        <span 
+          className="text-[12rem] md:text-[18rem] lg:text-[24rem] font-bold leading-none tracking-tight pointer-events-none select-none"
+          style={{ 
+            fontFamily: 'Geist, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Oxygen", "Ubuntu", "Cantarell", sans-serif',
+            fontWeight: 700,
+            background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, transparent 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text'
+          }}
+        >
+          Convert
+        </span>
       </div>
     </footer>
   )
