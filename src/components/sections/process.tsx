@@ -1,6 +1,8 @@
 "use client"
 
+import * as React from "react"
 import { Card } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { StaggeredText } from "@/components/staggered-text"
 
@@ -27,6 +29,61 @@ const processSteps = [
   }
 ]
 
+function ProcessBadge({ stepNumber }: { stepNumber: string }) {
+  const [badgeRef, setBadgeRef] = React.useState<HTMLElement | null>(null)
+  
+  React.useEffect(() => {
+    // Set up mutation observer to watch for theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          const isDark = document.documentElement.classList.contains('dark')
+          
+          if (badgeRef) {
+            badgeRef.style.setProperty('--badge-bg', isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')
+            badgeRef.style.setProperty('--badge-text', isDark ? '#ffffff' : '#020817')
+            badgeRef.style.setProperty('--badge-border', isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)')
+          }
+        }
+      })
+    })
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+    
+    return () => observer.disconnect()
+  }, [badgeRef])
+
+  return (
+    <Badge 
+      variant="secondary" 
+              className="rounded-xl px-4 py-2 text-sm font-medium backdrop-blur-sm transition-all duration-200 eyebrow mb-4 w-fit"
+      style={{
+        backgroundColor: 'var(--badge-bg, rgba(0, 0, 0, 0.1))',
+        color: 'var(--badge-text, #020817)',
+        borderColor: 'var(--badge-border, rgba(0, 0, 0, 0.2))',
+        borderWidth: '1px',
+        borderStyle: 'solid'
+      }}
+      ref={(el) => {
+        if (el) {
+          setBadgeRef(el)
+          
+          // Set initial colors
+          const isDark = document.documentElement.classList.contains('dark')
+          el.style.setProperty('--badge-bg', isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')
+          el.style.setProperty('--badge-text', isDark ? '#ffffff' : '#020817')
+          el.style.setProperty('--badge-border', isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)')
+        }
+      }}
+    >
+      STEP {stepNumber}
+    </Badge>
+  )
+}
+
 export function ProcessSection() {
   return (
     <section id="process" className="py-20 md:py-28 bg-muted/5">
@@ -48,26 +105,22 @@ export function ProcessSection() {
           </ScrollReveal>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:grid-rows-2">
           {processSteps.map((step, index) => (
             <ScrollReveal key={step.number} delay={index * 0.1}>
               <div className="relative">
-                <Card className="p-8 md:p-10 bg-card border border-border rounded-2xl h-full">
-                <div className="text-center">
-                  {/* Step number */}
-                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-primary/10 flex items-center justify-center">
-                    <span className="text-3xl font-bold text-primary">
-                      {step.number}
-                    </span>
-                  </div>
+                <Card className="p-6 bg-card border border-border h-full">
+                <div className="flex flex-col h-full">
+                  {/* Step badge */}
+                  <ProcessBadge stepNumber={step.number} />
                   
                   {/* Step title */}
-                  <h3 className="text-2xl font-medium mb-4">
+                  <h3 className="text-xl font-medium mb-3">
                     {step.title}
                   </h3>
                   
                   {/* Step description */}
-                  <p className="text-base text-muted-foreground leading-relaxed">
+                  <p className="text-base text-muted-foreground leading-relaxed flex-grow">
                     {step.description}
                   </p>
                 </div>

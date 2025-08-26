@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Ticker } from "@/components/ticker"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { StaggeredText } from "@/components/staggered-text"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { 
   Palette, 
   Zap, 
@@ -167,59 +168,72 @@ export function PricingSection() {
 
         {/* Questions Section as Card */}
         <ScrollReveal delay={0.4}>
-          <Card className="p-6 bg-card border border-border rounded-2xl text-center">
-          <h3 className="text-lg font-medium mb-2">
+          <Card className="p-5 bg-card border border-border rounded-2xl text-center">
+          <h3 className="text-xl font-medium mb-2">
             Have questions or need help choosing?
           </h3>
-          <p className="text-muted-foreground text-sm mb-5 max-w-md mx-auto">
+          <p className="text-muted-foreground text-base mb-4 max-w-md mx-auto">
             Want to move forward or have a few questions first? We&apos;re just one click away.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              variant="ghost"
-              className="px-6 py-3 text-base font-medium rounded-lg border-0 transition-all duration-200 hover:opacity-90"
-              asChild
-              style={{
-                backgroundColor: 'var(--button-bg, #000000)',
-                color: 'var(--button-text, #ffffff)',
-              }}
-              ref={(el) => {
-                if (el) {
-                  const elementWithCleanup = el as HTMLElementWithCleanup
-                  setBookButtonRef(elementWithCleanup)
-                  
-                  // Set CSS custom properties based on theme
-                  const isDark = document.documentElement.classList.contains('dark')
-                  el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
-                  el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
-                  
-                  // Add hover event listeners for better contrast
-                  const handleMouseEnter = () => {
-                    const isDark = document.documentElement.classList.contains('dark')
-                    el.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
-                  }
-                  
-                  const handleMouseLeave = () => {
-                    const isDark = document.documentElement.classList.contains('dark')
-                    el.style.backgroundColor = isDark ? '#ffffff' : '#000000'
-                  }
-                  
-                  el.addEventListener('mouseenter', handleMouseEnter)
-                  el.addEventListener('mouseleave', handleMouseLeave)
-                  
-                  // Store cleanup function
-                  elementWithCleanup._cleanup = () => {
-                    el.removeEventListener('mouseenter', handleMouseEnter)
-                    el.removeEventListener('mouseleave', handleMouseLeave)
-                  }
-                }
-              }}
-            >
-              <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">
-                Book an Intro Call
-              </Link>
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button 
+                  variant="ghost"
+                  className="px-6 py-3 text-base font-medium rounded-lg border-0 transition-all duration-200 hover:opacity-90"
+                  asChild
+                  style={{
+                    backgroundColor: 'var(--button-bg, #000000)',
+                    color: 'var(--button-text, #ffffff)',
+                  }}
+                  ref={(el) => {
+                    if (el) {
+                      const elementWithCleanup = el as HTMLElementWithCleanup
+                      setBookButtonRef(elementWithCleanup)
+                      
+                      // Set CSS custom properties based on theme
+                      const isDark = document.documentElement.classList.contains('dark')
+                      el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+                      el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+                      
+                      // Add hover event listeners for better contrast
+                      const handleMouseEnter = () => {
+                        const isDark = document.documentElement.classList.contains('dark')
+                        el.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
+                      }
+                      
+                      const handleMouseLeave = () => {
+                        const isDark = document.documentElement.classList.contains('dark')
+                        el.style.backgroundColor = isDark ? '#ffffff' : '#000000'
+                      }
+                      
+                      el.addEventListener('mouseenter', handleMouseEnter)
+                      el.addEventListener('mouseleave', handleMouseLeave)
+                      
+                      // Store cleanup function
+                      elementWithCleanup._cleanup = () => {
+                        el.removeEventListener('mouseenter', handleMouseEnter)
+                        el.removeEventListener('mouseleave', handleMouseLeave)
+                      }
+                    }
+                  }}
+                >
+                  <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">
+                    Book an Intro Call
+                  </Link>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="top">
+                <div className="flex items-center gap-2">
+                  <span>Press</span>
+                  <kbd className="inline-flex items-center justify-center w-5 h-5 text-xs font-semibold text-primary-foreground bg-muted border border-border rounded">
+                    B
+                  </kbd>
+                  <span>to book</span>
+                </div>
+              </TooltipContent>
+            </Tooltip>
             
             <Button 
               variant="ghost"

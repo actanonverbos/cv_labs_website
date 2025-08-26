@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { MessageCircle, X, Send, Calendar, Eye, DollarSign, ArrowLeft } from "lucide-react"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 // Extend HTMLElement to include cleanup function
 interface HTMLElementWithCleanup extends HTMLElement {
@@ -277,54 +278,67 @@ export function FAQChatWidget() {
                             <p className="text-xs text-muted-foreground">Free 30-minute consultation</p>
                           </div>
                         </div>
-                        <Button
-                          variant="ghost"
-                          asChild
-                          className="w-full text-base font-medium px-6 py-3 rounded-lg border-0 transition-all duration-200 hover:opacity-90"
-                          style={{
-                            backgroundColor: 'var(--button-bg, #000000)',
-                            color: 'var(--button-text, #ffffff)',
-                          }}
-                          ref={(el) => {
-                            if (el) {
-                              const elementWithCleanup = el as HTMLElementWithCleanup
-                              setBookButtonRef(elementWithCleanup)
-                              
-                              // Set initial colors
-                              const isDark = document.documentElement.classList.contains('dark')
-                              el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
-                              el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
-                              
-                              // Add hover event listeners for better contrast
-                              const handleMouseEnter = () => {
-                                const isDark = document.documentElement.classList.contains('dark')
-                                el.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
-                              }
-                              
-                              const handleMouseLeave = () => {
-                                const isDark = document.documentElement.classList.contains('dark')
-                                el.style.backgroundColor = isDark ? '#ffffff' : '#000000'
-                              }
-                              
-                              el.addEventListener('mouseenter', handleMouseEnter)
-                              el.addEventListener('mouseleave', handleMouseLeave)
-                              
-                              // Store cleanup function
-                              elementWithCleanup._cleanup = () => {
-                                el.removeEventListener('mouseenter', handleMouseEnter)
-                                el.removeEventListener('mouseleave', handleMouseLeave)
-                              }
-                            }
-                          }}
-                        >
-                          <Link 
-                            href="https://cal.com/isaac-cullinane/1-1" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              asChild
+                              className="w-full text-base font-medium px-6 py-3 rounded-lg border-0 transition-all duration-200 hover:opacity-90"
+                              style={{
+                                backgroundColor: 'var(--button-bg, #000000)',
+                                color: 'var(--button-text, #ffffff)',
+                              }}
+                              ref={(el) => {
+                                if (el) {
+                                  const elementWithCleanup = el as HTMLElementWithCleanup
+                                  setBookButtonRef(elementWithCleanup)
+                                  
+                                  // Set initial colors
+                                  const isDark = document.documentElement.classList.contains('dark')
+                                  el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+                                  el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+                                  
+                                  // Add hover event listeners for better contrast
+                                  const handleMouseEnter = () => {
+                                    const isDark = document.documentElement.classList.contains('dark')
+                                    el.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
+                                  }
+                                  
+                                  const handleMouseLeave = () => {
+                                    const isDark = document.documentElement.classList.contains('dark')
+                                    el.style.backgroundColor = isDark ? '#ffffff' : '#000000'
+                                  }
+                                  
+                                  el.addEventListener('mouseenter', handleMouseEnter)
+                                  el.addEventListener('mouseleave', handleMouseLeave)
+                                  
+                                  // Store cleanup function
+                                  elementWithCleanup._cleanup = () => {
+                                    el.removeEventListener('mouseenter', handleMouseEnter)
+                                    el.removeEventListener('mouseleave', handleMouseLeave)
+                                  }
+                                }
+                              }}
+                            >
+                              <Link 
+                                href="https://cal.com/isaac-cullinane/1-1" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
                           >
                             Book an Intro Call
                           </Link>
-                        </Button>
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <div className="flex items-center gap-2">
+                              <span>Press</span>
+                              <kbd className="inline-flex items-center justify-center w-5 h-5 text-xs font-semibold text-primary-foreground bg-muted border border-border rounded">
+                                B
+                              </kbd>
+                              <span>to book</span>
+                            </div>
+                          </TooltipContent>
+                        </Tooltip>
                       </div>
 
                       <div className="bg-card border border-border rounded-2xl p-4">

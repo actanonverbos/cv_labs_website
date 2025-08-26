@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 import { cn } from "@/lib/utils"
 
@@ -191,26 +192,39 @@ export function Navigation() {
             >
               <Link href="/templates">Templates</Link>
             </Button>
-            <Button 
-              asChild 
-              variant="ghost"
-              className="px-4 py-2 text-sm font-medium rounded-lg border-0 transition-all duration-200"
-              style={{
-                backgroundColor: 'var(--button-bg, #000000)',
-                color: 'var(--button-text, #ffffff)',
-              }}
-              ref={getStartedRefCallback}
-              onMouseEnter={(e) => {
-                const isDark = document.documentElement.classList.contains('dark')
-                e.currentTarget.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
-              }}
-              onMouseLeave={(e) => {
-                const isDark = document.documentElement.classList.contains('dark')
-                e.currentTarget.style.backgroundColor = isDark ? '#ffffff' : '#000000'
-              }}
-            >
-              <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">Get Started</Link>
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button 
+                  asChild 
+                  variant="ghost"
+                  className="px-4 py-2 text-sm font-medium rounded-lg border-0 transition-all duration-200"
+                  style={{
+                    backgroundColor: 'var(--button-bg, #000000)',
+                    color: 'var(--button-text, #ffffff)',
+                  }}
+                  ref={getStartedRefCallback}
+                  onMouseEnter={(e) => {
+                    const isDark = document.documentElement.classList.contains('dark')
+                    e.currentTarget.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
+                  }}
+                  onMouseLeave={(e) => {
+                    const isDark = document.documentElement.classList.contains('dark')
+                    e.currentTarget.style.backgroundColor = isDark ? '#ffffff' : '#000000'
+                  }}
+                >
+                  <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">Book a Call</Link>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">
+                <div className="flex items-center gap-2">
+                  <span>Press</span>
+                  <kbd className="inline-flex items-center justify-center w-5 h-5 text-xs font-semibold text-primary-foreground bg-muted border border-border rounded">
+                    B
+                  </kbd>
+                  <span>to book</span>
+                </div>
+              </TooltipContent>
+            </Tooltip>
           </div>
 
           {/* Mobile Navigation */}
@@ -283,28 +297,41 @@ export function Navigation() {
                         Templates
                       </Link>
                     </Button>
-                    <Button 
-                      asChild 
-                      variant="ghost"
-                      className="w-full px-6 py-3 text-base font-medium rounded-lg border-0 transition-all duration-200"
-                      style={{
-                        backgroundColor: 'var(--button-bg, #000000)',
-                        color: 'var(--button-text, #ffffff)',
-                      }}
-                      ref={mobileGetStartedRefCallback}
-                      onMouseEnter={(e) => {
-                        const isDark = document.documentElement.classList.contains('dark')
-                        e.currentTarget.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
-                      }}
-                      onMouseLeave={(e) => {
-                        const isDark = document.documentElement.classList.contains('dark')
-                        e.currentTarget.style.backgroundColor = isDark ? '#ffffff' : '#000000'
-                      }}
-                    >
-                      <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)}>
-                        Get Started
-                      </Link>
-                    </Button>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button 
+                          asChild 
+                          variant="ghost"
+                          className="w-full px-6 py-3 text-base font-medium rounded-lg border-0 transition-all duration-200"
+                          style={{
+                            backgroundColor: 'var(--button-bg, #000000)',
+                            color: 'var(--button-text, #ffffff)',
+                          }}
+                          ref={mobileGetStartedRefCallback}
+                          onMouseEnter={(e) => {
+                            const isDark = document.documentElement.classList.contains('dark')
+                            e.currentTarget.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
+                          }}
+                          onMouseLeave={(e) => {
+                            const isDark = document.documentElement.classList.contains('dark')
+                            e.currentTarget.style.backgroundColor = isDark ? '#ffffff' : '#000000'
+                          }}
+                        >
+                          <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)}>
+                            Book a Call
+                          </Link>
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent side="bottom">
+                        <div className="flex items-center gap-2">
+                          <span>Press</span>
+                          <kbd className="inline-flex items-center justify-center w-5 h-5 text-xs font-semibold text-primary-foreground bg-muted border border-border rounded">
+                            B
+                          </kbd>
+                          <span>to book</span>
+                        </div>
+                      </TooltipContent>
+                    </Tooltip>
                   </div>
                 </div>
               </SheetContent>
