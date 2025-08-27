@@ -12,32 +12,24 @@ import { StaggeredText } from "@/components/staggered-text"
 
 const faqs = [
   {
-    question: "How long does it take?",
-    answer: "Most projects are completed within 2-3 weeks from the initial discovery call. This includes design, development, content optimization, and one round of revisions. Rush delivery is available for an additional fee if you need it faster."
-  },
-  {
-    question: "Do you handle development too?",
-    answer: "Yes! We provide end-to-end service from design to deployment. Our team handles all the technical aspects including coding, hosting setup, analytics integration, and performance optimization so you don&apos;t have to worry about anything."
-  },
-  {
-    question: "How do we start?",
-    answer: "Simply book a discovery call using the button above. We'll discuss your goals, target audience, and requirements. After that, we'll send you a detailed proposal and timeline. Once approved, we begin with the discovery phase immediately."
-  },
-  {
     question: "Who do you work with?",
-    answer: "We work with startups, small to medium businesses, and established companies across all industries. Our clients range from SaaS companies and e-commerce stores to professional services and non-profits. We adapt our approach to fit your specific market and audience."
+    answer: "I work with early-stage startups, solo founders, and teams across SaaS, AI, Web3, and service-based businesses. If you're building something smart and need to launch or automate it — I can help."
   },
   {
-    question: "What's the payment like?",
-    answer: "We require 50% upfront to begin work and 50% upon completion and approval. For larger projects over £5,000, we can arrange a 3-payment schedule. We accept bank transfers, credit cards, and PayPal for your convenience."
+    question: "When can we start?",
+    answer: "Usually within a week. I work with a small number of clients at a time to keep turnaround fast and attention focused."
   },
   {
-    question: "Do you offer ongoing support?",
-    answer: "Yes! We provide 30 days of free support after launch for any bugs or minor adjustments. We also offer ongoing maintenance packages for regular updates, security monitoring, and performance optimization at competitive rates."
+    question: "How do we stay in touch?",
+    answer: "Async-first: Telegram, Notion, email — whatever works for you. I'll send structured updates and Looms where needed. No endless calls necessary."
   },
   {
-    question: "Are there refunds?",
-    answer: "We offer a 30-day money-back guarantee if you&apos;re not satisfied with the final result. However, this only applies if we haven&apos;t met the agreed-upon requirements in our initial proposal. We&apos;re confident in our work and want you to be completely happy."
+    question: "Do you offer support after launch?",
+    answer: "Yes — you can add a support plan post-launch or request one-off updates when needed. Hosting, tweaks, automation extensions — it's flexible."
+  },
+  {
+    question: "Can you build a site if I already have copy?",
+    answer: "Yes — if you already have final copy, I can jump straight into design and development. That option starts at $1,750."
   }
 ]
 
