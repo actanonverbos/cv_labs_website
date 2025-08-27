@@ -10,6 +10,54 @@ import { StaggeredText } from "@/components/staggered-text"
 
 const portfolioItems = [
   {
+    title: "Lina Link in Bio - Main",
+    description: "Modern link-in-bio platform for creators and influencers",
+    image: "/portfolio/Lina Mockup - 1.png",
+    stat: "+450% engagement",
+    tags: ["Social Media", "Creator Tools", "B2C"],
+    link: "#"
+  },
+  {
+    title: "Lina Link in Bio - Profile",
+    description: "Customizable profile layouts for personal branding",
+    image: "/portfolio/Lina Mockup - 2.png",
+    stat: "+380% conversions",
+    tags: ["Personal Branding", "Customization", "Social"],
+    link: "#"
+  },
+  {
+    title: "Lina Link in Bio - Analytics",
+    description: "Comprehensive analytics dashboard for link performance",
+    image: "/portfolio/Lina Mockup - 3.png",
+    stat: "+520% insights",
+    tags: ["Analytics", "Dashboard", "Performance"],
+    link: "#"
+  },
+  {
+    title: "Lina Link in Bio - Mobile",
+    description: "Mobile-optimized interface for on-the-go management",
+    image: "/portfolio/Lina Mockup - 4.png",
+    stat: "+290% mobile usage",
+    tags: ["Mobile", "Responsive", "UX"],
+    link: "#"
+  },
+  {
+    title: "Lina Link in Bio - Themes",
+    description: "Beautiful theme collection for unique brand expression",
+    image: "/portfolio/Lina Mockup - 5.png",
+    stat: "+340% customization",
+    tags: ["Themes", "Design", "Branding"],
+    link: "#"
+  },
+  {
+    title: "Lina Link in Bio - Integration",
+    description: "Seamless integrations with popular social platforms",
+    image: "/portfolio/Lina Mockup - 6.png",
+    stat: "+410% connections",
+    tags: ["Integration", "Social Media", "API"],
+    link: "#"
+  },
+  {
     title: "TechStart SaaS Landing",
     description: "B2B SaaS platform targeting enterprise customers",
     image: "/portfolio-1.jpg", // Placeholder - will need actual images
@@ -86,21 +134,30 @@ export function WorkSection() {
               key={item.title}
               className="group overflow-hidden bg-card border border-border rounded-2xl"
             >
-              {/* Image placeholder */}
-              <div className="aspect-[16/10] bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center space-y-3">
-                    <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
-                      <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
-                        <span className="text-primary-foreground font-bold text-sm">CV</span>
+              {/* Image container - full size display */}
+              <div className="relative overflow-hidden bg-gradient-to-br from-primary/20 via-primary/10 to-background">
+                {/* Actual image or placeholder */}
+                {item.image.includes('/portfolio/') ? (
+                  <img 
+                    src={item.image} 
+                    alt={item.title}
+                    className="w-full h-auto object-contain"
+                  />
+                ) : (
+                  <div className="aspect-[16/10] flex items-center justify-center">
+                    <div className="text-center space-y-3">
+                      <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
+                          <span className="text-primary-foreground font-bold text-sm">CV</span>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="h-2 bg-primary/20 rounded-full w-32 mx-auto"></div>
+                        <div className="h-2 bg-primary/10 rounded-full w-24 mx-auto"></div>
                       </div>
                     </div>
-                    <div className="space-y-2">
-                      <div className="h-2 bg-primary/20 rounded-full w-32 mx-auto"></div>
-                      <div className="h-2 bg-primary/10 rounded-full w-24 mx-auto"></div>
-                    </div>
                   </div>
-                </div>
+                )}
                 
                 {/* Overlay on hover */}
                 <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">

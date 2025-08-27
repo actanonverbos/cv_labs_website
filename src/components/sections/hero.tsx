@@ -20,6 +20,12 @@ interface HTMLElementWithCleanup extends HTMLElement {
 
 // Portfolio images from the public/portfolio directory
 const portfolioImages = [
+  "Lina Mockup - 1.png",
+  "Lina Mockup - 2.png",
+  "Lina Mockup - 3.png",
+  "Lina Mockup - 4.png",
+  "Lina Mockup - 5.png",
+  "Lina Mockup - 6.png",
   "Electra hero.png",
   "newsletter.png",
   "4.avif", 
@@ -313,12 +319,18 @@ export function HeroSection() {
             {portfolioImages.map((imageName, index) => (
               <div
                 key={imageName}
-                className="aspect-[3/2] rounded-xl overflow-hidden bg-muted/50 shadow-lg"
+                className={`rounded-xl overflow-hidden bg-muted/50 shadow-lg ${
+                  imageName.includes('Lina Mockup') ? '' : 'aspect-[3/2]'
+                }`}
               >
                 <img
                   src={`/portfolio/${imageName}`}
                   alt={`Portfolio project ${index + 1}`}
-                  className="w-full h-full object-cover object-top"
+                  className={`w-full ${
+                    imageName.includes('Lina Mockup') 
+                      ? 'h-auto object-contain' 
+                      : 'h-full object-cover object-top'
+                  }`}
                   loading="lazy"
                 />
               </div>
