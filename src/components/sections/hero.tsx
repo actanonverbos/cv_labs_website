@@ -20,18 +20,19 @@ interface HTMLElementWithCleanup extends HTMLElement {
 
 // Portfolio images from the public/portfolio directory
 const portfolioImages = [
-  "1.avif",
-  "4.avif", 
-  "chat with ai miggles.avif",
   "Electra hero.png",
-  "land rover concept.avif",
-  "lina link in bio.avif",
-  "miggles meme generator.avif",
   "newsletter.png",
+  "4.avif", 
+  "vibes codes.avif",
+  "1.avif",
+  "lina link in bio.avif",
+  "waitpro.avif",
+  "chat with ai miggles.avif",
+  "land rover concept.avif",
+  "miggles meme generator.avif",
   "ski mask dog.avif",
   "T9FMGI2dngpBtJQH5Xeiqx7x8ZQ.avif",
-  "vibes codes.avif",
-  "waitpro.avif"
+  "afterthebump.png"
 ]
 
 

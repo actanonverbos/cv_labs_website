@@ -87,7 +87,7 @@ export function WorkSection() {
               className="group overflow-hidden bg-card border border-border rounded-2xl"
             >
               {/* Image placeholder */}
-              <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
+              <div className="aspect-[16/10] bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center space-y-3">
                     <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">

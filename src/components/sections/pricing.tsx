@@ -17,7 +17,9 @@ import {
   Users, 
   BarChart3,
   Send,
-  ArrowRight
+  ArrowRight,
+  Star,
+  Code
 } from "lucide-react"
 
 // Extend HTMLElement to include cleanup function
@@ -161,22 +163,22 @@ export function PricingSection() {
           ))}
         </div>
 
-        {/* Questions Section as Card */}
+        {/* Custom Quote Section as Card */}
         <ScrollReveal delay={0.4}>
-          <Card className="p-5 bg-card border border-border rounded-2xl text-center">
-          <h3 className="text-xl font-medium mb-2">
-            Have questions or need help choosing?
-          </h3>
-          <p className="text-muted-foreground text-base mb-4 max-w-md mx-auto">
-            Want to move forward or have a few questions first? We&apos;re just one click away.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Tooltip>
-              <TooltipTrigger asChild>
+          <Card className="p-6 bg-card border border-border rounded-2xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+              {/* Left side - Content */}
+              <div>
+                <h3 className="text-2xl font-medium mb-3">
+                  Custom Solution
+                </h3>
+                <p className="text-muted-foreground text-base mb-6 leading-relaxed">
+                  Need something unique? Let's build a tailored solution that perfectly fits your business needs and goals.
+                </p>
+                
                 <Button 
                   variant="ghost"
-                  className="px-6 py-3 text-base font-medium rounded-lg border-0 transition-all duration-200 hover:opacity-90"
+                  className="px-6 py-3 text-base font-medium rounded-lg border-0 transition-all duration-200 hover:opacity-90 w-full md:w-auto"
                   asChild
                   style={{
                     backgroundColor: 'var(--button-bg, #000000)',
@@ -215,73 +217,41 @@ export function PricingSection() {
                   }}
                 >
                   <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">
-                    Book an Intro Call
+                    Apply now
                   </Link>
                 </Button>
-              </TooltipTrigger>
-              <TooltipContent side="top">
-                <div className="flex items-center gap-2">
-                  <span>Press</span>
-                  <kbd className="inline-flex items-center justify-center w-5 h-5 text-xs font-semibold text-primary-foreground bg-muted border border-border rounded">
-                    B
-                  </kbd>
-                  <span>to book</span>
-                </div>
-              </TooltipContent>
-            </Tooltip>
-            
-            <Button 
-              variant="ghost"
-              className="px-6 py-3 text-base font-medium rounded-lg backdrop-blur-sm transition-all duration-200"
-              asChild
-              style={{
-                backgroundColor: 'var(--button-bg, rgba(0, 0, 0, 0.1))',
-                color: 'var(--button-text, #020817)',
-                borderColor: 'var(--button-border, rgba(0, 0, 0, 0.2))',
-                borderWidth: '1px',
-                borderStyle: 'solid'
-              }}
-              ref={(el) => {
-                if (el) {
-                  const elementWithCleanup = el as HTMLElementWithCleanup
-                  setTelegramButtonRef(elementWithCleanup)
-                  
-                  // Set initial colors
-                  const isDark = document.documentElement.classList.contains('dark')
-                  el.style.setProperty('--button-bg', isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')
-                  el.style.setProperty('--button-text', isDark ? '#ffffff' : '#020817')
-                  el.style.setProperty('--button-border', isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)')
-                  
-                  // Add hover event listeners for better contrast
-                  const handleMouseEnter = () => {
-                    const isDark = document.documentElement.classList.contains('dark')
-                    el.style.backgroundColor = isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'
-                    el.style.borderColor = isDark ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.3)'
-                  }
-                  
-                  const handleMouseLeave = () => {
-                    const isDark = document.documentElement.classList.contains('dark')
-                    el.style.backgroundColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-                    el.style.borderColor = isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'
-                  }
-                  
-                  el.addEventListener('mouseenter', handleMouseEnter)
-                  el.addEventListener('mouseleave', handleMouseLeave)
-                  
-                  // Store cleanup function
-                  elementWithCleanup._cleanup = () => {
-                    el.removeEventListener('mouseenter', handleMouseEnter)
-                    el.removeEventListener('mouseleave', handleMouseLeave)
-                  }
-                }
-              }}
-            >
-              <Link href="/#work">
-                View Projects
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
+              </div>
+
+              {/* Right side - Features */}
+              <div>
+                <ul className="space-y-4">
+                  <li className="flex items-center gap-3">
+                    <Star className="w-4 h-4 text-foreground flex-shrink-0" />
+                    <span className="text-sm text-foreground">Priority support</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <Zap className="w-4 h-4 text-foreground flex-shrink-0" />
+                    <span className="text-sm text-foreground">Custom projects</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <Calendar className="w-4 h-4 text-foreground flex-shrink-0" />
+                    <span className="text-sm text-foreground">Multiple site pages</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <Users className="w-4 h-4 text-foreground flex-shrink-0" />
+                    <span className="text-sm text-foreground">Working with your team</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <Code className="w-4 h-4 text-foreground flex-shrink-0" />
+                    <span className="text-sm text-foreground">Custom Web app</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <BarChart3 className="w-4 h-4 text-foreground flex-shrink-0" />
+                    <span className="text-sm text-foreground">Framer or Code build</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </Card>
         </ScrollReveal>
       </div>
