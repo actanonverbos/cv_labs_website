@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { ScrollReveal } from "@/components/scroll-reveal"
-import { Ticker } from "@/components/ticker"
+
 import { FooterSection } from "@/components/sections/footer"
 import { FAQChatWidget } from "@/components/faq-chat-widget"
 import { client, TEMPLATES_QUERY } from "@/lib/sanity"
@@ -267,12 +267,7 @@ export default function TemplatesPage() {
           </div>
         </section>
 
-        {/* Benefits Ticker */}
-        <div className="container-tight">
-          <ScrollReveal delay={0.4}>
-            <Ticker />
-          </ScrollReveal>
-        </div>
+
 
         {/* Templates Grid */}
         <section id="templates" className="pt-8 pb-20 md:pt-12 md:pb-28 bg-muted/5">

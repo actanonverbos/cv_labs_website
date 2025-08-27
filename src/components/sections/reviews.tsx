@@ -124,7 +124,7 @@ export function ReviewsSection() {
           </ScrollReveal>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {reviews.map((review, index) => (
             <ScrollReveal key={review.name} delay={index * 0.1}>
               <Card className="p-6 bg-card border border-border h-full">

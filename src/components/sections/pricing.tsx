@@ -125,7 +125,7 @@ export function PricingSection() {
 
 
         {/* Pricing Tiers */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
           {pricingTiers.map((tier, index) => (
             <ScrollReveal key={tier.name} delay={0.2 + (index * 0.1)}>
               <Card 

@@ -105,11 +105,11 @@ export function ProcessSection() {
           </ScrollReveal>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:grid-rows-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:grid-rows-2 md:items-stretch">
           {processSteps.map((step, index) => (
             <ScrollReveal key={step.number} delay={index * 0.1}>
-              <div className="relative">
-                <Card className="p-6 bg-card border border-border h-full">
+              <div className="relative h-full flex">
+                <Card className="p-6 bg-card border border-border h-full flex-1">
                 <div className="flex flex-col h-full">
                   {/* Step badge */}
                   <ProcessBadge stepNumber={step.number} />
