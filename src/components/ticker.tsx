@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { motion } from "framer-motion"
 import { 
   Edit3, 
   Zap, 
@@ -19,10 +20,20 @@ const tickerItems = [
 
 export function Ticker() {
   return (
-    <div className="w-full overflow-hidden bg-muted/30 py-3 border-y border-border/50 ticker-container">
-      <div className="flex animate-scroll">
+    <div className="w-full overflow-hidden bg-muted/30 py-3 border-y border-border/50">
+      <motion.div 
+        className="flex"
+        animate={{
+          x: [0, -50], // Move from 0% to -50% (since we have duplicate content)
+        }}
+        transition={{
+          duration: 30,
+          ease: "linear",
+          repeat: Infinity,
+        }}
+      >
         {/* First set of items */}
-        <div className="flex items-center gap-8 px-4">
+        <div className="flex items-center gap-8 px-4 min-w-max">
           {tickerItems.map((item, index) => {
             const IconComponent = item.icon
             return (
@@ -35,7 +46,7 @@ export function Ticker() {
         </div>
         
         {/* Duplicate set for seamless loop */}
-        <div className="flex items-center gap-8 px-4">
+        <div className="flex items-center gap-8 px-4 min-w-max">
           {tickerItems.map((item, index) => {
             const IconComponent = item.icon
             return (
@@ -46,7 +57,7 @@ export function Ticker() {
             )
           })}
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }

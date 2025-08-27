@@ -4,7 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Ticker } from "@/components/ticker"
+
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { StaggeredText } from "@/components/staggered-text"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
@@ -122,12 +122,7 @@ export function PricingSection() {
           </ScrollReveal>
         </div>
 
-        {/* Ticker */}
-        <ScrollReveal delay={0.1}>
-          <div className="mb-8">
-            <Ticker />
-          </div>
-        </ScrollReveal>
+
 
         {/* Pricing Tiers */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">

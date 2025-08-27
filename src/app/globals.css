@@ -191,9 +191,7 @@
     animation: radar-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
-  .animate-scroll {
-    animation: scroll 30s linear infinite;
-  }
+
 }
 
 /* Radar ping animation */
@@ -206,22 +204,7 @@
 
 
 
-/* Ticker scroll animation */
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
 
-/* Ticker hover effects */
-.ticker-container:hover .animate-scroll {
-  animation-duration: 60s; /* 50% slower than the default 30s */
-}
 
-.animate-scroll {
-  transition: animation-duration 0.3s ease;
-}
+
 
