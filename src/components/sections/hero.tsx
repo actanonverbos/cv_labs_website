@@ -18,7 +18,7 @@ interface HTMLElementWithCleanup extends HTMLElement {
 }
 
 
-// Portfolio images from the public/portfolio directory
+// Portfolio images from the public/portfolio directory - only PNG files that exist
 const portfolioImages = [
   "Lina Mockup - 1.png",
   "Lina Mockup - 2.png",
@@ -26,19 +26,12 @@ const portfolioImages = [
   "Lina Mockup - 4.png",
   "Lina Mockup - 5.png",
   "Lina Mockup - 6.png",
-  "Electra hero.png",
-  "newsletter.png",
-  "4.avif", 
-  "vibes codes.avif",
-  "1.avif",
-  "lina link in bio.avif",
-  "waitpro.avif",
-  "chat with ai miggles.avif",
-  "land rover concept.avif",
-  "miggles meme generator.avif",
-  "ski mask dog.avif",
-  "T9FMGI2dngpBtJQH5Xeiqx7x8ZQ.avif",
-  "afterthebump.png"
+  "Mockup - Miggles Meme generator.png",
+  "Mockup - Newsletter Sign up template.png",
+  "Mockup - Modern Newsletter Sign up.png",
+  "Mockup - Sakatomo Studio 1.png",
+  "Mockup - Sakatomo Studio 2.png",
+  "Mockup - Sakatomo Studio 3.png"
 ]
 
 
@@ -319,18 +312,12 @@ export function HeroSection() {
             {portfolioImages.map((imageName, index) => (
               <div
                 key={imageName}
-                className={`rounded-xl overflow-hidden bg-muted/50 shadow-lg ${
-                  imageName.includes('Lina Mockup') ? '' : 'aspect-[3/2]'
-                }`}
+                className="rounded-xl overflow-hidden bg-muted/50 shadow-lg"
               >
                 <img
                   src={`/portfolio/${imageName}`}
                   alt={`Portfolio project ${index + 1}`}
-                  className={`w-full ${
-                    imageName.includes('Lina Mockup') 
-                      ? 'h-auto object-contain' 
-                      : 'h-full object-cover object-top'
-                  }`}
+                  className="w-full h-auto object-contain"
                   loading="lazy"
                 />
               </div>
