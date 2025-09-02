@@ -52,6 +52,7 @@ interface BlogGenerationJob {
 
 export default function AdminDashboardPage() {
   const router = useRouter()
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
   const [validationStatus, setValidationStatus] = useState<ValidationStatus | null>(null)
   const [csvFile, setCsvFile] = useState<File | null>(null)
   const [csvPreview, setCsvPreview] = useState<string>('')
@@ -65,6 +66,44 @@ export default function AdminDashboardPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
+  const checkAuthStatus = useCallback(async () => {
+    try {
+      const response = await fetch('/api/admin/validate-config')
+      if (response.status === 401) {
+        setIsAuthenticated(false)
+        router.push('/admin/login')
+        return
+      }
+      if (response.ok) {
+        setIsAuthenticated(true)
+      } else {
+        setIsAuthenticated(false)
+        router.push('/admin/login')
+      }
+    } catch (error) {
+      console.error('Failed to check auth status:', error)
+      setIsAuthenticated(false)
+      router.push('/admin/login')
+    }
+  }, [router])
+
+  const validateConfiguration = useCallback(async () => {
+    try {
+      const response = await fetch('/api/admin/validate-config')
+      if (response.status === 401) {
+        setIsAuthenticated(false)
+        router.push('/admin/login')
+        return
+      }
+      if (response.ok) {
+        const data = await response.json()
+        setValidationStatus(data)
+      }
+    } catch (error) {
+      console.error('Failed to validate configuration:', error)
+    }
+  }, [router])
+
   const checkJobStatus = useCallback(async (jobId: string) => {
     try {
       const response = await fetch(`/api/admin/generate-blog?jobId=${jobId}`)
@@ -77,10 +116,17 @@ export default function AdminDashboardPage() {
     }
   }, [])
 
-  // Check validation status on load
+  // Check authentication status on load
   useEffect(() => {
-    validateConfiguration()
-  }, [])
+    checkAuthStatus()
+  }, [checkAuthStatus])
+
+  // Check validation status on load (only if authenticated)
+  useEffect(() => {
+    if (isAuthenticated) {
+      validateConfiguration()
+    }
+  }, [isAuthenticated, validateConfiguration])
 
   // Poll job status if there's an active job
   useEffect(() => {
@@ -91,18 +137,6 @@ export default function AdminDashboardPage() {
       return () => clearInterval(interval)
     }
   }, [currentJob, checkJobStatus])
-
-  const validateConfiguration = async () => {
-    try {
-      const response = await fetch('/api/admin/validate-config')
-      if (response.ok) {
-        const data = await response.json()
-        setValidationStatus(data)
-      }
-    } catch (error) {
-      console.error('Failed to validate configuration:', error)
-    }
-  }
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -184,6 +218,23 @@ export default function AdminDashboardPage() {
     if (status === 'working') return <CheckCircle className="h-4 w-4 text-green-500" />
     if (status === 'error') return <XCircle className="h-4 w-4 text-destructive" />
     return <AlertCircle className="h-4 w-4 text-yellow-500" />
+  }
+
+  // Show loading state while checking authentication
+  if (isAuthenticated === null) {
+    return (
+      <div className="min-h-screen bg-muted/5 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Checking authentication...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Redirect to login if not authenticated
+  if (!isAuthenticated) {
+    return null // Component will unmount as router.push is called
   }
 
   return (

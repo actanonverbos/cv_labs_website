@@ -1,10 +1,18 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { requireAuth } from '@/lib/auth'
 import { validateApiKey } from '@/lib/blog-generator/content-generator'
 import { validateUnsplashApiKey } from '@/lib/blog-generator/image-fetcher'
 import { validateSanityToken, checkSanityConnection } from '@/lib/blog-generator/sanity-uploader'
 
-export async function GET() {
-  // Temporarily skip auth check since middleware is disabled
+export async function GET(request: NextRequest) {
+  // Check authentication
+  const user = requireAuth(request)
+  if (!user) {
+    return NextResponse.json(
+      { error: 'Unauthorized' },
+      { status: 401 }
+    )
+  }
 
   try {
     console.log('Validating API configurations...')
