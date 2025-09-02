@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { FooterSection } from '@/components/sections/footer'
 import { FAQChatWidget } from '@/components/faq-chat-widget'
+import { ReadingProgress } from '@/components/reading-progress'
 import { PortableText, type PortableTextBlock } from '@portabletext/react'
 import { urlFor } from '@/sanity/lib/image'
 import Link from 'next/link'
@@ -54,6 +55,7 @@ export default async function BlogPostPage({
   return (
     <div className="min-h-screen">
       <Navigation />
+      <ReadingProgress />
       <main>
         {/* Hero Section */}
         <section className="py-20 md:py-28 bg-background">
@@ -162,13 +164,40 @@ export default async function BlogPostPage({
                           </div>
                         ),
                       },
+                      block: {
+                        normal: ({ children }) => (
+                          <p className="mb-6 text-lg leading-relaxed text-foreground/90">
+                            {children}
+                          </p>
+                        ),
+                        h1: ({ children }) => (
+                          <h1 className="text-3xl md:text-4xl font-semibold mb-8 mt-12 tracking-tight text-foreground">
+                            {children}
+                          </h1>
+                        ),
+                        h2: ({ children }) => (
+                          <h2 className="text-2xl md:text-3xl font-semibold mb-6 mt-10 tracking-tight text-foreground">
+                            {children}
+                          </h2>
+                        ),
+                        h3: ({ children }) => (
+                          <h3 className="text-xl md:text-2xl font-semibold mb-4 mt-8 tracking-tight text-foreground">
+                            {children}
+                          </h3>
+                        ),
+                      },
                       marks: {
+                        strong: ({ children }) => (
+                          <strong className="font-semibold text-foreground">
+                            {children}
+                          </strong>
+                        ),
                         link: ({ children, value }) => (
                           <a
                             href={value.href}
                             target={value.blank ? '_blank' : undefined}
                             rel={value.blank ? 'noopener noreferrer' : undefined}
-                            className="text-primary hover:underline"
+                            className="text-primary hover:underline font-medium transition-colors"
                           >
                             {children}
                           </a>
