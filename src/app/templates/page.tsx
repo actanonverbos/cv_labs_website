@@ -6,7 +6,7 @@ import { ExternalLink } from "lucide-react"
 import { Navigation } from "@/components/navigation"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Card } from "@/components/ui/card"
+
 import { ScrollReveal } from "@/components/scroll-reveal"
 
 import { FooterSection } from "@/components/sections/footer"
@@ -241,22 +241,52 @@ export default function TemplatesPage() {
         <section id="templates" className="pt-8 pb-20 md:pt-12 md:pb-28 bg-muted/5">
           <div className="container">
             <div className="max-w-6xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {(templates.length > 0 ? templates : fallbackTemplates).map((template, index) => (
                 <ScrollReveal key={template._id || template.title} delay={0.1 * (index + 1)}>
-                  <Card className="group overflow-hidden bg-card border border-border rounded-2xl">
+                  <div className="group overflow-hidden">
+                    {/* Header with Title, Category, and Price */}
+                    <div className="p-0 mb-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          {/* Title */}
+                          <h3 className="text-xl font-bold leading-tight">
+                            {template.title}
+                          </h3>
+                          
+                          {/* Category */}
+                          <Badge variant="outline" className="text-xs px-2 py-1 uppercase font-medium bg-transparent">
+                            {template.category}
+                          </Badge>
+                        </div>
+                        
+                        {/* Badge/Price */}
+                        <Badge 
+                          variant="secondary"
+                          className={`font-semibold text-xs px-2 py-1 flex-shrink-0 ${
+                            template.badge === "FREE" 
+                              ? "bg-green-100 text-green-700 border-green-200" 
+                              : "bg-orange-100 text-orange-700 border-orange-200"
+                          }`}
+                        >
+                          {template.badge}
+                        </Badge>
+                      </div>
+                    </div>
+
                     {/* Template Preview */}
                     {'previewImage' in template && template.previewImage ? (
                       <Link href={template.slug?.current ? `/templates/${template.slug.current}` : template.downloadUrl || "https://cal.com/isaac-cullinane/1-1"} className="block">
-                        <div className="aspect-video relative overflow-hidden">
+                        <div className="relative overflow-hidden rounded-xl">
                           <Image
-                            src={urlFor(template.previewImage).width(600).height(400).url()}
+                            src={urlFor(template.previewImage).width(800).height(600).url()}
                             alt={template.previewImage.alt || template.title}
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            width={800}
+                            height={600}
+                            className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-300"
                           />
                           {/* Overlay on hover */}
-                          <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-xl">
                             <Button variant="secondary" size="sm" className="hover-scale pointer-events-none">
                               <ExternalLink className="w-4 h-4 mr-2" />
                               View Template
@@ -266,7 +296,7 @@ export default function TemplatesPage() {
                       </Link>
                     ) : (
                       <Link href={template.slug?.current ? `/templates/${template.slug.current}` : template.downloadUrl || "https://cal.com/isaac-cullinane/1-1"} className="block">
-                        <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
+                        <div className="aspect-[4/3] bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden rounded-xl">
                           <div className="absolute inset-0 flex items-center justify-center">
                             <div className="text-center space-y-3">
                               <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
@@ -282,7 +312,7 @@ export default function TemplatesPage() {
                           </div>
                           
                           {/* Overlay on hover */}
-                          <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-xl">
                             <Button variant="secondary" size="sm" className="hover-scale pointer-events-none">
                               <ExternalLink className="w-4 h-4 mr-2" />
                               View Template
@@ -291,57 +321,7 @@ export default function TemplatesPage() {
                         </div>
                       </Link>
                     )}
-
-                    <div className="p-6">
-                      <div className="flex items-start justify-between mb-4">
-                        {/* Title */}
-                        <h3 className="text-xl font-bold leading-tight">
-                          {template.title}
-                        </h3>
-                        
-                        {/* Badge */}
-                        <Badge 
-                          variant="secondary"
-                          className={`font-semibold text-xs px-2 py-1 ml-3 flex-shrink-0 ${
-                            template.badge === "FREE" 
-                              ? "bg-green-100 text-green-700 border-green-200" 
-                              : "bg-orange-100 text-orange-700 border-orange-200"
-                          }`}
-                        >
-                          {template.badge}
-                        </Badge>
-                      </div>
-
-                      {/* Category */}
-                      <Badge variant="outline" className="text-xs px-2 py-1 mb-6 uppercase font-medium">
-                        {template.category}
-                      </Badge>
-
-                      {/* CTA Buttons */}
-                      <div className="space-y-2">
-                        <Button 
-                          className="w-full px-4 py-2.5 text-sm font-semibold bg-white text-black hover:bg-gray-100 rounded-lg border-0"
-                          asChild
-                        >
-                          <Link href={template.slug?.current ? `/templates/${template.slug.current}` : template.downloadUrl || "https://cal.com/isaac-cullinane/1-1"}>
-                            {template.price === 0 ? 'Instant Access - $0' : `Access Template - $${template.price}`}
-                            <span className="ml-2">→</span>
-                          </Link>
-                        </Button>
-                        
-                        <Button 
-                          variant="outline"
-                          className="w-full px-4 py-2.5 text-sm font-semibold rounded-lg"
-                          asChild
-                        >
-                          <Link href={template.slug?.current ? `/templates/${template.slug.current}` : template.downloadUrl || "https://cal.com/isaac-cullinane/1-1"}>
-                            Preview
-                            <span className="ml-2">→</span>
-                          </Link>
-                        </Button>
-                      </div>
-                    </div>
-                  </Card>
+                  </div>
                 </ScrollReveal>
               ))}
               </div>

@@ -1,4 +1,4 @@
-import { client, TEMPLATE_QUERY } from '@/lib/sanity'
+import { client, TEMPLATE_QUERY, TEMPLATES_QUERY } from '@/lib/sanity'
 import { Navigation } from '@/components/navigation'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -8,7 +8,7 @@ import { FAQChatWidget } from '@/components/faq-chat-widget'
 import { urlFor } from '@/sanity/lib/image'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, ExternalLink } from 'lucide-react'
 import { notFound } from 'next/navigation'
 
 type Template = {
@@ -51,26 +51,73 @@ async function getTemplate(slug: string): Promise<Template | null> {
   }
 }
 
+async function getAllTemplates(): Promise<Template[]> {
+  try {
+    const templates = await client.fetch(TEMPLATES_QUERY)
+    return templates || []
+  } catch (error) {
+    console.error('Error fetching templates:', error)
+    return []
+  }
+}
+
+// Fallback templates for when CMS is empty
+const fallbackTemplates = [
+  {
+    _id: "1",
+    title: "INBOX PULSE",
+    subtitle: "The Tech Edge You Need, Delivered Weekly",
+    description: "Get the latest tech trends, AI breakthroughs, and industry insights delivered weekly to your inbox.",
+    longDescription: "INBOX PULSE is a comprehensive newsletter template designed for tech enthusiasts and industry professionals. This template includes everything you need to create a professional weekly newsletter that keeps your audience engaged with the latest technology trends, AI breakthroughs, and industry insights.\n\nThe template features a clean, modern design that's optimized for both desktop and mobile reading. It includes customizable sections for featured articles, quick tech tips, industry news roundup, and sponsor highlights.",
+    category: "newsletter",
+    badge: "FREE" as const,
+    price: 0,
+    features: ["Lightning Fast Setup", "One-Click Import", "Custom Built Components", "Easy Setup Guide", "Mobile Responsive", "Email Integration"],
+    downloadUrl: "https://cal.com/isaac-cullinane/1-1",
+    techStack: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
+    includedFiles: ["Newsletter template", "Email components", "Setup guide", "Style customization"],
+    slug: { current: "inbox-pulse" }
+  },
+  {
+    _id: "2",
+    title: "CREATORLINK", 
+    subtitle: "Connect Your Audience Everywhere",
+    description: "Say hello to CreatorLink — your new favorite link-in-bio template, built in Framer with a mobile-first design and creators in mind.",
+    category: "Link in Bio",
+    badge: "FREE" as const,
+    price: 0,
+    features: ["Mobile Responsive", "Analytics Ready", "Custom Branding", "Social Integration"],
+    downloadUrl: "https://cal.com/isaac-cullinane/1-1",
+    slug: { current: "creatorlink" }
+  },
+  {
+    _id: "3",
+    title: "WAITPRO",
+    subtitle: "Professional Waitlist Landing Page", 
+    description: "Get Early Access to the most beautiful waitlist template. Perfect for launching your next big idea and building anticipation.",
+    category: "Waitlist",
+    badge: "FREE" as const,
+    price: 0,
+    features: ["Email Collection", "Social Sharing", "Analytics", "Mobile Optimized"],
+    downloadUrl: "https://cal.com/isaac-cullinane/1-1",
+    slug: { current: "waitpro" }
+  },
+  {
+    _id: "4",
+    title: "SKILLSET",
+    subtitle: "Framer Landing Page Template",
+    description: "Unlock Your Financial Freedom with Framer. Fast Track Leads, Earn Track Record, and Build the Portfolio.",
+    category: "Landing Page",
+    badge: "FREE" as const, 
+    price: 0,
+    features: ["No Code", "Highly Scalable", "Ready to Use", "Plug and Play Template"],
+    downloadUrl: "https://cal.com/isaac-cullinane/1-1",
+    slug: { current: "skillset" }
+  }
+]
+
 // Fallback function for when Sanity template is not found
 function getFallbackTemplate(slug: string): Template | null {
-  const fallbackTemplates = [
-    {
-      _id: "1",
-      title: "INBOX PULSE",
-      subtitle: "The Tech Edge You Need, Delivered Weekly",
-      description: "Get the latest tech trends, AI breakthroughs, and industry insights delivered weekly to your inbox.",
-      longDescription: "INBOX PULSE is a comprehensive newsletter template designed for tech enthusiasts and industry professionals. This template includes everything you need to create a professional weekly newsletter that keeps your audience engaged with the latest technology trends, AI breakthroughs, and industry insights.\n\nThe template features a clean, modern design that's optimized for both desktop and mobile reading. It includes customizable sections for featured articles, quick tech tips, industry news roundup, and sponsor highlights.",
-      category: "newsletter",
-      badge: "FREE" as const,
-      price: 0,
-      features: ["Lightning Fast Setup", "One-Click Import", "Custom Built Components", "Easy Setup Guide", "Mobile Responsive", "Email Integration"],
-      downloadUrl: "https://cal.com/isaac-cullinane/1-1",
-      techStack: ["Next.js", "React", "Tailwind CSS", "TypeScript"],
-      includedFiles: ["Newsletter template", "Email components", "Setup guide", "Style customization"],
-      slug: { current: "inbox-pulse" }
-    }
-  ]
-  
   return fallbackTemplates.find(t => t.slug.current === slug) || null
 }
 
@@ -90,6 +137,12 @@ export default async function TemplateDetailPage({
   if (!template) {
     notFound()
   }
+
+  // Fetch all templates for "More Templates" section
+  const allTemplates = await getAllTemplates()
+  const otherTemplates = allTemplates.length > 0 
+    ? allTemplates.filter(t => t.slug.current !== slug)
+    : fallbackTemplates.filter(t => t.slug.current !== slug)
 
   return (
     <div className="min-h-screen">
@@ -143,9 +196,9 @@ export default async function TemplateDetailPage({
                     )}
                   </ScrollReveal>
 
-                  {/* Second Image */}
-                  <ScrollReveal delay={0.3}>
-                    {template.additionalImages && template.additionalImages.length > 0 ? (
+                  {/* Second Image - Only show if additional images exist */}
+                  {template.additionalImages && template.additionalImages.length > 0 && (
+                    <ScrollReveal delay={0.3}>
                       <div className="aspect-[4/3] relative overflow-hidden rounded-2xl shadow-2xl">
                         <Image
                           src={urlFor(template.additionalImages[0]).width(600).height(450).url()}
@@ -154,19 +207,8 @@ export default async function TemplateDetailPage({
                           className="object-cover"
                         />
                       </div>
-                    ) : (
-                      <div className="aspect-[4/3] bg-gradient-to-br from-muted/20 via-muted/10 to-background rounded-2xl flex items-center justify-center shadow-2xl">
-                        <div className="text-center space-y-3">
-                          <div className="w-16 h-16 mx-auto rounded-2xl bg-muted/30 flex items-center justify-center">
-                            <div className="w-8 h-8 rounded-xl bg-muted flex items-center justify-center">
-                              <span className="text-muted-foreground font-bold text-sm">+</span>
-                            </div>
-                          </div>
-                          <p className="text-sm text-muted-foreground">Additional Preview</p>
-                        </div>
-                      </div>
-                    )}
-                  </ScrollReveal>
+                    </ScrollReveal>
+                  )}
                 </div>
 
                 {/* Template Info */}
@@ -257,101 +299,108 @@ export default async function TemplateDetailPage({
           </div>
         </section>
 
-        {/* Related Templates */}
-        <section className="py-20 bg-muted/5">
-          <div className="container">
-            <div className="max-w-6xl mx-auto">
-              <ScrollReveal delay={0.1}>
-                <div className="text-center mb-12">
-                  <h2 className="text-2xl md:text-3xl font-bold mb-4">More Templates</h2>
-                  <p className="text-muted-foreground max-w-2xl mx-auto">
-                    Discover other high-quality templates to accelerate your next project
-                  </p>
+        {/* More Templates */}
+        {otherTemplates.length > 0 && (
+          <section className="py-20 bg-muted/5">
+            <div className="container">
+              <div className="max-w-6xl mx-auto">
+                <ScrollReveal delay={0.1}>
+                  <div className="text-center mb-12">
+                    <h2 className="text-2xl md:text-3xl font-bold mb-4">More Templates</h2>
+                    <p className="text-muted-foreground max-w-2xl mx-auto">
+                      Discover other high-quality templates to accelerate your next project
+                    </p>
+                  </div>
+                </ScrollReveal>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {otherTemplates.slice(0, 4).map((templateItem, index) => (
+                    <ScrollReveal key={templateItem._id || templateItem.title} delay={0.1 * (index + 1)}>
+                      <div className="group overflow-hidden">
+                        {/* Header with Title, Category, and Price */}
+                        <div className="p-0 mb-4">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                              {/* Title */}
+                              <h3 className="text-xl font-bold leading-tight">
+                                {templateItem.title}
+                              </h3>
+                              
+                              {/* Category */}
+                              <Badge variant="outline" className="text-xs px-2 py-1 uppercase font-medium bg-transparent">
+                                {templateItem.category}
+                              </Badge>
+                            </div>
+                            
+                            {/* Badge/Price */}
+                            <Badge 
+                              variant="secondary"
+                              className={`font-semibold text-xs px-2 py-1 flex-shrink-0 ${
+                                templateItem.badge === "FREE" 
+                                  ? "bg-green-100 text-green-700 border-green-200" 
+                                  : "bg-orange-100 text-orange-700 border-orange-200"
+                              }`}
+                            >
+                              {templateItem.badge}
+                            </Badge>
+                          </div>
+                        </div>
+
+                        {/* Template Preview */}
+                        {'previewImage' in templateItem && templateItem.previewImage ? (
+                          <Link href={templateItem.slug?.current ? `/templates/${templateItem.slug.current}` : templateItem.downloadUrl || "https://cal.com/isaac-cullinane/1-1"} className="block">
+                            <div className="relative overflow-hidden rounded-xl">
+                              <Image
+                                src={urlFor(templateItem.previewImage).width(800).height(600).url()}
+                                alt={templateItem.previewImage.alt || templateItem.title}
+                                width={800}
+                                height={600}
+                                className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-300"
+                              />
+                              {/* Overlay on hover */}
+                              <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-xl">
+                                <Button variant="secondary" size="sm" className="hover-scale pointer-events-none">
+                                  <ExternalLink className="w-4 h-4 mr-2" />
+                                  View Template
+                                </Button>
+                              </div>
+                            </div>
+                          </Link>
+                        ) : (
+                          <Link href={templateItem.slug?.current ? `/templates/${templateItem.slug.current}` : templateItem.downloadUrl || "https://cal.com/isaac-cullinane/1-1"} className="block">
+                            <div className="aspect-[4/3] bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden rounded-xl">
+                              <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="text-center space-y-3">
+                                  <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
+                                    <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
+                                      <span className="text-primary-foreground font-bold text-sm">{templateItem.title.slice(0, 2)}</span>
+                                    </div>
+                                  </div>
+                                  <div className="space-y-2">
+                                    <div className="h-2 bg-primary/20 rounded-full w-32 mx-auto"></div>
+                                    <div className="h-2 bg-primary/10 rounded-full w-24 mx-auto"></div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              {/* Overlay on hover */}
+                              <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-xl">
+                                <Button variant="secondary" size="sm" className="hover-scale pointer-events-none">
+                                  <ExternalLink className="w-4 h-4 mr-2" />
+                                  View Template
+                                </Button>
+                              </div>
+                            </div>
+                          </Link>
+                        )}
+                      </div>
+                    </ScrollReveal>
+                  ))}
                 </div>
-              </ScrollReveal>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {/* Template 1 */}
-                <ScrollReveal delay={0.2}>
-                  <Link href="/templates/creatorlink" className="group">
-                    <div className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
-                      <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-center space-y-3">
-                            <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
-                              <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
-                                <span className="text-primary-foreground font-bold text-sm">CL</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="p-6">
-                        <div className="flex items-center justify-between mb-3">
-                          <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">CREATORLINK</h3>
-                          <div className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">FREE</div>
-                        </div>
-                        <div className="text-xs text-muted-foreground uppercase mb-2">Link in Bio</div>
-                      </div>
-                    </div>
-                  </Link>
-                </ScrollReveal>
-
-                {/* Template 2 */}
-                <ScrollReveal delay={0.3}>
-                  <Link href="/templates/skillset" className="group">
-                    <div className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
-                      <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-center space-y-3">
-                            <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
-                              <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
-                                <span className="text-primary-foreground font-bold text-sm">SK</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="p-6">
-                        <div className="flex items-center justify-between mb-3">
-                          <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">SKILLSET</h3>
-                          <div className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">FREE</div>
-                        </div>
-                        <div className="text-xs text-muted-foreground uppercase mb-2">Landing Page</div>
-                      </div>
-                    </div>
-                  </Link>
-                </ScrollReveal>
-
-                {/* Template 3 */}
-                <ScrollReveal delay={0.4}>
-                  <Link href="/templates/inbox-pulse" className="group">
-                    <div className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
-                      <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-center space-y-3">
-                            <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
-                              <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center">
-                                <span className="text-primary-foreground font-bold text-sm">IP</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="p-6">
-                        <div className="flex items-center justify-between mb-3">
-                          <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">INBOX PULSE</h3>
-                          <div className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">FREE</div>
-                        </div>
-                        <div className="text-xs text-muted-foreground uppercase mb-2">Newsletter</div>
-                      </div>
-                    </div>
-                  </Link>
-                </ScrollReveal>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* CTA */}
         <section className="py-20 bg-background">
