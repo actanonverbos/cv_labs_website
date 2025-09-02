@@ -2,8 +2,18 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { NextRequest } from 'next/server'
 
-// Admin credentials - in production, store these securely in environment variables
-const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-jwt-key-change-this-in-production'
+// Admin credentials - must be set in environment variables for production
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME
+const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH
+const JWT_SECRET = process.env.JWT_SECRET
+
+// Validate required environment variables
+if (!ADMIN_USERNAME || !ADMIN_PASSWORD_HASH || !JWT_SECRET) {
+  console.warn('⚠️  Missing required environment variables for admin authentication:')
+  if (!ADMIN_USERNAME) console.warn('  - ADMIN_USERNAME')
+  if (!ADMIN_PASSWORD_HASH) console.warn('  - ADMIN_PASSWORD_HASH')
+  if (!JWT_SECRET) console.warn('  - JWT_SECRET')
+}
 
 export interface AdminUser {
   username: string
@@ -19,6 +29,10 @@ export const verifyPassword = async (password: string, hash: string): Promise<bo
 }
 
 export const generateToken = (user: AdminUser): string => {
+  if (!JWT_SECRET) {
+    throw new Error('JWT_SECRET environment variable is required')
+  }
+  
   return jwt.sign(
     { username: user.username, role: user.role },
     JWT_SECRET,
@@ -27,6 +41,11 @@ export const generateToken = (user: AdminUser): string => {
 }
 
 export const verifyToken = (token: string): AdminUser | null => {
+  if (!JWT_SECRET) {
+    console.error('JWT_SECRET environment variable is required for token verification')
+    return null
+  }
+  
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as jwt.JwtPayload & AdminUser
     return { username: decoded.username, role: decoded.role }
@@ -36,12 +55,24 @@ export const verifyToken = (token: string): AdminUser | null => {
 }
 
 export const authenticateAdmin = async (username: string, password: string): Promise<AdminUser | null> => {
-  // Temporary simple auth - CHANGE THIS IN PRODUCTION
-  if (username === 'admin' && password === 'admin123') {
-    return { username, role: 'admin' }
+  // Check if environment variables are configured
+  if (!ADMIN_USERNAME || !ADMIN_PASSWORD_HASH) {
+    console.error('❌ Admin authentication not configured - missing environment variables')
+    return null
   }
-  
-  return null
+
+  // Verify username matches
+  if (username !== ADMIN_USERNAME) {
+    return null
+  }
+
+  // Verify password against hash
+  const isValidPassword = await verifyPassword(password, ADMIN_PASSWORD_HASH)
+  if (!isValidPassword) {
+    return null
+  }
+
+  return { username, role: 'admin' }
 }
 
 export const getAuthTokenFromRequest = (request: NextRequest): string | null => {
