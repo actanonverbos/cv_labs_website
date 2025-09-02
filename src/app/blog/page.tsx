@@ -65,7 +65,7 @@ function BlogBadge() {
     <div className="flex justify-center mb-6">
       <Badge 
         variant="secondary" 
-        className="rounded-full px-4 py-2 text-sm font-medium backdrop-blur-sm transition-all duration-200 eyebrow inline-flex items-center gap-2"
+        className="rounded-lg px-4 py-2 text-sm font-medium backdrop-blur-sm transition-all duration-200 eyebrow inline-flex items-center gap-2"
         style={{
           backgroundColor: 'var(--badge-bg, rgba(0, 0, 0, 0.1))',
           color: 'var(--badge-text, #020817)',
@@ -88,11 +88,11 @@ function BlogBadge() {
       >
         <div className="relative flex items-center justify-center">
           <div 
-            className="w-2 h-2 rounded-full"
+            className="w-2 h-2 rounded-lg"
             style={{ backgroundColor: 'var(--dot-color, #020817)' }}
           ></div>
           <div 
-            className="absolute w-2 h-2 rounded-full animate-radar-ping"
+            className="absolute w-2 h-2 rounded-lg animate-radar-ping"
             style={{ backgroundColor: 'var(--dot-color, #020817)' }}
           ></div>
         </div>
@@ -169,7 +169,7 @@ export default function BlogPage() {
         </section>
 
         {/* Blog Posts Grid */}
-        <section className="pt-8 pb-20 md:pt-12 md:pb-28 bg-muted/5">
+        <section className="pt-4 pb-20 md:pt-6 md:pb-28 bg-muted/5">
           <div className="container">
             <div className="max-w-6xl mx-auto">
               {posts.length === 0 ? (
@@ -184,12 +184,12 @@ export default function BlogPage() {
                   </ScrollReveal>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
                 {posts.map((post, index) => (
                   <ScrollReveal key={post._id} delay={0.1 * (index + 1)}>
-                    <Link href={`/blog/${post.slug.current}`}>
-                      <Card className="group overflow-hidden bg-card border border-border rounded-2xl hover:shadow-xl transition-all duration-300">
-                        {/* Featured Image */}
+                    <Link href={`/blog/${post.slug.current}`} className="h-full">
+                      <Card className="group overflow-hidden bg-card border border-border rounded-2xl hover:shadow-xl transition-all duration-300 h-full flex flex-col !py-0 !gap-0">
+                        {/* Featured Image with Category Overlay */}
                         {post.mainImage ? (
                           <div className="aspect-video relative overflow-hidden">
                             <Image
@@ -198,6 +198,14 @@ export default function BlogPage() {
                               fill
                               className="object-cover group-hover:scale-105 transition-transform duration-300"
                             />
+                            {/* Category Tag Overlay */}
+                            {post.categories && post.categories.length > 0 && (
+                              <div className="absolute top-3 right-3">
+                                <Badge className="text-xs font-semibold !bg-black/80 !text-white hover:!bg-black/90 !border-0 px-3 py-1 rounded-lg backdrop-blur-sm shadow-lg">
+                                  {post.categories[0]}
+                                </Badge>
+                              </div>
+                            )}
                           </div>
                         ) : (
                           <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
@@ -209,46 +217,27 @@ export default function BlogPage() {
                                   </div>
                                 </div>
                                 <div className="space-y-2">
-                                  <div className="h-2 bg-primary/20 rounded-full w-32 mx-auto"></div>
-                                  <div className="h-2 bg-primary/10 rounded-full w-24 mx-auto"></div>
+                                  <div className="h-2 bg-primary/20 rounded-lg w-32 mx-auto"></div>
+                                  <div className="h-2 bg-primary/10 rounded-lg w-24 mx-auto"></div>
                                 </div>
                               </div>
                             </div>
+                            {/* Category Tag Overlay for placeholder */}
+                            {post.categories && post.categories.length > 0 && (
+                              <div className="absolute top-3 right-3">
+                                <Badge className="text-xs font-semibold !bg-black/80 !text-white hover:!bg-black/90 !border-0 px-3 py-1 rounded-lg backdrop-blur-sm shadow-lg">
+                                  {post.categories[0]}
+                                </Badge>
+                              </div>
+                            )}
                           </div>
                         )}
 
-                        <div className="p-6">
-                          {/* Categories */}
-                          {post.categories && post.categories.length > 0 && (
-                            <div className="flex flex-wrap gap-2 mb-4">
-                              {post.categories.slice(0, 2).map((category) => (
-                                <Badge 
-                                  key={category}
-                                  variant="secondary"
-                                  className="text-xs bg-primary/10 text-primary border-primary/20"
-                                >
-                                  {category}
-                                </Badge>
-                              ))}
-                            </div>
-                          )}
-
+                        <div className="p-4 flex-1 flex flex-col">
                           {/* Title */}
-                          <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
+                          <h3 className="text-xl font-semibold group-hover:text-primary transition-colors flex-1">
                             {post.title}
                           </h3>
-
-                          {/* Meta */}
-                          <div className="flex items-center justify-between text-sm text-muted-foreground">
-                            <span>{post.author}</span>
-                            <time dateTime={post.publishedAt}>
-                              {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric',
-                              })}
-                            </time>
-                          </div>
                         </div>
                       </Card>
                     </Link>
