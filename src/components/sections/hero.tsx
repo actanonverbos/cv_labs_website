@@ -4,11 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, Star } from "lucide-react"
-import * as Avatar from "@radix-ui/react-avatar"
-
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Card } from "@/components/ui/card"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { StaggeredText } from "@/components/staggered-text"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
@@ -42,7 +38,7 @@ export function HeroSection() {
   const [viewButtonRef, setViewButtonRef] = React.useState<HTMLElementWithCleanup | null>(null)
 
 
-  const [badgeRef, setBadgeRef] = React.useState<HTMLElement | null>(null)
+
   
   React.useEffect(() => {
     // Set up mutation observer to watch for theme changes
@@ -68,12 +64,7 @@ export function HeroSection() {
             viewButtonRef.style.borderColor = isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'
           }
           
-          if (badgeRef) {
-            badgeRef.style.setProperty('--badge-bg', isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')
-            badgeRef.style.setProperty('--badge-text', isDark ? '#ffffff' : '#020817')
-            badgeRef.style.setProperty('--badge-border', isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)')
-            badgeRef.style.setProperty('--dot-color', isDark ? '#ffffff' : '#020817')
-          }
+
         }
       })
     })
@@ -93,7 +84,7 @@ export function HeroSection() {
         viewButtonRef._cleanup()
       }
     }
-  }, [bookButtonRef, viewButtonRef, badgeRef])
+  }, [bookButtonRef, viewButtonRef])
 
   return (
     <section id="hero" className="pt-16 md:pt-24 pb-8 bg-background">
@@ -323,11 +314,12 @@ export function HeroSection() {
         <div className="max-w-4xl mx-auto space-y-6 mt-8">
           {portfolioImages.map((imageName, index) => (
             <ScrollReveal key={imageName} delay={0.05 * index} y={20}>
-              <div className="rounded-xl overflow-hidden bg-muted/50 shadow-lg">
-                <img
+              <div className="rounded-xl overflow-hidden bg-muted/50 shadow-lg relative aspect-[4/3]">
+                <Image
                   src={`/portfolio/${imageName}`}
                   alt={`Portfolio project ${index + 1}`}
-                  className="w-full h-auto object-contain"
+                  fill
+                  className="object-contain"
                   loading="lazy"
                 />
               </div>

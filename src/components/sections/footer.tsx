@@ -24,14 +24,14 @@ const footerLinks = {
     { name: "FAQ", href: "#faq" },
     { name: "Contact", href: "https://cal.com/isaac-cullinane/1-1" },
     { name: "Book a Call", href: "https://cal.com/isaac-cullinane/1-1" },
-    { name: "Support", href: "mailto:support@cvlabs.dev" },
+    { name: "Support", href: "mailto:support@convertlabs.cloud" },
   ]
 }
 
 const socialLinks = [
   { name: "X", href: "https://x.com/isaac_cullinane", icon: X },
   { name: "YouTube", href: "https://www.youtube.com/channel/UCUrw7rsQTWcmVPty72E5NIw", icon: Youtube },
-  { name: "Email", href: "mailto:hello@cvlabs.dev", icon: Mail },
+  { name: "Email", href: "mailto:hello@convertlabs.cloud", icon: Mail },
 ]
 
 export function FooterSection() {

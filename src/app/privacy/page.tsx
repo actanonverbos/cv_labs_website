@@ -89,7 +89,7 @@ export default function PrivacyPage() {
                 If you have any questions about this Privacy Policy, please contact us at:
               </p>
               <p className="text-muted-foreground">
-                Email: privacy@cvlabs.dev<br />
+                Email: privacy@convertlabs.cloud<br />
                 Address: CV Labs, United Kingdom
               </p>
             </section>

@@ -108,7 +108,7 @@ export default function TermsPage() {
                 For questions about these Terms of Service, please contact us at:
               </p>
               <p className="text-muted-foreground">
-                Email: legal@cvlabs.dev<br />
+                Email: legal@convertlabs.cloud<br />
                 Address: CV Labs, United Kingdom
               </p>
             </section>

@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { ExternalLink, ArrowRight } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -138,11 +139,14 @@ export function WorkSection() {
               <div className="relative overflow-hidden bg-gradient-to-br from-primary/20 via-primary/10 to-background">
                 {/* Actual image or placeholder */}
                 {item.image.includes('/portfolio/') ? (
-                  <img 
-                    src={item.image} 
-                    alt={item.title}
-                    className="w-full h-auto object-contain"
-                  />
+                  <div className="relative aspect-[16/10]">
+                    <Image 
+                      src={item.image} 
+                      alt={item.title}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 ) : (
                   <div className="aspect-[16/10] flex items-center justify-center">
                     <div className="text-center space-y-3">

@@ -16,8 +16,6 @@ import {
   Edit3, 
   Users, 
   BarChart3,
-  Send,
-  ArrowRight,
   Star,
   Code
 } from "lucide-react"
@@ -62,7 +60,6 @@ const pricingTiers = [
 
 export function PricingSection() {
   const [bookButtonRef, setBookButtonRef] = React.useState<HTMLElementWithCleanup | null>(null)
-  const [telegramButtonRef, setTelegramButtonRef] = React.useState<HTMLElementWithCleanup | null>(null)
   const [tier1ButtonRef, setTier1ButtonRef] = React.useState<HTMLElementWithCleanup | null>(null)
   const [tier2ButtonRef, setTier2ButtonRef] = React.useState<HTMLElementWithCleanup | null>(null)
   
@@ -77,12 +74,6 @@ export function PricingSection() {
           if (bookButtonRef) {
             bookButtonRef.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
             bookButtonRef.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
-          }
-          
-          if (telegramButtonRef) {
-            telegramButtonRef.style.setProperty('--button-bg', isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)')
-            telegramButtonRef.style.setProperty('--button-text', isDark ? '#ffffff' : '#020817')
-            telegramButtonRef.style.setProperty('--button-border', isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)')
           }
           
           if (tier1ButtonRef) {
@@ -109,9 +100,6 @@ export function PricingSection() {
       if (bookButtonRef && bookButtonRef._cleanup) {
         bookButtonRef._cleanup()
       }
-      if (telegramButtonRef && telegramButtonRef._cleanup) {
-        telegramButtonRef._cleanup()
-      }
       if (tier1ButtonRef && tier1ButtonRef._cleanup) {
         tier1ButtonRef._cleanup()
       }
@@ -119,7 +107,7 @@ export function PricingSection() {
         tier2ButtonRef._cleanup()
       }
     }
-  }, [bookButtonRef, telegramButtonRef, tier1ButtonRef, tier2ButtonRef])
+  }, [bookButtonRef, tier1ButtonRef, tier2ButtonRef])
 
   return (
     <section id="pricing" className="py-16 md:py-20 bg-background">
@@ -254,7 +242,7 @@ export function PricingSection() {
                   Custom Solution
                 </h3>
                 <p className="text-muted-foreground text-base mb-6 leading-relaxed">
-                  Need something unique? Let's build a tailored solution that perfectly fits your business needs and goals.
+                  Need something unique? Let&apos;s build a tailored solution that perfectly fits your business needs and goals.
                 </p>
                 
                 <Button 

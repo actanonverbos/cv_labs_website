@@ -30,8 +30,8 @@ export default function RootLayout({
       <head>
         <Script
           defer
-          data-domain="cvlabs.dev"
-          src="https://plausible.io/js/script.js"
+          src="https://cloud.umami.is/script.js"
+          data-website-id="96fc3a4e-76f4-461f-a9ab-7ec5d575a3e0"
           strategy="afterInteractive"
         />
       </head>

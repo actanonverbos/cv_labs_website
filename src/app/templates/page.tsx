@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { ArrowRight, ExternalLink } from "lucide-react"
+import { ExternalLink } from "lucide-react"
 import { Navigation } from "@/components/navigation"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
