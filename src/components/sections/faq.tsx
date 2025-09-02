@@ -85,11 +85,13 @@ export function FAQSection() {
           </Accordion>
         </div>
 
-        <div className="text-center mt-8">
-          <p className="text-sm text-muted-foreground">
-            Still have questions? <a href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">Book a free consultation call →</a>
-          </p>
-        </div>
+        <ScrollReveal delay={0.8}>
+          <div className="text-center mt-8">
+            <p className="text-sm text-muted-foreground">
+              Still have questions? <a href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">Book a free consultation call →</a>
+            </p>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   )
