@@ -171,6 +171,22 @@
   .hover-scale:hover {
     transform: scale(1.01);
   }
+
+  /* Text rendering improvements for animations */
+  .staggered-text-container {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Ensure proper baseline alignment for animated text */
+  .animated-word {
+    display: inline-block;
+    vertical-align: baseline;
+    transform-origin: center bottom;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
 }
 
 

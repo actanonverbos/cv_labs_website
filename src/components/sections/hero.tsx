@@ -163,9 +163,10 @@ export function HeroSection() {
           {/* Main headline */}
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium mb-6 text-balance leading-tight tracking-tight">
             <StaggeredText 
+              className="block"
               highlightWords={["Drive", "Results"]}
               delay={0.2}
-              staggerDelay={0.1}
+              staggerDelay={0.08}
             >
               High-Converting Landing Pages That Drive Results
             </StaggeredText>

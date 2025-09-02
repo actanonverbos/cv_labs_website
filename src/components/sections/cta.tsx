@@ -55,9 +55,10 @@ export function CTASection() {
           <div className="max-w-2xl mx-auto px-8">
             <h2 className="text-3xl md:text-4xl font-medium mb-4 text-balance leading-tight tracking-tight">
               <StaggeredText 
+                className="block"
                 highlightWords={["Ready"]}
                 delay={0.2}
-                staggerDelay={0.1}
+                staggerDelay={0.08}
               >
                 Ready to get started?
               </StaggeredText>

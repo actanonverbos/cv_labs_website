@@ -46,9 +46,10 @@ export function FooterSection() {
               <Link href="/" className="flex items-center mb-4">
                 <span className="font-medium text-xl">
                   <StaggeredText 
+                    className="block"
                     highlightWords={["Convert"]}
                     delay={0.1}
-                    staggerDelay={0.1}
+                    staggerDelay={0.08}
                   >
                     Convert Labs
                   </StaggeredText>
@@ -87,8 +88,9 @@ export function FooterSection() {
             <ScrollReveal delay={0.3}>
               <h3 className="font-medium mb-4">
                 <StaggeredText 
+                  className="block"
                   delay={0.1}
-                  staggerDelay={0.1}
+                  staggerDelay={0.08}
                 >
                   Company
                 </StaggeredText>
@@ -115,8 +117,9 @@ export function FooterSection() {
             <ScrollReveal delay={0.35}>
               <h3 className="font-medium mb-4">
                 <StaggeredText 
+                  className="block"
                   delay={0.1}
-                  staggerDelay={0.1}
+                  staggerDelay={0.08}
                 >
                   Support
                 </StaggeredText>
@@ -145,8 +148,9 @@ export function FooterSection() {
             <ScrollReveal delay={0.4}>
               <h3 className="font-medium mb-4">
                 <StaggeredText 
+                  className="block"
                   delay={0.1}
-                  staggerDelay={0.1}
+                  staggerDelay={0.08}
                 >
                   Legal
                 </StaggeredText>

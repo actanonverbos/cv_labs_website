@@ -53,9 +53,10 @@ export function BenefitsSection() {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-medium mb-4">
             <StaggeredText 
+              className="block"
               highlightWords={["Service?"]}
               delay={0.2}
-              staggerDelay={0.1}
+              staggerDelay={0.08}
             >
               Why Choose Our Landing Page Service?
             </StaggeredText>

@@ -34,13 +34,15 @@ export function StaggeredText({
   const wordVariants = {
     hidden: {
       opacity: 0,
-      y: 16,
+      y: 12,
+      scale: 0.98,
     },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
-        duration: 0.7,
+        duration: 0.6,
         ease: [0.16, 1, 0.3, 1] as const,
       },
     },
@@ -48,7 +50,7 @@ export function StaggeredText({
 
   return (
     <motion.span
-      className={className}
+      className={`staggered-text-container ${className}`}
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
@@ -62,10 +64,10 @@ export function StaggeredText({
           <motion.span
             key={index}
             variants={wordVariants}
-            className={`inline-block ${isHighlighted ? highlightClassName : ""}`}
+            className={`animated-word ${isHighlighted ? highlightClassName : ""}`}
           >
             {word}
-            {!isLast && <span className="inline-block w-[0.25em]"> </span>}
+            {!isLast && " "}
           </motion.span>
         )
       })}

@@ -11,9 +11,10 @@ export function AboutSection() {
         <div className="text-left mb-12">
           <h2 className="text-2xl md:text-3xl font-medium mb-2">
             <StaggeredText 
+              className="block"
               highlightWords={["convert."]}
               delay={0.2}
-              staggerDelay={0.1}
+              staggerDelay={0.08}
             >
               Built for founders. Designed to convert.
             </StaggeredText>

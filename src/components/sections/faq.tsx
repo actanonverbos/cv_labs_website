@@ -42,9 +42,10 @@ export function FAQSection() {
         <div className="text-center mb-12">
           <h2 className="text-2xl md:text-3xl font-medium mb-2">
             <StaggeredText 
+              className="block"
               highlightWords={["Answers"]}
               delay={0.2}
-              staggerDelay={0.1}
+              staggerDelay={0.08}
             >
               Got Questions? We&apos;ve Got Answers
             </StaggeredText>

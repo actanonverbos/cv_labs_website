@@ -91,9 +91,10 @@ export function ProcessSection() {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-medium mb-4">
             <StaggeredText 
+              className="block"
               highlightWords={["Process"]}
               delay={0.2}
-              staggerDelay={0.1}
+              staggerDelay={0.08}
             >
               Our Proven Process
             </StaggeredText>
