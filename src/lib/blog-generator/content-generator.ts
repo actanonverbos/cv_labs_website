@@ -140,7 +140,7 @@ export const generateBlogContent = async (input: BlogPostInput): Promise<Generat
         parsedContent.content = extractContentOnly(parsedContent.content)
       }
       
-    } catch (error) {
+    } catch {
       // If JSON parsing fails, try to extract content manually
       console.warn('Failed to parse JSON response, attempting manual extraction')
       console.log('Raw response:', response)

@@ -10,7 +10,7 @@ export const ReadingProgress = () => {
       const scrollTop = window.scrollY
       
       // Find the blog content container (the prose section)
-      const blogContent = document.querySelector('.prose')
+      const blogContent = document.querySelector('.prose') as HTMLElement
       
       if (!blogContent) {
         // Fallback to full document if blog content not found

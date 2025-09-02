@@ -1,12 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-// Use dynamic import to avoid edge runtime issues
-async function getAuthHelpers() {
-  const { getAuthTokenFromRequest, verifyToken } = await import('@/lib/auth')
-  return { getAuthTokenFromRequest, verifyToken }
-}
-
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 

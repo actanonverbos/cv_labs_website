@@ -1,10 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/auth'
+import { NextResponse } from 'next/server'
 import { validateApiKey } from '@/lib/blog-generator/content-generator'
 import { validateUnsplashApiKey } from '@/lib/blog-generator/image-fetcher'
 import { validateSanityToken, checkSanityConnection } from '@/lib/blog-generator/sanity-uploader'
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   // Temporarily skip auth check since middleware is disabled
 
   try {

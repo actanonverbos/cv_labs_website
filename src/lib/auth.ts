@@ -3,8 +3,6 @@ import jwt from 'jsonwebtoken'
 import { NextRequest } from 'next/server'
 
 // Admin credentials - in production, store these securely in environment variables
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin'
-const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || '$2b$12$6l0yiILX0xJi8DEM0rFSgeg8YsWaeQifUxIGiugxnM7P6/O.WLWmy' // 'admin123' hashed - WORKING HASH
 const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-jwt-key-change-this-in-production'
 
 export interface AdminUser {
