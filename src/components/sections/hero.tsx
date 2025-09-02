@@ -171,14 +171,14 @@ export function HeroSection() {
               delay={0.2}
               staggerDelay={0.08}
             >
-              High-Converting Landing Pages That Drive Results
+              High-Converting Design for Founders & Startups
             </StaggeredText>
           </h1>
 
           {/* Subheadline */}
           <ScrollReveal delay={0.3}>
             <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-2xl mx-auto text-balance leading-relaxed font-normal">
-              Get a conversion-optimized landing page that turns visitors into customers. 
+              Get a conversion-optimized website that turns visitors into customers & users. 
               Fast launches, revenue-first UX, and performance-focused design.
             </p>
           </ScrollReveal>

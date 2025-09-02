@@ -155,32 +155,12 @@ export default function BlogPage() {
 
               <ScrollReveal delay={0.2}>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-6 text-balance leading-tight tracking-tight">
-                  <span 
-                    className="inline-block animate-in fade-in slide-in-from-bottom-4 duration-700"
-                    style={{ animationDelay: '200ms', animationFillMode: 'both' }}
-                  >
-                    Convert
-                  </span>{" "}
-                  <span 
-                    className="inline-block animate-in fade-in slide-in-from-bottom-4 duration-700"
-                    style={{ animationDelay: '400ms', animationFillMode: 'both' }}
-                  >
-                    Labs
-                  </span>{" "}
-                  <span 
-                    className="inline-block text-primary animate-in fade-in slide-in-from-bottom-4 duration-700"
-                    style={{ animationDelay: '600ms', animationFillMode: 'both' }}
-                  >
-                    Blog
-                  </span>
+                  Convert Labs <span className="text-primary">Blog</span>
                 </h1>
               </ScrollReveal>
 
               <ScrollReveal delay={0.3}>
-                <p 
-                  className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-balance leading-relaxed font-medium animate-in fade-in slide-in-from-bottom-4 duration-700"
-                  style={{ animationDelay: '800ms', animationFillMode: 'both' }}
-                >
+                <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-balance leading-relaxed font-medium">
                   Insights, tips, and strategies for building high-converting websites and growing your business online
                 </p>
               </ScrollReveal>
