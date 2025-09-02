@@ -34,13 +34,11 @@ export function StaggeredText({
   const wordVariants = {
     hidden: {
       opacity: 0,
-      y: 12,
-      scale: 0.98,
+      y: 8,
     },
     visible: {
       opacity: 1,
       y: 0,
-      scale: 1,
       transition: {
         duration: 0.6,
         ease: [0.16, 1, 0.3, 1] as const,

@@ -167,11 +167,11 @@ export function HeroSection() {
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium mb-6 text-balance leading-tight tracking-tight">
             <StaggeredText 
               className="block"
-              highlightWords={["Drive", "Results"]}
+              highlightWords={["Design"]}
               delay={0.2}
               staggerDelay={0.08}
             >
-              High-Converting Design for Founders & Startups
+              High-Converting Design for Founders and Startups
             </StaggeredText>
           </h1>
 
@@ -230,6 +230,7 @@ export function HeroSection() {
                   >
                     <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">
                       Book an Intro Call
+                      <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
                 </TooltipTrigger>
@@ -289,9 +290,8 @@ export function HeroSection() {
                   }
                 }}
               >
-                <Link href="/#work">
-                  View Projects
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                <Link href="/#pricing">
+                  View Pricing
                 </Link>
               </Button>
             </div>
