@@ -17,14 +17,17 @@ interface HTMLElementWithCleanup extends HTMLElement {
 
 // Portfolio images from the public/portfolio directory - only PNG files that exist
 const portfolioImages = [
+  "Mockup - Vibes.codes 3.png",
+  "Mockup - Miggles Meme generator.png",
+  "Mockup - Newsletter 2 Sign up template.png",
   "Lina Mockup - 1.png",
   "Lina Mockup - 2.png",
   "Lina Mockup - 3.png",
   "Lina Mockup - 4.png",
   "Lina Mockup - 5.png",
   "Lina Mockup - 6.png",
-  "Mockup - Miggles Meme generator.png",
   "Mockup - Newsletter Sign up template.png",
+  "Mockup - Vibes.codes.png",
   "Mockup - Modern Newsletter Sign up.png",
   "Mockup - Sakatomo Studio 1.png",
   "Mockup - Sakatomo Studio 2.png",
