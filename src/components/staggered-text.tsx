@@ -61,14 +61,15 @@ export function StaggeredText({
         const isLast = index === words.length - 1
         
         return (
-          <motion.span
-            key={index}
-            variants={wordVariants}
-            className={`animated-word ${isHighlighted ? highlightClassName : ""}`}
-          >
-            {word}
+          <span key={index}>
+            <motion.span
+              variants={wordVariants}
+              className={`animated-word ${isHighlighted ? highlightClassName : ""}`}
+            >
+              {word}
+            </motion.span>
             {!isLast && " "}
-          </motion.span>
+          </span>
         )
       })}
     </motion.span>
