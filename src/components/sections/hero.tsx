@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowRight, Star } from "lucide-react"
 import * as Avatar from "@radix-ui/react-avatar"
 
@@ -103,21 +104,33 @@ export function HeroSection() {
             <div className="flex items-center justify-center gap-4 mb-8">
               {/* Avatar Row */}
               <div className="flex items-center -space-x-4">
-                <Avatar.Root className="inline-flex h-12 w-12 select-none items-center justify-center overflow-hidden rounded-full bg-slate-100 align-middle border-2 border-background">
-                  <Avatar.Fallback className="text-slate-700 leading-1 flex h-full w-full items-center justify-center bg-white text-[16px] font-semibold">
-                    A
-                  </Avatar.Fallback>
-                </Avatar.Root>
-                <Avatar.Root className="inline-flex h-12 w-12 select-none items-center justify-center overflow-hidden rounded-full bg-slate-100 align-middle border-2 border-background">
-                  <Avatar.Fallback className="text-slate-700 leading-1 flex h-full w-full items-center justify-center bg-white text-[16px] font-semibold">
-                    B
-                  </Avatar.Fallback>
-                </Avatar.Root>
-                <Avatar.Root className="inline-flex h-12 w-12 select-none items-center justify-center overflow-hidden rounded-full bg-slate-100 align-middle border-2 border-background">
-                  <Avatar.Fallback className="text-slate-700 leading-1 flex h-full w-full items-center justify-center bg-white text-[16px] font-semibold">
-                    C
-                  </Avatar.Fallback>
-                </Avatar.Root>
+                <div className="relative w-12 h-12 rounded-full overflow-hidden bg-slate-100 border-2 border-background cursor-pointer group">
+                  <Image
+                    src="/reviews/boujee_101.jpeg"
+                    alt="Boujee_101 review"
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                    sizes="48px"
+                  />
+                </div>
+                <div className="relative w-12 h-12 rounded-full overflow-hidden bg-slate-100 border-2 border-background cursor-pointer group">
+                  <Image
+                    src="/reviews/Degen.jpg"
+                    alt="Degen review"
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                    sizes="48px"
+                  />
+                </div>
+                <div className="relative w-12 h-12 rounded-full overflow-hidden bg-slate-100 border-2 border-background cursor-pointer group">
+                  <Image
+                    src="/reviews/Emma crosby.png"
+                    alt="Emma Crosby review"
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                    sizes="48px"
+                  />
+                </div>
               </div>
               
               {/* Stars and Text */}
@@ -161,7 +174,7 @@ export function HeroSection() {
             <StaggeredText 
               highlightWords={["Drive", "Results"]}
               delay={0.2}
-              staggerDelay={0.2}
+              staggerDelay={0.1}
             >
               High-Converting Landing Pages That Drive Results
             </StaggeredText>
@@ -306,14 +319,11 @@ export function HeroSection() {
       </div>
       
       {/* Portfolio Images - Single Column */}
-      <ScrollReveal delay={0.6}>
-        <div className="container">
-          <div className="max-w-4xl mx-auto space-y-6 mt-8">
-            {portfolioImages.map((imageName, index) => (
-              <div
-                key={imageName}
-                className="rounded-xl overflow-hidden bg-muted/50 shadow-lg"
-              >
+      <div className="container">
+        <div className="max-w-4xl mx-auto space-y-6 mt-8">
+          {portfolioImages.map((imageName, index) => (
+            <ScrollReveal key={imageName} delay={0.05 * index} y={20}>
+              <div className="rounded-xl overflow-hidden bg-muted/50 shadow-lg">
                 <img
                   src={`/portfolio/${imageName}`}
                   alt={`Portfolio project ${index + 1}`}
@@ -321,10 +331,10 @@ export function HeroSection() {
                   loading="lazy"
                 />
               </div>
-            ))}
-          </div>
+            </ScrollReveal>
+          ))}
         </div>
-      </ScrollReveal>
+      </div>
     </section>
   )
 }

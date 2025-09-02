@@ -44,7 +44,7 @@ export function FAQSection() {
             <StaggeredText 
               highlightWords={["Answers"]}
               delay={0.2}
-              staggerDelay={0.2}
+              staggerDelay={0.1}
             >
               Got Questions? We&apos;ve Got Answers
             </StaggeredText>
@@ -60,7 +60,7 @@ export function FAQSection() {
             className="space-y-3"
           >
             {faqs.map((faq, index) => (
-              <ScrollReveal key={index} delay={index * 0.1}>
+              <ScrollReveal key={index} delay={0.6 + (index * 0.1)}>
                 <div 
                   className="bg-card rounded-2xl overflow-hidden hover:!bg-black/15 dark:hover:!bg-white/15 transition-colors duration-200 ease-in-out cursor-pointer"
                 >

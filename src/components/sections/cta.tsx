@@ -57,7 +57,7 @@ export function CTASection() {
               <StaggeredText 
                 highlightWords={["Ready"]}
                 delay={0.2}
-                staggerDelay={0.2}
+                staggerDelay={0.1}
               >
                 Ready to get started?
               </StaggeredText>

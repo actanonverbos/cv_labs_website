@@ -63,6 +63,8 @@ const pricingTiers = [
 export function PricingSection() {
   const [bookButtonRef, setBookButtonRef] = React.useState<HTMLElementWithCleanup | null>(null)
   const [telegramButtonRef, setTelegramButtonRef] = React.useState<HTMLElementWithCleanup | null>(null)
+  const [tier1ButtonRef, setTier1ButtonRef] = React.useState<HTMLElementWithCleanup | null>(null)
+  const [tier2ButtonRef, setTier2ButtonRef] = React.useState<HTMLElementWithCleanup | null>(null)
   
   React.useEffect(() => {
     // Set up mutation observer to watch for theme changes
@@ -82,6 +84,16 @@ export function PricingSection() {
             telegramButtonRef.style.setProperty('--button-text', isDark ? '#ffffff' : '#020817')
             telegramButtonRef.style.setProperty('--button-border', isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)')
           }
+          
+          if (tier1ButtonRef) {
+            tier1ButtonRef.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+            tier1ButtonRef.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+          }
+          
+          if (tier2ButtonRef) {
+            tier2ButtonRef.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+            tier2ButtonRef.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+          }
         }
       })
     })
@@ -100,8 +112,14 @@ export function PricingSection() {
       if (telegramButtonRef && telegramButtonRef._cleanup) {
         telegramButtonRef._cleanup()
       }
+      if (tier1ButtonRef && tier1ButtonRef._cleanup) {
+        tier1ButtonRef._cleanup()
+      }
+      if (tier2ButtonRef && tier2ButtonRef._cleanup) {
+        tier2ButtonRef._cleanup()
+      }
     }
-  }, [bookButtonRef, telegramButtonRef])
+  }, [bookButtonRef, telegramButtonRef, tier1ButtonRef, tier2ButtonRef])
 
   return (
     <section id="pricing" className="py-16 md:py-20 bg-background">
@@ -112,12 +130,12 @@ export function PricingSection() {
             <StaggeredText 
               highlightWords={["Surprises"]}
               delay={0.2}
-              staggerDelay={0.2}
+              staggerDelay={0.1}
             >
               Transparent Pricing. No Surprises
             </StaggeredText>
           </h2>
-          <ScrollReveal delay={1.0}>
+          <ScrollReveal delay={0.4}>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
               Clear, upfront pricing with no hidden fees. Choose the package that fits your needs and budget.
             </p>
@@ -129,7 +147,7 @@ export function PricingSection() {
         {/* Pricing Tiers */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
           {pricingTiers.map((tier, index) => (
-            <ScrollReveal key={tier.name} delay={0.2 + (index * 0.1)}>
+            <ScrollReveal key={tier.name} delay={0.6 + (index * 0.1)}>
               <Card 
                 className="relative p-6 bg-card border border-border rounded-2xl"
               >
@@ -158,13 +176,76 @@ export function PricingSection() {
                   )
                 })}
               </ul>
+
+              {/* CTA Button */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button 
+                    variant="ghost"
+                    className="w-full px-6 py-3 text-base font-medium rounded-lg border-0 transition-all duration-200 hover:opacity-90"
+                    asChild
+                    style={{
+                      backgroundColor: 'var(--button-bg, #000000)',
+                      color: 'var(--button-text, #ffffff)',
+                    }}
+                    ref={(el) => {
+                      if (el) {
+                        const elementWithCleanup = el as HTMLElementWithCleanup
+                        if (index === 0) {
+                          setTier1ButtonRef(elementWithCleanup)
+                        } else {
+                          setTier2ButtonRef(elementWithCleanup)
+                        }
+                        
+                        // Set CSS custom properties based on theme
+                        const isDark = document.documentElement.classList.contains('dark')
+                        el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+                        el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+                        
+                        // Add hover event listeners for better contrast
+                        const handleMouseEnter = () => {
+                          const isDark = document.documentElement.classList.contains('dark')
+                          el.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
+                        }
+                        
+                        const handleMouseLeave = () => {
+                          const isDark = document.documentElement.classList.contains('dark')
+                          el.style.backgroundColor = isDark ? '#ffffff' : '#000000'
+                        }
+                        
+                        el.addEventListener('mouseenter', handleMouseEnter)
+                        el.addEventListener('mouseleave', handleMouseLeave)
+                        
+                        // Store cleanup function
+                        elementWithCleanup._cleanup = () => {
+                          el.removeEventListener('mouseenter', handleMouseEnter)
+                          el.removeEventListener('mouseleave', handleMouseLeave)
+                        }
+                      }
+                    }}
+                  >
+                    <Link href="https://cal.com/isaac-cullinane/1-1" target="_blank" rel="noopener noreferrer">
+                      Book a Call
+                    </Link>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  <div className="flex items-center gap-2">
+                    <span>Press</span>
+                    <kbd className="inline-flex items-center justify-center w-5 h-5 text-xs font-semibold text-primary-foreground bg-muted border border-border rounded">
+                      B
+                    </kbd>
+                    <span>to book</span>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
               </Card>
             </ScrollReveal>
           ))}
         </div>
 
         {/* Custom Quote Section as Card */}
-        <ScrollReveal delay={0.4}>
+        <ScrollReveal delay={0.8}>
           <Card className="p-6 bg-card border border-border rounded-2xl">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
               {/* Left side - Content */}

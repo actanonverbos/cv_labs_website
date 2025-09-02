@@ -112,12 +112,12 @@ export function ReviewsSection() {
             <StaggeredText 
               highlightWords={["Reviews"]}
               delay={0.2}
-              staggerDelay={0.2}
+              staggerDelay={0.1}
             >
               Client Reviews
             </StaggeredText>
           </h2>
-          <ScrollReveal delay={0.8}>
+          <ScrollReveal delay={0.4}>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
               See what our clients have to say about working with Convert Labs and the results we&apos;ve delivered.
             </p>
@@ -126,7 +126,7 @@ export function ReviewsSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {reviews.map((review, index) => (
-            <ScrollReveal key={review.name} delay={index * 0.1}>
+            <ScrollReveal key={review.name} delay={0.6 + (index * 0.1)}>
               <Card className="p-6 bg-card border border-border h-full">
                 <div className="flex flex-col h-full">
                   {/* Industry badge */}

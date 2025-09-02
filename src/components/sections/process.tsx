@@ -93,12 +93,12 @@ export function ProcessSection() {
             <StaggeredText 
               highlightWords={["Process"]}
               delay={0.2}
-              staggerDelay={0.2}
+              staggerDelay={0.1}
             >
               Our Proven Process
             </StaggeredText>
           </h2>
-          <ScrollReveal delay={0.8}>
+          <ScrollReveal delay={0.4}>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
               A systematic approach that ensures your landing page is built for maximum conversions from day one.
             </p>
@@ -107,7 +107,7 @@ export function ProcessSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:grid-rows-2 md:items-stretch">
           {processSteps.map((step, index) => (
-            <ScrollReveal key={step.number} delay={index * 0.1}>
+            <ScrollReveal key={step.number} delay={0.6 + (index * 0.1)}>
               <div className="relative h-full flex">
                 <Card className="p-6 bg-card border border-border h-full flex-1">
                 <div className="flex flex-col h-full">

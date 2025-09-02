@@ -13,7 +13,7 @@ export function AboutSection() {
             <StaggeredText 
               highlightWords={["convert."]}
               delay={0.2}
-              staggerDelay={0.2}
+              staggerDelay={0.1}
             >
               Built for founders. Designed to convert.
             </StaggeredText>

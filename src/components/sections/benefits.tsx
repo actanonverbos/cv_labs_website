@@ -48,19 +48,19 @@ const benefits = [
 
 export function BenefitsSection() {
   return (
-    <section className="py-20 md:py-28 bg-background">
+    <section id="benefits" className="py-20 md:py-28 bg-background">
       <div className="container-tight">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-medium mb-4">
             <StaggeredText 
               highlightWords={["Service?"]}
               delay={0.2}
-              staggerDelay={0.2}
+              staggerDelay={0.1}
             >
               Why Choose Our Landing Page Service?
             </StaggeredText>
           </h2>
-          <ScrollReveal delay={1.4}>
+          <ScrollReveal delay={0.4}>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
               We combine design expertise with conversion optimization to deliver pages that don&apos;t just look good—they perform.
             </p>
@@ -71,7 +71,7 @@ export function BenefitsSection() {
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon
             return (
-              <ScrollReveal key={benefit.title} delay={index * 0.1}>
+              <ScrollReveal key={benefit.title} delay={0.6 + (index * 0.1)}>
                 <Card className="p-6 bg-card border border-[hsl(var(--border))] rounded-2xl h-full">
                   <div>
                     <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">

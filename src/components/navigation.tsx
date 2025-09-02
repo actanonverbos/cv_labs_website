@@ -11,7 +11,9 @@ import { cn } from "@/lib/utils"
 
 const navItems = [
   { name: "Work", href: "/#hero", sectionId: "hero" },
+  { name: "Benefits", href: "/#benefits", sectionId: "benefits" },
   { name: "Process", href: "/#process", sectionId: "process" },
+  { name: "Reviews", href: "/#reviews", sectionId: "reviews" },
   { name: "Pricing", href: "/#pricing", sectionId: "pricing" },
   { name: "FAQ", href: "/#faq", sectionId: "faq" },
   { name: "Blog", href: "/blog", sectionId: "blog" },
@@ -44,15 +46,31 @@ export function Navigation() {
 
     const handleScroll = () => {
       const sections = navItems.map(item => item.sectionId).filter(id => id !== "blog")
-      const scrollPosition = window.scrollY + 100 // Offset for header
+      const scrollPosition = window.scrollY + 200 // Increased offset for better detection
+      
+      let activeSection = sections[0] // Default to first section
 
-      for (let i = sections.length - 1; i >= 0; i--) {
+      // Find the section that's currently in view
+      for (let i = 0; i < sections.length; i++) {
         const section = document.getElementById(sections[i])
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i])
-          break
+        if (section) {
+          const sectionTop = section.offsetTop
+          const sectionHeight = section.offsetHeight
+          const sectionBottom = sectionTop + sectionHeight
+
+          // Check if scroll position is within this section
+          if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+            activeSection = sections[i]
+            break
+          }
+          // If we're past this section, it could be the active one
+          else if (scrollPosition >= sectionTop) {
+            activeSection = sections[i]
+          }
         }
       }
+
+      setActiveSection(activeSection)
     }
 
     // Set initial active section for homepage

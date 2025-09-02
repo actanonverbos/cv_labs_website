@@ -116,12 +116,12 @@ export function WorkSection() {
             <StaggeredText 
               highlightWords={["Work"]}
               delay={0.2}
-              staggerDelay={0.2}
+              staggerDelay={0.1}
             >
               Selected Work
             </StaggeredText>
           </h2>
-          <ScrollReveal delay={0.6}>
+          <ScrollReveal delay={0.4}>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
               Real results from real clients. See how we&apos;ve helped businesses across industries achieve their conversion goals.
             </p>
@@ -129,11 +129,11 @@ export function WorkSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-          {portfolioItems.map((item) => (
-            <Card 
-              key={item.title}
-              className="group overflow-hidden bg-card border border-border rounded-2xl"
-            >
+          {portfolioItems.map((item, index) => (
+            <ScrollReveal key={item.title} delay={0.6 + (index * 0.1)}>
+              <Card 
+                className="group overflow-hidden bg-card border border-border rounded-2xl"
+              >
               {/* Image container - full size display */}
               <div className="relative overflow-hidden bg-gradient-to-br from-primary/20 via-primary/10 to-background">
                 {/* Actual image or placeholder */}
@@ -199,6 +199,7 @@ export function WorkSection() {
                 </div>
               </div>
             </Card>
+            </ScrollReveal>
           ))}
         </div>
 
