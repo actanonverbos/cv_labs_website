@@ -211,7 +211,7 @@ export default async function BlogPostPage({
 
               {/* CTA */}
               <ScrollReveal delay={0.5}>
-                <div className="mt-16 p-8 bg-gradient-to-br from-primary/5 via-background to-primary/10 border border-primary/20 rounded-2xl text-center">
+                <div data-blog-cta className="mt-16 p-8 bg-gradient-to-br from-primary/5 via-background to-primary/10 border border-primary/20 rounded-2xl text-center">
                   <h3 className="text-xl font-semibold mb-4">Ready to Build Your High-Converting Website?</h3>
                   <p className="text-muted-foreground mb-6">
                     Let&apos;s discuss how we can help transform your online presence with conversion-focused design.
@@ -231,7 +231,7 @@ export default async function BlogPostPage({
         </section>
 
         {/* Related Blog Posts */}
-        <section className="py-20 bg-muted/5">
+        <section data-related-articles className="py-20 bg-muted/5">
           <div className="container">
             <div className="max-w-6xl mx-auto">
               <ScrollReveal delay={0.1}>

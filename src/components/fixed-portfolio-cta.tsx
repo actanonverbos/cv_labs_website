@@ -47,7 +47,33 @@ export function FixedPortfolioCTA() {
       const scrollY = window.scrollY
       const headerHeight = 80 // Approximate header height
       
-      setIsVisible(scrollY > headerHeight)
+      // Check if we're past the header
+      const pastHeader = scrollY > headerHeight
+      
+      // Check if the blog CTA section or related articles section is visible
+      const blogCtaSection = document.querySelector('[data-blog-cta]')
+      const relatedArticlesSection = document.querySelector('[data-related-articles]')
+      let blogCtaVisible = false
+      let relatedArticlesVisible = false
+      
+      if (blogCtaSection) {
+        const rect = blogCtaSection.getBoundingClientRect()
+        const windowHeight = window.innerHeight
+        
+        // Consider the section visible if any part of it is in the viewport
+        blogCtaVisible = rect.top < windowHeight && rect.bottom > 0
+      }
+      
+      if (relatedArticlesSection) {
+        const rect = relatedArticlesSection.getBoundingClientRect()
+        const windowHeight = window.innerHeight
+        
+        // Consider the section visible if any part of it is in the viewport
+        relatedArticlesVisible = rect.top < windowHeight && rect.bottom > 0
+      }
+      
+      // Show CTA only if past header and neither blog CTA nor related articles sections are visible
+      setIsVisible(pastHeader && !blogCtaVisible && !relatedArticlesVisible)
     }
 
     window.addEventListener('scroll', handleScroll)
