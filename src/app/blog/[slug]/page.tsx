@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { FooterSection } from '@/components/sections/footer'
 import { FAQChatWidget } from '@/components/faq-chat-widget'
+import { FixedPortfolioCTA } from '@/components/fixed-portfolio-cta'
 import { ReadingProgress } from '@/components/reading-progress'
 import { PortableText, type PortableTextBlock } from '@portabletext/react'
 import { urlFor } from '@/sanity/lib/image'
@@ -333,6 +334,7 @@ export default async function BlogPostPage({
       </main>
       <FooterSection />
       <FAQChatWidget />
+      <FixedPortfolioCTA />
     </div>
   )
 }
