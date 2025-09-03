@@ -333,25 +333,10 @@ export default function TemplatesPage() {
                             const isDark = document.documentElement.classList.contains('dark')
                             el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
                             el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
-                            
-                            // Add hover event listeners for better contrast
-                            const handleMouseEnter = () => {
-                              const isDark = document.documentElement.classList.contains('dark')
-                              el.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
-                            }
-                            
-                            const handleMouseLeave = () => {
-                              const isDark = document.documentElement.classList.contains('dark')
-                              el.style.backgroundColor = isDark ? '#ffffff' : '#000000'
-                            }
-                            
-                            el.addEventListener('mouseenter', handleMouseEnter)
-                            el.addEventListener('mouseleave', handleMouseLeave)
                           }
                         }}
                       >
                         <Link href={template.slug?.current ? `/templates/${template.slug.current}` : template.downloadUrl || "https://cal.com/isaac-cullinane/1-1"}>
-                          <ExternalLink className="w-4 h-4 mr-2" />
                           View Template
                         </Link>
                       </Button>
