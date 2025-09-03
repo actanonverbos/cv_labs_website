@@ -25,7 +25,7 @@ const portfolioImages = [
 
 export function FixedPortfolioCTA() {
   const [currentImageIndex, setCurrentImageIndex] = React.useState(0)
-  const [isVisible, setIsVisible] = React.useState(true)
+  const [isVisible, setIsVisible] = React.useState(false)
   const [ctaRef, setCtaRef] = React.useState<HTMLElement | null>(null)
 
 
