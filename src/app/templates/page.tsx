@@ -244,59 +244,24 @@ export default function TemplatesPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {(templates.length > 0 ? templates : fallbackTemplates).map((template, index) => (
                 <ScrollReveal key={template._id || template.title} delay={0.1 * (index + 1)}>
-                  <div className="group overflow-hidden">
-                    {/* Header with Title, Category, and Price */}
-                    <div className="p-0 mb-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                          {/* Title */}
-                          <h3 className="text-xl font-bold leading-tight">
-                            {template.title}
-                          </h3>
-                          
-                          {/* Category */}
-                          <Badge variant="outline" className="text-xs px-2 py-1 uppercase font-medium bg-transparent">
-                            {template.category}
-                          </Badge>
-                        </div>
-                        
-                        {/* Badge/Price */}
-                        <Badge 
-                          variant="secondary"
-                          className={`font-semibold text-xs px-2 py-1 flex-shrink-0 ${
-                            template.badge === "FREE" 
-                              ? "bg-green-100 text-green-700 border-green-200" 
-                              : "bg-orange-100 text-orange-700 border-orange-200"
-                          }`}
-                        >
-                          {template.badge}
-                        </Badge>
-                      </div>
-                    </div>
-
-                    {/* Template Preview */}
+                  <div className="group bg-background rounded-2xl overflow-hidden border border-border/50 hover:border-border transition-all duration-300 hover:shadow-lg">
+                    {/* Template Preview Image - Now at the top */}
                     {'previewImage' in template && template.previewImage ? (
                       <Link href={template.slug?.current ? `/templates/${template.slug.current}` : template.downloadUrl || "https://cal.com/isaac-cullinane/1-1"} className="block">
-                        <div className="relative overflow-hidden rounded-xl">
+                        <div className="relative aspect-[4/3] overflow-hidden bg-muted/20">
                           <Image
                             src={urlFor(template.previewImage).width(800).height(600).url()}
                             alt={template.previewImage.alt || template.title}
                             width={800}
                             height={600}
-                            className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-300"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
-                          {/* Overlay on hover */}
-                          <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-xl">
-                            <Button variant="secondary" size="sm" className="hover-scale pointer-events-none">
-                              <ExternalLink className="w-4 h-4 mr-2" />
-                              View Template
-                            </Button>
-                          </div>
+
                         </div>
                       </Link>
                     ) : (
                       <Link href={template.slug?.current ? `/templates/${template.slug.current}` : template.downloadUrl || "https://cal.com/isaac-cullinane/1-1"} className="block">
-                        <div className="aspect-[4/3] bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden rounded-xl">
+                        <div className="aspect-[4/3] bg-gradient-to-br from-primary/20 via-primary/10 to-background relative overflow-hidden">
                           <div className="absolute inset-0 flex items-center justify-center">
                             <div className="text-center space-y-3">
                               <div className="w-16 h-16 mx-auto rounded-2xl bg-primary/20 flex items-center justify-center">
@@ -311,16 +276,86 @@ export default function TemplatesPage() {
                             </div>
                           </div>
                           
-                          {/* Overlay on hover */}
-                          <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-xl">
-                            <Button variant="secondary" size="sm" className="hover-scale pointer-events-none">
-                              <ExternalLink className="w-4 h-4 mr-2" />
-                              View Template
-                            </Button>
-                          </div>
+
                         </div>
                       </Link>
                     )}
+
+                    {/* Card Content - Now below the image */}
+                    <div className="p-6">
+                      {/* Title and Badge */}
+                      <div className="flex items-start justify-between mb-3">
+                        <h3 className="text-xl font-bold leading-tight text-foreground group-hover:text-primary transition-colors">
+                          {template.title}
+                        </h3>
+                        <Badge 
+                          variant="secondary"
+                          className={`font-semibold text-xs px-3 py-1 flex-shrink-0 ml-3 ${
+                            template.badge === "FREE" 
+                              ? "bg-green-100 text-green-700 border-green-200" 
+                              : "bg-orange-100 text-orange-700 border-orange-200"
+                          }`}
+                        >
+                          {template.badge}
+                        </Badge>
+                      </div>
+
+                      {/* Category and Framer Tag */}
+                      <div className="flex items-center gap-3 mb-4">
+                        <Badge variant="outline" className="text-xs px-3 py-1 uppercase font-medium bg-transparent">
+                          {template.category}
+                        </Badge>
+                        <div className="flex items-center gap-1.5 bg-muted/50 rounded-full px-3 py-1.5 text-xs font-medium">
+                          <svg width="14" height="14" viewBox="0 0 256 256" className="w-3.5 h-3.5">
+                            <path d="M 81.646 62.156 L 174.354 62.156 L 174.354 108.51 L 128 108.51 Z M 81.646 108.51 L 128 108.51 L 174.354 154.864 L 81.646 154.864 Z M 81.646 154.864 L 128 154.864 L 128 201.218 Z" fill="currentColor"/>
+                          </svg>
+                          Framer
+                        </div>
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2 leading-relaxed">
+                        {template.subtitle || template.description}
+                      </p>
+
+                      {/* Action Button */}
+                      <Button 
+                        variant="ghost"
+                        className="w-full px-6 py-3 text-base font-medium rounded-lg border-0 transition-all duration-200 hover:opacity-90"
+                        style={{
+                          backgroundColor: 'var(--button-bg, #000000)',
+                          color: 'var(--button-text, #ffffff)',
+                        }}
+                        asChild
+                        ref={(el) => {
+                          if (el) {
+                            // Set CSS custom properties based on theme
+                            const isDark = document.documentElement.classList.contains('dark')
+                            el.style.setProperty('--button-bg', isDark ? '#ffffff' : '#000000')
+                            el.style.setProperty('--button-text', isDark ? '#000000' : '#ffffff')
+                            
+                            // Add hover event listeners for better contrast
+                            const handleMouseEnter = () => {
+                              const isDark = document.documentElement.classList.contains('dark')
+                              el.style.backgroundColor = isDark ? '#f3f4f6' : '#1f2937'
+                            }
+                            
+                            const handleMouseLeave = () => {
+                              const isDark = document.documentElement.classList.contains('dark')
+                              el.style.backgroundColor = isDark ? '#ffffff' : '#000000'
+                            }
+                            
+                            el.addEventListener('mouseenter', handleMouseEnter)
+                            el.addEventListener('mouseleave', handleMouseLeave)
+                          }
+                        }}
+                      >
+                        <Link href={template.slug?.current ? `/templates/${template.slug.current}` : template.downloadUrl || "https://cal.com/isaac-cullinane/1-1"}>
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          View Template
+                        </Link>
+                      </Button>
+                    </div>
                   </div>
                 </ScrollReveal>
               ))}
