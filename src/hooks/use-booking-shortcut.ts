@@ -23,11 +23,17 @@ export function useBookingShortcut() {
         
         event.preventDefault()
         
-        // Find any booking button on the page and click it
+        // Find any booking or contact button on the page and click it
         const bookingButtons = document.querySelectorAll('a[href="https://cal.com/isaac-cullinane/1-1"]')
+        const telegramButtons = document.querySelectorAll('a[href="https://t.me/collect_0x"]')
         console.log('Found booking buttons:', bookingButtons.length) // Debug log
+        console.log('Found telegram buttons:', telegramButtons.length) // Debug log
         
-        if (bookingButtons.length > 0) {
+        // Prioritize Telegram buttons (for crypto page), then booking buttons
+        if (telegramButtons.length > 0) {
+          console.log('Clicking telegram button') // Debug log
+          ;(telegramButtons[0] as HTMLAnchorElement).click()
+        } else if (bookingButtons.length > 0) {
           console.log('Clicking booking button') // Debug log
           ;(bookingButtons[0] as HTMLAnchorElement).click()
         }

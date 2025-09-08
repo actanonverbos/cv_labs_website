@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Menu } from "lucide-react"
+import { Menu, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
@@ -19,12 +19,19 @@ const navItems = [
   { name: "Blog", href: "/blog", sectionId: "blog" },
 ]
 
+const industriesItems = [
+  { name: "Crypto & Meme Coins", href: "/crypto", description: "Websites for crypto tokens and meme coins" },
+]
+
 export function Navigation() {
   const [isOpen, setIsOpen] = React.useState(false)
+  const [isDropdownOpen, setIsDropdownOpen] = React.useState(false)
+  const [isMobileIndustriesOpen, setIsMobileIndustriesOpen] = React.useState(false)
   const [activeSection, setActiveSection] = React.useState("top")
   const [getStartedButtonRef, setGetStartedButtonRef] = React.useState<HTMLElement | null>(null)
   const [mobileGetStartedButtonRef, setMobileGetStartedButtonRef] = React.useState<HTMLElement | null>(null)
   const activeNavRefs = React.useRef<Map<string, HTMLElement>>(new Map())
+  const dropdownTimeoutRef = React.useRef<NodeJS.Timeout | null>(null)
 
   React.useEffect(() => {
     // Check current pathname
@@ -36,6 +43,10 @@ export function Navigation() {
       }
       if (pathname === '/blog' || pathname.startsWith('/blog/')) {
         setActiveSection("blog")
+        return true
+      }
+      if (pathname === '/crypto' || pathname.startsWith('/crypto/')) {
+        setActiveSection("industries")
         return true
       }
       return false
@@ -153,6 +164,26 @@ export function Navigation() {
     }
   }, [mobileGetStartedButtonRef])
 
+  // Dropdown hover handlers
+  const handleDropdownMouseEnter = React.useCallback(() => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current)
+      dropdownTimeoutRef.current = null
+    }
+    setIsDropdownOpen(true)
+  }, [])
+
+  const handleDropdownMouseLeave = React.useCallback(() => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setIsDropdownOpen(false)
+    }, 150) // Small delay to prevent flickering
+  }, [])
+
+  // Mobile industries dropdown handler
+  const handleMobileIndustriesToggle = React.useCallback(() => {
+    setIsMobileIndustriesOpen(prev => !prev)
+  }, [])
+
   return (
     <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md">
       <div className="container">
@@ -198,6 +229,72 @@ export function Navigation() {
                   </Link>
                 )
               })}
+              
+              {/* Industries Dropdown */}
+              <div 
+                className="relative"
+                onMouseEnter={handleDropdownMouseEnter}
+                onMouseLeave={handleDropdownMouseLeave}
+              >
+                <button
+                  className={cn(
+                    "relative px-3 py-2 text-sm font-medium eyebrow transition-all duration-200 ease-in-out rounded-lg flex items-center gap-1",
+                    activeSection === "industries"
+                      ? ""
+                      : "text-muted-foreground"
+                  )}
+                  style={activeSection === "industries" ? {
+                    backgroundColor: 'var(--nav-bg, #000000)',
+                    color: 'var(--nav-text, #ffffff)'
+                  } : {}}
+                  onMouseEnter={activeSection !== "industries" ? (e) => setHoverColors(e.currentTarget, true) : undefined}
+                  onMouseLeave={activeSection !== "industries" ? (e) => setHoverColors(e.currentTarget, false) : undefined}
+                  ref={activeSection === "industries" ? (el) => {
+                    if (el) {
+                      activeNavRefs.current.set("industries", el)
+                      setNavColors(el)
+                    } else {
+                      activeNavRefs.current.delete("industries")
+                    }
+                  } : undefined}
+                >
+                  Industries
+                  <ChevronDown className={cn(
+                    "h-3 w-3 transition-transform duration-200",
+                    isDropdownOpen ? "rotate-180" : ""
+                  )} />
+                </button>
+                
+                {/* Dropdown Content */}
+                {isDropdownOpen && (
+                  <div 
+                    className="absolute top-full left-0 mt-1 w-[400px] border rounded-md shadow-lg z-50 animate-in fade-in-0 zoom-in-95 duration-200 backdrop-blur-md"
+                    style={{
+                      backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                      borderColor: 'rgba(255, 255, 255, 0.2)',
+                      borderWidth: '1px',
+                      borderStyle: 'solid'
+                    }}
+                  >
+                    <div className="p-4 space-y-2">
+                      {industriesItems.map((item) => (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-200"
+                          onMouseEnter={(e) => setHoverColors(e.currentTarget, true)}
+                          onMouseLeave={(e) => setHoverColors(e.currentTarget, false)}
+                        >
+                          <div className="text-sm font-medium leading-none">{item.name}</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            {item.description}
+                          </p>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </nav>
 
@@ -305,6 +402,53 @@ export function Navigation() {
                       </Link>
                     )
                   })}
+                  
+                  {/* Industries Section */}
+                  <div className="space-y-2">
+                    <button 
+                      onClick={handleMobileIndustriesToggle}
+                      className={cn(
+                        "w-full flex items-center justify-between px-4 py-3 text-lg font-medium eyebrow transition-all duration-200 ease-in-out rounded-lg",
+                        activeSection === "industries"
+                          ? ""
+                          : "text-muted-foreground"
+                      )}
+                      style={activeSection === "industries" ? {
+                        backgroundColor: 'var(--nav-bg, #000000)',
+                        color: 'var(--nav-text, #ffffff)'
+                      } : {}}
+                      onMouseEnter={activeSection !== "industries" ? (e) => setHoverColors(e.currentTarget, true) : undefined}
+                      onMouseLeave={activeSection !== "industries" ? (e) => setHoverColors(e.currentTarget, false) : undefined}
+                      ref={activeSection === "industries" ? (el) => {
+                        if (el) {
+                          activeNavRefs.current.set(`mobile-industries`, el)
+                          setNavColors(el)
+                        } else {
+                          activeNavRefs.current.delete(`mobile-industries`)
+                        }
+                      } : undefined}
+                    >
+                      <span>Industries</span>
+                      <ChevronDown className={cn(
+                        "h-4 w-4 transition-transform duration-200",
+                        isMobileIndustriesOpen ? "rotate-180" : ""
+                      )} />
+                    </button>
+                    {isMobileIndustriesOpen && (
+                      <div className="space-y-1 animate-in slide-in-from-top-2 duration-200">
+                        {industriesItems.map((item) => (
+                          <Link
+                            key={item.name}
+                            href={item.href}
+                            className="block px-8 py-2 text-base text-muted-foreground hover:text-foreground transition-colors rounded-lg"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            {item.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                   <div className="pt-6 mt-6 border-t border-border/30 space-y-4">
                     <Button 
                       asChild 
